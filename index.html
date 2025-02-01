@@ -67,17 +67,20 @@
             width: 100%;
         }
 
-        .gallery-image {
-            width: calc(33.33% - 10px);
-            height: auto;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s;
+       .gallery img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        display: block;
+        border: 3px solid #000;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        }
+        
+        .gallery img:hover {
+            transform: scale(1.1);
         }
 
-        .gallery-image:hover {
-            transform: scale(1.05);
-        }
 
         /* Lightbox Styles */
         #lightbox {
