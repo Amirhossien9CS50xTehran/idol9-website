@@ -369,6 +369,16 @@
             const contactForm = document.getElementById('contact');
             contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
         }
+
+        function openImage(img) {
+        document.getElementById("lightbox").style.display = "flex";
+        document.getElementById("lightbox-img").src = img.src;
+        }
+        
+        function closeImage() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+
     </script>
     
 </body>
