@@ -78,6 +78,19 @@
         .gallery-image:hover {
             transform: scale(1.05);
         }
+        .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* ۳ ستون مساوی */
+        gap: 10px; /* فاصله بین عکس‌ها */
+        width: 100vw; /* عرض کامل صفحه */
+        }
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 
         /* Lightbox Styles */
         #lightbox {
