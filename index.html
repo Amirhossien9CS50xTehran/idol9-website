@@ -248,15 +248,20 @@
     </header>
 
     <!-- Gallery Section -->
-    <section id="gallery">
-        <img src="IMG_20250121_213557_573.jpg" class="gallery-image">
-        <img src="IMG_20250121_213614_781.jpg" class="gallery-image">
-        <img src="IMG_20250121_213614_932.jpg" class="gallery-image">
+   <div class="gallery">
+    <img src="IMG_20250121_213557_573.jpg"onclick="openImage(this)">
+    <img src="IMG_20250121_213614_781.jpg"onclick="openImage(this)">
+    <img src="IMG_20250121_213614_932.jpg"onclick="openImage(this)">
+    <img src="IMG_20250121_213614_749.jpg"onclick="openImage(this)">
+    <img src="IMG_20250121_213614_782.jpg"onclick="openImage(this)">
+    <img src="IMG_20250121_213557_573.jpg"onclick="openImage(this)">
+</div>
 
-        <img src="IMG_20250121_213614_749.jpg" class="gallery-image">
-        <img src="IMG_20250121_213614_782.jpg" class="gallery-image">
-        <img src="IMG_20250121_213618_631.jpg" class="gallery-image">
-    </section>
+<!-- پنجره باز شدن عکس -->
+<div id="lightbox" class="lightbox" onclick="closeImage()">
+    <img id="lightbox-img">
+</div>
+
     <!-- Lightbox -->
     <div id="lightbox">
         <span class="close" onclick="closeLightbox()">&times;</span>
