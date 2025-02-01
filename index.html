@@ -125,6 +125,23 @@
         #lightbox .next {
             right: 20px;
         }
+        .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 ستون برابر */
+        gap: 10px; /* فاصله بین عکس‌ها */
+        width: 100%;
+        max-width: 1200px; /* محدود کردن به یک اندازه مناسب */
+        margin: 0 auto; /* وسط‌چین کردن گالری */
+        padding: 10px; /* فاصله از کناره‌های صفحه */
+        }
+        
+        .gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px; /* گوشه‌های نرم برای زیبایی */
+        }
+
         /* Contact Section Styles */
         #contact {
             position: fixed;
