@@ -37,6 +37,17 @@ def send_email():
         return 'Email sent successfully!'
     except Exception as e:
         return f'Error: {str(e)}'
+@media (max-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
 
 if __name__ == '__main__':
     app.run(debug=True)
