@@ -67,19 +67,17 @@
             width: 100%;
         }
 
-       .gallery img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-        display: block;
-        border-radius: 9px;
-        transition: transform 0.3s ease;
-        }
-        
-        .gallery img:hover {
-            transform: scale(1.1);
+        .gallery-image {
+            width: calc(33.33% - 10px);
+            height: auto;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
 
+        .gallery-image:hover {
+            transform: scale(1.05);
+        }
 
         /* Lightbox Styles */
         #lightbox {
@@ -127,24 +125,6 @@
         #lightbox .next {
             right: 20px;
         }
-        .gallery {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        width: 100vw;
-        border-radius: 12px;
-        }
-        
-       .gallery img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        border-radius: 12px;
-        }
-
-
-
         /* Contact Section Styles */
         #contact {
             position: fixed;
@@ -217,8 +197,12 @@
                     background-color 0.3s ease-in-out, 
                     transform 0.2s ease-in-out; /* smooth transition */
     }
+
+    /* Hover effect */
     .contact-icon:hover {
-        transform: scale(0.3);
+        border-color: #101010; /* new border color */
+        background-color: #000000; /* optional: change background color too */
+        transform: scale(0.9); /* shrink the icon slightly */
     }
 
 
@@ -264,15 +248,15 @@
     </header>
 
     <!-- Gallery Section -->
-       <div class="gallery">
-        <img src="IMG_20250121_213557_573.jpg">
-        <img src="IMG_20250121_213614_781.jpg">
-        <img src="IMG_20250121_213614_932.jpg">
-        <img src="IMG_20250121_213614_749.jpg">
-        <img src="IMG_20250121_213614_782.jpg">
-        <img src="IMG_20250121_213557_573.jpg">
-       </div>
+    <section id="gallery">
+        <img src="IMG_20250121_213557_573.jpg" class="gallery-image">
+        <img src="IMG_20250121_213614_781.jpg" class="gallery-image">
+        <img src="IMG_20250121_213614_932.jpg" class="gallery-image">
 
+        <img src="IMG_20250121_213614_749.jpg" class="gallery-image">
+        <img src="IMG_20250121_213614_782.jpg" class="gallery-image">
+        <img src="IMG_20250121_213618_631.jpg" class="gallery-image">
+    </section>
     <!-- Lightbox -->
     <div id="lightbox">
         <span class="close" onclick="closeLightbox()">&times;</span>
