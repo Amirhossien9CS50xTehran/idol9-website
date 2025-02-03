@@ -3,416 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>idol9</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            height: 100%;
-            overflow-y: scroll; /* Enable vertical scroll */
-        }
-
-        /* Hides the scrollbar in all browsers */
-        ::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
-
-        body {
-            scrollbar-width: none; /* Firefox */
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #313131;
-        }
-
-        .menu ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 20px;
-        }
-
-        .menu a {
-            text-decoration: none;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: large;
-        }
-
-        .menu a:hover {
-            background-color: rgb(55, 140, 225);
-            padding: 5px;
-            border-radius: 4px;
-        }
-
-        .logo {
-            width: 102px;
-            border-radius: 6px;
-        }
-
-        /* Gallery Styles */
-        #gallery {
-            display: flex;
-            justify-content: space-between;
-            padding: 0;
-            margin: 15px 0 0 0 0 0 0;
-            width: 100%;
-        }
-
-        .gallery-image {
-            width: calc(33.33% - 10px);
-            height: auto;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .gallery-img:hover {
-            transform: scale(1.05);
-        }
-        .gallery {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* ۳ ستون مساوی */
-        gap: 10px; /* فاصله بین عکس‌ها */
-        width: 100vw; /* عرض کامل صفحه */
-        }
-
-        .gallery img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 12px;
-             transition: transform 0.3s ease;
-        }
-
-
-        /* Lightbox Styles */
-        #lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        #lightbox img {
-            max-width: 90%;
-            max-height: 80%;
-            border-radius: 10px;
-        }
-
-        #lightbox .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 30px;
-            color: white;
-            cursor: pointer;
-        }
-
-        #lightbox .prev, #lightbox .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        #lightbox .prev {
-            left: 20px;
-        }
-
-        #lightbox .next {
-            right: 20px;
-        }
-        
-        .lightbox {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8); /* پس‌زمینه تیره */
-        justify-content: center;
-        align-items: center;
-        }
-        
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-        }
-
-        /* Contact Section Styles */
-        #contact {
-            position: fixed;
-            bottom: 20px;
-            left: 63px;
-            width: 300px;
-            background-color: #f9f9f9;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            display: none;
-            z-index: 9999;
-        }
-
-        #contact h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        #contact .form-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        #contact label {
-            display: block;
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-
-        #contact input,
-        #contact textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        #contact button {
-            padding: 10px 20px;
-            background-color: #313131;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-
-        #contact button:hover {
-            background-color: rgb(55, 140, 225);
-        }
-
-        .contact-icon {
-        position: fixed;
-        left: 20px; /* distance from the left edge */
-        bottom: 20px; /* distance from the bottom of the page */
-        z-index: 100; /* make sure it appears above other content */
-        cursor: pointer;
-        width: 60px; /* set width */
-        height: 60px; /* set height */
-        border-radius: 50%; /* ensure it's circular */
-        background-color: #1f79da; /* background color */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 4px 6px rgba(31, 121, 218, 0.3); /* shadow for a nice effect */
-        border: 2px solid #1f79da; /* default border */
-        transition: border-color 0.3s ease-in-out, 
-                    background-color 0.3s ease-in-out, 
-                    transform 0.2s ease-in-out; /* smooth transition */
-    }
-
-    /* Hover effect */
-    .contact-icon:hover {
-        border-color: #101010; /* new border color */
-        background-color: #000000; /* optional: change background color too */
-        transform: scale(0.9); /* shrink the icon slightly */
-    }
-
-
-        .contact-img {
-            width: 35px; /* size of the icon inside the circle */
-            height: 35px; /* size of the icon inside the circle */
-            border-radius: 50%; /* round the icon inside the circle */
-        }
-
-        .form-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* ✅ Separate fields & logo */
-        }
-        .form-logo {
-        width: 30%; /* ✅ Adjust logo space */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        }
-
-        .form-logo img {
-            width: 50px; /* ✅ Adjust size */
-            height: auto;
-            border-radius: 50%; /* ✅ Make it round */
-        }
-
-
-
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <nav class="menu">
-            <ul>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#about-us">About Us</a></li>
-                <li><a href="#contact">Contact Us</a></li>
-            </ul>
-        </nav>
-        <img src="IMG_20250121_222009_921.png" class="logo">
-    </header>
-
-    <!-- Gallery Section -->
-   <div class="gallery">
-    <img src="IMG_20250121_213557_573.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213614_781.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213614_932.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213614_749.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213614_782.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213557_573.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213618_395.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213618_586.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213618_668.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213618_947.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213618_962.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213619_055.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213702_174.jpg"onclick="openImage(this)">
-    <img src="IMG_20250121_213705_907.jpg"onclick="openImage(this)">
-</div>
-
-<!-- پنجره باز شدن عکس -->
-<div id="lightbox" class="lightbox" onclick="closeImage()">
-    <img id="lightbox-img">
-</div>
-
-    <!-- Lightbox -->
-    <div id="lightbox">
-        <span class="close" onclick="closeLightbox()">&times;</span>
-        <span class="prev" onclick="changeImage(-1)">&#10094;</span>
-        <img id="lightbox-img" src=""/>
-        <span class="next" onclick="changeImage(1)">&#10095;</span>
-    </div>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Form</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f7fc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
         }
         .form-container {
-            background-color: white;
-            padding: 30px;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
+            display: none; /* Initially hidden */
+            width: 300px;
+            z-index: 1000;
         }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            font-size: 16px;
-            color: #555;
-        }
-        .form-group input, .form-group textarea {
+        .form-container input, .form-container textarea {
             width: 100%;
             padding: 10px;
-            margin-top: 5px;
+            margin-top: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: 16px;
         }
-        .form-group textarea {
-            resize: vertical;
-            height: 150px;
-        }
-        .form-group button {
+        .form-container button {
             width: 100%;
             padding: 12px;
             background-color: #4CAF50;
             color: white;
-            font-size: 18px;
+            font-size: 16px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .form-group button:hover {
+        .form-container button:hover {
             background-color: #45a049;
         }
-        .form-group .error {
-            color: red;
-            font-size: 14px;
+
+        /* Icon Button */
+        .toggle-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            padding: 20px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
         }
     </style>
 </head>
 <body>
-    <div class="form-container">
+    <!-- The Contact Form -->
+    <div class="form-container" id="contactFormContainer">
         <h2>Contact Us</h2>
         <form id="contactForm">
-            <div class="form-group">
-                <label for="name">Your Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Your Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Your Message</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
-            <div class="form-group">
-                <button type="submit">Send Message</button>
-            </div>
+            <input type="text" id="name" name="name" placeholder="Your Name" required><br>
+            <input type="email" id="email" name="email" placeholder="Your Email" required><br>
+            <textarea id="message" name="message" placeholder="Your Message" required></textarea><br>
+            <button type="submit">Send Message</button>
         </form>
     </div>
 
+    <!-- The Toggle Button -->
+    <button class="toggle-button" id="toggleButton" onclick="toggleForm()">+</button>
+
     <script>
+        // Toggle form visibility
+        function toggleForm() {
+            const form = document.getElementById('contactFormContainer');
+            const toggleButton = document.getElementById('toggleButton');
+            
+            if (form.style.display === "none" || form.style.display === "") {
+                form.style.display = "block";
+                toggleButton.textContent = "×"; // Change button to "×" (close icon)
+            } else {
+                form.style.display = "none";
+                toggleButton.textContent = "+"; // Change button back to "+"
+            }
+        }
+
+        // Handle form submission
         document.getElementById('contactForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
-            
+
             if (!name || !email || !message) {
                 alert('All fields are required!');
                 return;
             }
-            
+
             const formData = {
                 name: name,
                 email: email,
@@ -431,6 +121,7 @@
                 if (data.success) {
                     alert('Message sent successfully!');
                     document.getElementById('contactForm').reset();
+                    toggleForm(); // Close the form after success
                 } else {
                     alert('Error sending message!');
                 }
@@ -440,69 +131,5 @@
             });
         });
     </script>
-</body>
-</html>
-
-
-    <!-- Contact Icon -->
-    <!-- Contact Icon -->
-    <div class="contact-icon">
-        <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()" style=" height: 51px">
-    </div>
-    <style>
-        .contact-icon {
-        position: fixed;
-        left: 20px;
-        bottom: 20px;
-        z-index: 100;
-        cursor: pointer;
-        }
-
-        .contact-img {
-            width: 50px;
-            height: 50px;
-        }
-
-    </style>
-
-    <script>
-        const images = document.querySelectorAll('.gallery-image');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        let currentImageIndex;
-
-        images.forEach((image, index) => {
-            image.addEventListener('click', () => {
-                lightbox.style.display = 'flex';
-                lightboxImg.src = image.src;
-                currentImageIndex = index;
-            });
-        });
-
-        function closeLightbox() {
-            lightbox.style.display = 'none';
-        }
-
-        function changeImage(direction) {
-            currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
-            lightboxImg.src = images[currentImageIndex].src;
-        }
-
-        function toggleContactForm() {
-            const contactForm = document.getElementById('contact');
-            contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
-        }
-
-        function openImage(img) {
-        document.getElementById("lightbox").style.display = "flex";
-        document.getElementById("lightbox-img").src = img.src;
-        }
-        
-        function closeImage() {
-            document.getElementById("lightbox").style.display = "none";
-        }
-
-    </script>
-    
 </body>
 </html>
