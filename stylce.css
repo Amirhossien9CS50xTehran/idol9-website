@@ -1,24 +1,25 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    direction: rtl;
+    background: #f4f4f4;
 }
 
-/* استایل هدر */
+/* ✅ Header Styles */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #222;
-    padding: 15px 30px;
+    background: #888; /* Gray color */
+    padding: 10px 30px;
     color: white;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
+/* ✅ Logo Styles */
+.logo img {
+    height: 40px; /* Logo height */
 }
 
+/* ✅ Navigation Menu Styles */
 nav ul {
     list-style: none;
     margin: 0;
@@ -36,18 +37,17 @@ nav ul li a {
     font-size: 18px;
 }
 
-/* استایل اسلایدر */
-.slider {
-    width: 100%;
+/* Slider */
+.slider-container {
     overflow: hidden;
-    position: relative;
+    width: 100%;
     margin-top: 10px;
 }
 
-.slides {
+.slider {
     display: flex;
     width: 300%;
-    animation: slide 6s infinite;
+    transition: transform 0.5s ease-in-out;
 }
 
 .slide {
@@ -59,15 +59,7 @@ nav ul li a {
     display: block;
 }
 
-/* انیمیشن اسلایدر */
-@keyframes slide {
-    0% { transform: translateX(0); }
-    33% { transform: translateX(-100%); }
-    66% { transform: translateX(-200%); }
-    100% { transform: translateX(0); }
-}
-
-/* استایل گالری */
+/* Gallery */
 .gallery {
     display: flex;
     justify-content: center;
@@ -106,4 +98,3 @@ nav ul li a {
     font-size: 18px;
     cursor: pointer;
 }
-
