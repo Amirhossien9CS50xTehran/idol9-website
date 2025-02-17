@@ -6,20 +6,17 @@ body {
 
 /* ✅ Header Styles */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background: #888; /* Gray color */
     padding: 10px 30px;
     color: white;
 }
 
-/* ✅ Logo Styles */
-.logo img {
-    height: 40px; /* Logo height */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* ✅ Navigation Menu Styles */
 nav ul {
     list-style: none;
     margin: 0;
@@ -35,6 +32,11 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-size: 18px;
+}
+
+/* ✅ Logo Styles */
+.logo img {
+    height: 40px; /* Logo height */
 }
 
 /* Slider */
