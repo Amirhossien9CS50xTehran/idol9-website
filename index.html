@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,45 +8,47 @@
 </head>
 <body>
 
-    <!-- هدر -->
+    <!-- Header -->
     <header>
-        <div class="logo">Shast</div>
+        <div class="logo">
+            <img src="logo.png" alt="Shast Logo">
+        </div>
         <nav>
             <ul>
-                <li><a href="#">خانه</a></li>
-                <li><a href="#">درباره ما</a></li>
-                <li><a href="#">تماس</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- اسلایدر -->
+    <!-- Slider -->
     <div class="slider-container">
         <div class="slider">
-            <div class="slide"><img src="img1.jpg" alt="تصویر ۱"></div>
-            <div class="slide"><img src="img2.jpg" alt="تصویر ۲"></div>
-            <div class="slide"><img src="img3.jpg" alt="تصویر ۳"></div>
+            <div class="slide"><img src="img1.jpg" alt="Image 1"></div>
+            <div class="slide"><img src="img2.jpg" alt="Image 2"></div>
+            <div class="slide"><img src="img3.jpg" alt="Image 3"></div>
         </div>
     </div>
 
-    <!-- گالری -->
+    <!-- Gallery -->
     <div class="gallery">
         <div class="image">
-            <img src="img1.jpg" alt="تصویر ۱">
+            <img src="img1.jpg" alt="Image 1">
             <span class="toggle-btn">+</span>
         </div>
         <div class="image">
-            <img src="img2.jpg" alt="تصویر ۲">
+            <img src="img2.jpg" alt="Image 2">
             <span class="toggle-btn">+</span>
         </div>
         <div class="image">
-            <img src="img3.jpg" alt="تصویر ۳">
+            <img src="img3.jpg" alt="Image 3">
             <span class="toggle-btn">+</span>
         </div>
     </div>
 
     <script>
-        // گالری: باز و بسته کردن تصاویر
+        // Gallery: Open and Close Images
         document.querySelectorAll('.toggle-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 let img = btn.previousElementSibling;
@@ -55,7 +57,7 @@
             });
         });
 
-        // اسلایدر خودکار
+        // Automatic Slider
         let index = 0;
         function slideShow() {
             const slides = document.querySelector('.slider');
