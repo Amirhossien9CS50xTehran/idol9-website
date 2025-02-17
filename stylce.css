@@ -1,34 +1,115 @@
-/* Header Styles */
-header {
-    background: #888; /* Gray color */
-    padding: 10px 30px;
-    color: white;
+form {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
 }
 
-.header-content {
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 36px 0 36px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: auto;
+    padding: 12px;
+    background-color: #00eeff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ef1d1d;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
     display: flex;
-    justify-content: space-between; /* Ensures Menu is on the left, Logo is on the right */
+    justify-content: center;
     align-items: center;
-}
-
-nav ul {
-    list-style: none;
+    flex-direction: column;
+    height: 100vh;
     margin: 0;
-    padding: 0;
-    display: flex;
+    text-align: center;
 }
 
-nav ul li {
-    margin-left: 20px;
+h1 {
+    color: #000000;
 }
 
-nav ul li a {
-    color: white;
+p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+ul, ol {
+    list-style-position: inside;
+}
+
+a {
+    color: #0971f0;
     text-decoration: none;
     font-size: 18px;
+    margin-top: 10px;
 }
 
-/* Logo Styles */
-.logo img {
-    height: 40px; /* Adjust the logo size */
+a:hover {
+    text-decoration: underline;
+}
+div {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    color: #333;
+}
+
+p {
+    font-size: 16px;
+}
+img {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+body {
+    font-family: 'Roboto', sans-serif;
+}
+body {
+    margin-top: 20px;
+    padding: 0;
+}
+img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
+
+h1 {
+    padding-top: 20px;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
 }
