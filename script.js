@@ -24,4 +24,28 @@ exports.handler = async (event) => {
     } catch (error) {
         return { statusCode: 500, body: JSON.stringify({ message: "Failed to send message." }) };
     }
+    let currentIndex = 0;
+
+function showSlide(index) {
+    const slides = document.querySelectorAll('.slide');
+    if (index >= slides.length) currentIndex = 0;
+    if (index < 0) currentIndex = slides.length - 1;
+    document.querySelector('.slider').style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+function nextSlide() {
+    currentIndex++;
+    showSlide(currentIndex);
+}
+
+function prevSlide() {
+    currentIndex--;
+    showSlide(currentIndex);
+}
+
+// Auto Slide
+setInterval(() => {
+    nextSlide();
+}, 3000);
+    
 };
