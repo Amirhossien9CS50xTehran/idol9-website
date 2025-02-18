@@ -117,7 +117,7 @@ body {
 .slider-container {
     position: relative;
     width: 100%;
-    max-width: 900px; /* یا همون سایز عکس‌های سایتت */
+    max-width: 369px; /* یا همون سایز عکس‌های سایتت */
     height: 400px; /* یا هر اندازه‌ای که با بقیه‌ی عکسات هماهنگ باشه */
     margin: 20px auto; /* مرکز قرار گرفتن */
     overflow: hidden;
