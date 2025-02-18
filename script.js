@@ -1,3 +1,4 @@
+<script>
 const nodemailer = require("nodemailer");
 
 exports.handler = async (event) => {
@@ -73,3 +74,4 @@ setInterval(() => {
 }, 4000);
     
 };
+</script>
