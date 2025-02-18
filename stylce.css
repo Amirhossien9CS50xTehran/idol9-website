@@ -116,7 +116,7 @@ body {
 /* Slider Styles */
 .slider-container {
     position: relative;
-    width: 100%;
+    width: 369px;
     max-width: 369px; /* یا همون سایز عکس‌های سایتت */
     height: 402px; /* یا هر اندازه‌ای که با بقیه‌ی عکسات هماهنگ باشه */
     margin: 20px auto; /* مرکز قرار گرفتن */
