@@ -47,5 +47,29 @@ function prevSlide() {
 setInterval(() => {
     nextSlide();
 }, 3000);
+let currentIndex = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+
+function showSlide(index) {
+    if (index >= totalSlides) currentIndex = 0;
+    if (index < 0) currentIndex = totalSlides - 1;
+    document.querySelector('.slider').style.transform = `translateX(-${currentIndex * 100}%)`;
+}
+
+function nextSlide() {
+    currentIndex++;
+    showSlide(currentIndex);
+}
+
+function prevSlide() {
+    currentIndex--;
+    showSlide(currentIndex);
+}
+
+// تغییر خودکار هر 4 ثانیه
+setInterval(() => {
+    nextSlide();
+}, 4000);
     
 };
