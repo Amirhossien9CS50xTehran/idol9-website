@@ -286,23 +286,7 @@
             </ul>
         </nav>
         <img src="IMG_20250121_222009_921.png" class="logo">
-    </header>   
-    <div class="slider">
-        <div class="slides">
-            <img src="IMG_20250121_213641_676.jpg">
-            <img src="IMG_20250121_213641_765.jpg">
-            <img src="IMG_20250121_213641_232.jpg">
-        </div>
-    </div>
-    <script>
-        let index = 0;
-        function slideShow() {
-            const slides = document.querySelector('.slides');
-            index = (index + 1) % 3; // تعداد تصاویر رو اینجا تنظیم کن
-            slides.style.transform = `translateX(-${index * 100}%)`;
-        }
-        setInterval(slideShow, 3000); // هر ۳ ثانیه عکس عوض میشه
-    </script>
+    </header>
     <!-- Gallery Section -->
   <div class="gallery">
     <img src="IMG_20250121_213614_487.jpg"class="thumbnail" onclick="openImage(this)">
