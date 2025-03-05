@@ -91,6 +91,22 @@
         object-fit: cover; /* باعث میشه عکس بدون تغییر نسبت تصویر، توی اندازه مورد نظر جا بگیره */
         border-radius: 10px; /* اختیاری، برای زیبایی */
         }
+        .video-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 100%;
+        max-width: 800px;
+        margin: auto;
+        }
+        
+        video {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
 
 
         img {
