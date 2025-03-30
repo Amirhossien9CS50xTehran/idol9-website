@@ -92,21 +92,30 @@
         border-radius: 10px; /* اختیاری، برای زیبایی */
         }
         .video-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 9px;
-        width: 240px;
-        max-width: 402px;
-        margin: auto;
+          display: grid;
+          /* تغییر در این قسمت: فقط یک ستون تعریف می‌کنیم */
+          grid-template-columns: 1fr;
+          gap: 9px;
+          width: 240px; /* این مقدار می‌تونه بسته به نیازتون تغییر کنه */
+          max-width: 402px; /* این مقدار هم می‌تونه بسته به نیازتون تغییر کنه */
+          margin: auto; /* برای قرارگیری در وسط صفحه */
         }
-
+        
         video {
-        height: 540px;
-        width: 240px;
-        object-fit: cover;
-        border-radius: 10px;
+          /* ارتفاع رو می‌تونید بر اساس نسبت تصویر ویدیوها تنظیم کنید */
+          /* اگر همه ویدیوها نسبت تصویر یکسانی ندارند، ممکنه نیاز به تنظیمات بیشتر داشته باشید */
+          width: 100%; /* ویدیو تمام عرض container رو می‌گیره */
+          object-fit: cover; /* برای حفظ نسبت تصویر و پوشاندن کامل فضا */
+          border-radius: 10px;
+          margin-bottom: 9px; /* برای ایجاد فاصله بین ویدیوها (جایگزین gap برای ردیف‌ها) */
+          height: auto; /* برای حفظ نسبت تصویر، ارتفاع به طور خودکار تنظیم می‌شود */
         }
-
+        
+        /* حذف استایل اضافی که ممکنه باعث مشکل بشه */
+        /*.video-container video {
+          height: 540px;
+          width: 240px;
+        }*/
 
 
         img {
