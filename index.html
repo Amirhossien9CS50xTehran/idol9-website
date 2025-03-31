@@ -59,20 +59,22 @@
         /* Image Row Styles (First Row) */
         .image-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 equal columns like gallery */
+            grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
             gap: 10px;
             width: 100vw; /* Full viewport width */
             margin: 0; /* No margins on left or right */
             padding: 15px 0; /* Vertical padding only */
+            box-sizing: border-box; /* Ensure padding doesn’t add to width */
         }
 
         .image-row img {
             width: 100%;
-            height: auto;
+            height: 300px; /* Fixed height for consistency */
             object-fit: cover;
-            border-radius: 3px; /* Matches gallery images */
+            border-radius: 3px;
             cursor: pointer;
             transition: transform 0.3s;
+            margin: 0; /* Ensure no individual image margins */
         }
 
         .image-row img:hover {
@@ -111,6 +113,9 @@
             .video-queue video {
                 max-width: 100%;
             }
+            .gallery {
+                grid-template-columns: 1fr; /* Single column on small screens */
+            }
         }
 
         /* Gallery Styles */
@@ -121,15 +126,17 @@
             width: 100vw; /* Full viewport width */
             margin: 0; /* No margins on left or right */
             padding: 15px 0; /* Vertical padding only */
+            box-sizing: border-box; /* Ensure padding doesn’t add to width */
         }
 
         .gallery img {
             width: 100%;
-            height: auto;
+            height: 300px; /* Fixed height for consistency */
             object-fit: cover;
             border-radius: 3px;
             cursor: pointer;
             transition: transform 0.3s;
+            margin: 0; /* Ensure no individual image margins */
         }
 
         .gallery img:hover {
