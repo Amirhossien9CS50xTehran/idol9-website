@@ -56,6 +56,26 @@
             border-radius: 6px;
         }
 
+        /* Image Row Styles (New Section) */
+        .image-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .image-row img {
+            width: 100%;
+            max-width: 390px; /* Matches video width for consistency */
+            height: 540px; /* Matches video height for consistency */
+            object-fit: cover;
+            border-radius: 15px; /* Rounder corners */
+            border: 2px solid #ccc;
+        }
+
         /* Video Queue Styles */
         .video-queue {
             display: flex;
@@ -72,12 +92,19 @@
             max-width: 390px;
             height: 540px;
             object-fit: cover;
-            border-radius: 9px;
+            border-radius: 15px; /* Rounder corners */
             border: 2px solid #ccc;
         }
 
         /* Responsive adjustment for smaller screens */
         @media (max-width: 768px) {
+            .image-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            .image-row img {
+                max-width: 100%;
+            }
             .video-queue {
                 flex-direction: column;
                 align-items: center;
@@ -100,7 +127,7 @@
             width: 100%;
             height: auto;
             object-fit: cover;
-            border-radius: 3px;
+            border-radius: 3px; /* Keeping gallery images less rounded */
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -286,6 +313,13 @@
         <img src="IMG_20250121_222009_921.png" class="logo">
     </header>
 
+    <!-- Image Row Section (New) -->
+    <div class="image-row">
+        <img src="IMG_20250121_213614_487.jpg" onclick="openImage(this)">
+        <img src="IMG_20250121_213614_781.jpg" onclick="openImage(this)">
+        <img src="IMG_20250121_213614_932.jpg" onclick="openImage(this)">
+    </div>
+
     <!-- Video Queue Section -->
     <div class="video-queue">
         <video autoplay loop muted controls>
@@ -304,9 +338,6 @@
 
     <!-- Gallery Section -->
     <div class="gallery">
-        <img src="IMG_20250121_213614_487.jpg" class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213614_781.jpg" class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213614_932.jpg" class="thumbnail" onclick="openImage(this)">
         <img src="IMG_20250121_213614_749.jpg" class="thumbnail" onclick="openImage(this)">
         <img src="IMG_20250121_213614_782.jpg" class="thumbnail" onclick="openImage(this)">
         <img src="IMG_20250121_213557_573.jpg" class="thumbnail" onclick="openImage(this)">
@@ -372,7 +403,7 @@
 
     <script>
         // Lightbox functionality
-        const images = document.querySelectorAll('.gallery img');
+        const images = document.querySelectorAll('.gallery img, .image-row img'); // Updated to include image-row
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         let currentImageIndex;
