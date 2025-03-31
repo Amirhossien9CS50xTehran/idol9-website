@@ -129,6 +129,22 @@
             display: block;
         }
 
+        .gallery {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* ۳ ستون مساوی */
+        gap: 10px; /* فاصله بین عکس‌ها و ویدیوها */
+        width: 100vw; /* عرض کامل صفحه */
+        /* padding: 10px; حذف این خط */
+        }
+
+        .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* ۳ ستون مساوی */
+        gap: 10px; /* فاصله بین عکس‌ها و ویدیوها */
+        width: 100vw; /* عرض کامل صفحه */
+        /* padding: 10px; حذف این خط */
+        }
+        
         /* Lightbox Styles */
         #lightbox {
             display: none;
