@@ -99,9 +99,9 @@
         }
         .video-container {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 3px;
-        width: 100%;
+        grid-template-columns: repeat(3, 1fr); /* تغییر به ۳ ستون مساوی */
+        gap: 10px; /* استفاده از همان گپ گالری برای یکپارچگی */
+        width: 100vw; /* استفاده از همان عرض گالری برای یکپارچگی */
         max-width: 800px;
         margin: auto;
         }
@@ -110,19 +110,18 @@
         width: 300px;
         height: auto;
         }
-
+        
         .video-medium {
-            width: 450px;
-            height: auto;
+        width: 450px;
+        height: auto;
         }
-
+        
         video {
-        height: 450px;
-        width: 369px;
-        object-fit: cover;
-        border-radius: 10px;
+            width: 100%; /* عرض کامل سلول گرید */
+            height: auto; /* ارتفاع متناسب با نسبت تصویر */
+            object-fit: cover; /* برای پوشاندن فضا و حفظ نسبت تصویر */
+            border-radius: 10px; /* حفظ گوشه‌های گرد */
         }
-
 
 
         img {
