@@ -63,7 +63,7 @@
             display: flex;
             justify-content: space-between;
             padding: 0;
-            margin: 15px 0 0 0;
+            margin: 15px 0 0 0 0 0 0;
             width: 100%;
         }
 
@@ -79,55 +79,54 @@
             transform: scale(1.05);
         }
         .gallery {
-            display: flex; /* تغییر به flex برای ردیف افقی */
-            flex-wrap: wrap; /* اگر تعداد ویدیوها/عکس‌ها زیاد بود به خط بعدی بروند */
-            gap: 10px; /* فاصله بین آیتم‌ها */
-            width: 100vw; /* عرض کامل صفحه */
-            padding: 10px; /* کمی padding برای لبه‌ها */
-            justify-content: flex-start; /* چیدمان از ابتدا */
-        }
-
-        .gallery > * { /* استایل برای تمامی المان‌های مستقیم داخل گالری (عکس و ویدیو) */
-            width: calc(25% - 10px); /* هر 4 تا در یک ردیف (با احتساب گپ) */
-            height: auto;
-            border-radius: 10px;
-            box-sizing: border-box; /* برای محاسبه درست عرض با padding و border */
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* ۳ ستون مساوی */
+        gap: 10px; /* فاصله بین عکس‌ها */
+        width: 100vw; /* عرض کامل صفحه */
         }
 
         .gallery img {
-            object-fit: cover;
-            height: 300px; /* ارتفاع ثابت برای عکس‌ها */
+        width: 504px; /* یا هر سایزی که می‌خوای */
+        height: 504px;
+        object-fit: cover; /* باعث میشه عکس بدون تغییر نسبت تصویر، توی اندازه مورد نظر جا بگیره */
+        border-radius: 10px; /* اختیاری، برای زیبایی */
         }
-
-        .gallery video {
-            object-fit: cover;
-            height: 300px; /* ارتفاع ثابت برای ویدیوها */
-        }
-
         .video-container {
-            /* حذف استایل‌های قبلی video-container */
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        width: 100%;
+        max-width: 800px;
+        margin: auto;
+        }
+        
+        .video-small {
+        width: 300px;
+        height: auto;
+        }
+
+        .video-medium {
+            width: 450px;
+            height: auto;
         }
 
         video {
-            width: 100%; /* ویدیو تمام عرض container خود را می‌گیرد */
-            border-radius: 10px;
-            margin-bottom: 0; /* حذف margin-bottom قبلی */
-            height: auto; /* ارتفاع بر اساس نسبت تصویر */
+        height: 450px;
+        width: 369px;
+        object-fit: cover;
+        border-radius: 10px;
         }
 
-        /* حذف استایل اضافی video */
-        /* video {
-            border: 2px solid #ccc;
-            border-radius: 10px;
-        } */
 
 
         img {
-            border-radius: 3px; /* مقدار رو می‌تونی تغییر بدی */
+        border-radius: 3px; /* مقدار رو می‌تونی تغییر بدی */
         }
 
         gallery img {
-            /* حذف استایل‌های قبلی gallery img */
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         /* Lightbox Styles */
@@ -176,19 +175,19 @@
         #lightbox .next {
             right: 20px;
         }
-
+        
         .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8); /* پس‌زمینه تیره */
-            justify-content: center;
-            align-items: center;
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8); /* پس‌زمینه تیره */
+        justify-content: center;
+        align-items: center;
         }
-
+        
         .lightbox img {
             max-width: 90%;
             max-height: 90%;
@@ -249,31 +248,31 @@
         }
 
         .contact-icon {
-            position: fixed;
-            left: 20px; /* distance from the left edge */
-            bottom: 20px; /* distance from the bottom of the page */
-            z-index: 100; /* make sure it appears above other content */
-            cursor: pointer;
-            width: 60px; /* set width */
-            height: 60px; /* set height */
-            border-radius: 50%; /* ensure it's circular */
-            background-color: #1f79da; /* background color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(31, 121, 218, 0.3); /* shadow for a nice effect */
-            border: 2px solid #1f79da; /* default border */
-            transition: border-color 0.3s ease-in-out,
-                        background-color 0.3s ease-in-out,
-                        transform 0.2s ease-in-out; /* smooth transition */
-        }
+        position: fixed;
+        left: 20px; /* distance from the left edge */
+        bottom: 20px; /* distance from the bottom of the page */
+        z-index: 100; /* make sure it appears above other content */
+        cursor: pointer;
+        width: 60px; /* set width */
+        height: 60px; /* set height */
+        border-radius: 50%; /* ensure it's circular */
+        background-color: #1f79da; /* background color */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(31, 121, 218, 0.3); /* shadow for a nice effect */
+        border: 2px solid #1f79da; /* default border */
+        transition: border-color 0.3s ease-in-out, 
+                    background-color 0.3s ease-in-out, 
+                    transform 0.2s ease-in-out; /* smooth transition */
+    }
 
-        /* Hover effect */
-        .contact-icon:hover {
-            border-color: #101010; /* new border color */
-            background-color: #000000; /* optional: change background color too */
-            transform: scale(0.9); /* shrink the icon slightly */
-        }
+    /* Hover effect */
+    .contact-icon:hover {
+        border-color: #101010; /* new border color */
+        background-color: #000000; /* optional: change background color too */
+        transform: scale(0.9); /* shrink the icon slightly */
+    }
 
 
         .contact-img {
@@ -283,15 +282,15 @@
         }
 
         .form-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between; /* ✅ Separate fields & logo */
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* ✅ Separate fields & logo */
         }
         .form-logo {
-            width: 30%; /* ✅ Adjust logo space */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        width: 30%; /* ✅ Adjust logo space */
+        display: flex;
+        justify-content: center;
+        align-items: center;
         }
 
         .form-logo img {
@@ -300,58 +299,13 @@
             border-radius: 50%; /* ✅ Make it round */
         }
 
-        .thumbnail {
-            width: 150px;
-            height: 150px;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .thumbnail:hover {
-            transform: scale(1.05); /* عکس رو کمی بزرگ‌تر می‌کنه */
-        }
-
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            max-width: 80%;
-            max-height: 80%;
-            border-radius: 10px;
-        }
-
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: black;
-            font-size: 30px;
-            cursor: pointer;
-        }
-
-        .video-queue {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-        }
 
 
     </style>
 </head>
 
 <body>
+    <!-- Header -->
     <header>
         <nav class="menu">
             <ul>
@@ -362,39 +316,52 @@
         </nav>
         <img src="IMG_20250121_222009_921.png" class="logo">
     </header>
-    <div class="gallery">
-        <img src="IMG_20250121_213614_487.jpg" class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213614_781.jpg" class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213614_932.jpg" class="thumbnail" onclick="openImage(this)">
-        <video src="document_5801138745327490746.mp4" controls></video>
-        <video src="document_5801138745327490747 copy.mp4" controls></video>
-        <video src="document_5801138745327490745 copy.mp4" controls></video>
-        <video src="document_5801138745327490744 copy 2.mp4" controls></video>
-        <img src="IMG_20250121_213614_749.jpg" class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213614_749.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213614_782.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213557_573.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213557_178.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213557_463.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213557_415.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213557_335.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213610_312.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213609_915.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213618_947.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213618_962.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213619_055.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213627_807.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213628_540.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213627_785.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213633_559.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213633_907.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213633_951.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213637_606.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213633_488.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213633_362.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121_213637_384.jpg"class="thumbnail" onclick="openImage(this)">
-        <img src="IMG_20250121
-            
+    <!-- Gallery Section -->
+  <div class="gallery">
+    <img src="IMG_20250121_213614_487.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213614_781.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213614_932.jpg"class="thumbnail" onclick="openImage(this)">
+    <video width="450" height="240" autoplay loop muted controls>
+        <source src="document_5801138745327490746.mp4" type="video/mp4">
+    </video>
+    
+    <video width="450" height="240" autoplay loop muted controls>
+        <source src="document_5801138745327490747 copy.mp4" type="video/mp4">
+    </video>
+    
+    <video width="450" height="240" autoplay loop muted controls>
+        <source src="document_5801138745327490745 copy.mp4" type="video/mp4">
+    </video>
+
+    <video width="450" height="240" autoplay loop muted controls>
+        <source src="document_5801138745327490744 copy 2.mp4" type="video/mp4">
+    </video>
+    <img src="IMG_20250121_213614_749.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213614_782.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213557_573.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213557_178.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213557_463.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213557_415.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213557_335.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213610_312.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213609_915.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213618_947.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213618_962.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213619_055.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213627_807.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213628_540.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213627_785.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213633_559.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213633_907.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213633_951.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213637_606.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213633_488.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213633_362.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213637_384.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213637_909.jpg"class="thumbnail" onclick="openImage(this)">
+    <img src="IMG_20250121_213637_600.jpg"class="thumbnail" onclick="openImage(this)">
+</div> 
+
 <div id="imageModal" class="modal" onclick="closeImage()">
     <span class="close">&times;</span>
     <img class="modal-content" id="fullImage">
