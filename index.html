@@ -76,6 +76,17 @@
             border: 2px solid #ccc;
         }
 
+        /* Responsive adjustment for smaller screens */
+        @media (max-width: 768px) {
+            .video-queue {
+                flex-direction: column;
+                align-items: center;
+            }
+            .video-queue video {
+                max-width: 100%;
+            }
+        }
+
         /* Gallery Styles */
         .gallery {
             display: grid;
@@ -361,7 +372,7 @@
 
     <script>
         // Lightbox functionality
-        const images = document.querySelectorAll('.gallery img'); // Updated selector to match your images
+        const images = document.querySelectorAll('.gallery img');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         let currentImageIndex;
