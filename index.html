@@ -67,6 +67,14 @@
             width: 100%;
         }
 
+        .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* ۳ ستون مساوی */
+        gap: 10px; /* فاصله بین عکس‌ها و ویدیوها */
+        width: 100vw; /* عرض کامل صفحه */
+        /* padding: 10px; حذف این خط */
+        }
+        
         .gallery-image {
             width: calc(33.33% - 10px);
             height: auto;
