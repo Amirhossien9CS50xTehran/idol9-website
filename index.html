@@ -410,20 +410,22 @@
 
     <!-- Contact Section -->
     <section id="contact">
-        <h2>Contact Us</h2>
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-        </div>
-        <button type="submit"><img src="Untitled design (1).png" alt="Send"></button>
+        <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
+            <h2>Contact Us</h2>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit"><img src="Untitled design (1).png" alt="Send"></button>
+        </form>
     </section>
 
     <!-- Contact Icon -->
@@ -474,6 +476,14 @@
         // Prevent modal from closing when clicking on the image itself
         document.getElementById("fullImage").addEventListener("click", function(e) {
             e.stopPropagation();
+        });
+
+        // Reset form and close after submission
+        document.getElementById("contactForm").addEventListener("submit", function() {
+            setTimeout(() => {
+                document.getElementById("contactForm").reset();
+                toggleContactForm(); // Close the form after submission
+            }, 1000); // Delay to allow mailto to trigger
         });
     </script>
 </body>
