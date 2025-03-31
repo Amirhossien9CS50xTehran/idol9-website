@@ -92,30 +92,21 @@
         border-radius: 10px; /* اختیاری، برای زیبایی */
         }
         .video-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
+        display: flex;
+        justify-content: center; /* Centers the video horizontally */
+        align-items: center; /* Centers the video vertically */
         width: 100%;
         max-width: 800px;
         margin: auto;
         }
         
-        .video-small {
-        width: 300px;
-        height: auto;
+        .video-container video {
+            width: 450px; /* Set the width of the video */
+            height: 450px; /* Set the height of the video */
+            object-fit: cover; /* Ensures the video fills the container */
+            border-radius: 10px; /* Rounded corners */
         }
 
-        .video-medium {
-            width: 450px;
-            height: auto;
-        }
-
-        video {
-        height: 450px;
-        width: 369px;
-        object-fit: cover;
-        border-radius: 10px;
-        }
 
 
 
