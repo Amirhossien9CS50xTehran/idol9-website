@@ -56,28 +56,24 @@
             border-radius: 6px;
         }
 
-        /* Image Row Styles (Top 3 Images) */
+        /* Image Row Styles (New Section) */
         .image-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 equal columns like gallery */
+            display: flex;
+            justify-content: center;
             gap: 10px;
-            width: 100vw; /* Full viewport width */
-            margin: 0; /* No margin from left or right */
-            padding: 15px 0; /* Vertical padding only */
+            padding: 15px;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
         .image-row img {
             width: 100%;
-            height: auto;
+            max-width: 390px; /* Matches video width for consistency */
+            height: 540px; /* Matches video height for consistency */
             object-fit: cover;
             border-radius: 15px; /* Rounder corners */
             border: 2px solid #ccc;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .image-row img:hover {
-            transform: scale(1.05);
         }
 
         /* Video Queue Styles */
@@ -103,7 +99,11 @@
         /* Responsive adjustment for smaller screens */
         @media (max-width: 768px) {
             .image-row {
-                grid-template-columns: 1fr; /* Single column on small screens */
+                flex-direction: column;
+                align-items: center;
+            }
+            .image-row img {
+                max-width: 100%;
             }
             .video-queue {
                 flex-direction: column;
@@ -119,9 +119,8 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
             gap: 10px;
-            width: 100vw; /* Full viewport width */
-            margin: 0; /* No margin from left or right */
-            padding: 15px 0; /* Vertical padding only */
+            width: 100vw;
+            padding: 15px;
         }
 
         .gallery img {
@@ -314,7 +313,7 @@
         <img src="IMG_20250121_222009_921.png" class="logo">
     </header>
 
-    <!-- Image Row Section (Top 3 Images) -->
+    <!-- Image Row Section (New) -->
     <div class="image-row">
         <img src="IMG_20250121_213614_487.jpg" onclick="openImage(this)">
         <img src="IMG_20250121_213614_781.jpg" onclick="openImage(this)">
@@ -404,7 +403,7 @@
 
     <script>
         // Lightbox functionality
-        const images = document.querySelectorAll('.gallery img, .image-row img');
+        const images = document.querySelectorAll('.gallery img, .image-row img'); // Updated to include image-row
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         let currentImageIndex;
