@@ -14,22 +14,14 @@
             box-sizing: border-box;
             height: 100%;
             overflow-y: scroll; /* Enable vertical scroll */
+            scrollbar-width: none; /* Hide scrollbar in Firefox */
         }
 
-        /* Hides the scrollbar in all browsers */
+        /* Hide scrollbar in Webkit browsers (Chrome, Safari, Opera) */
         ::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
+            display: none;
         }
 
-        body {
-            scrollbar-width: none; /* Firefox */
-        }
-
-        body {
-        margin: 0;
-        /* ... سایر استایل‌ها ... */
-        }
-        
         header {
             display: flex;
             justify-content: space-between;
@@ -64,92 +56,48 @@
             border-radius: 6px;
         }
 
-        /* Gallery Styles */
-        #gallery {
+        /* Video Queue Styles */
+        .video-queue {
             display: flex;
-            justify-content: space-between;
-            padding: 0;
-            margin: 15px 0 0 0 0 0 0;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
             width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
-        .gallery-image {
-            width: calc(33.33% - 10px);
+        .video-queue video {
+            width: 100%;
+            max-width: 390px;
+            height: 540px;
+            object-fit: cover;
+            border-radius: 9px;
+            border: 2px solid #ccc;
+        }
+
+        /* Gallery Styles */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+            gap: 10px;
+            width: 100vw;
+            padding: 15px;
+        }
+
+        .gallery img {
+            width: 100%;
             height: auto;
+            object-fit: cover;
             border-radius: 3px;
             cursor: pointer;
             transition: transform 0.3s;
         }
 
-        .gallery-image:hover {
+        .gallery img:hover {
             transform: scale(1.05);
         }
-        .gallery {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* ۳ ستون مساوی */
-        gap: 10px; /* فاصله بین عکس‌ها */
-        width: 100vw; /* عرض کامل صفحه */
-        }
 
-        .gallery img {
-        width: 504px; /* یا هر سایزی که می‌خوای */
-        height: 504px;
-        object-fit: cover; /* باعث میشه عکس بدون تغییر نسبت تصویر، توی اندازه مورد نظر جا بگیره */
-        border-radius: 10px; /* اختیاری، برای زیبایی */
-        }
-        .video-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* تغییر به ۳ ستون مساوی */
-        gap: 9px; /* استفاده از همان گپ گالری برای یکپارچگی */
-        width: 390px; /* استفاده از همان عرض گالری برای یکپارچگی */
-        max-width: 390px;
-        margin: auto;
-        }
-        
-        .video-small {
-        width: 390px;
-        height: 540px;
-        }
-        
-        .video-medium {
-        width: 390px;
-        height: 540px;
-        }
-        
-        video {
-            width: 390px; /* عرض کامل سلول گرید */
-            height: 540px; /* ارتفاع متناسب با نسبت تصویر */
-            object-fit: cover; /* برای پوشاندن فضا و حفظ نسبت تصویر */
-            border-radius: 9px; /* حفظ گوشه‌های گرد */
-        }
-
-
-        img {
-        border-radius: 3px; /* مقدار رو می‌تونی تغییر بدی */
-        }
-
-        gallery img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .gallery {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* ۳ ستون مساوی */
-        gap: 10px; /* فاصله بین عکس‌ها و ویدیوها */
-        width: 100vw; /* عرض کامل صفحه */
-        /* padding: 10px; حذف این خط */
-        }
-
-        .gallery {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* ۳ ستون مساوی */
-        gap: 10px; /* فاصله بین عکس‌ها و ویدیوها */
-        width: 100vw; /* عرض کامل صفحه */
-        /* padding: 10px; حذف این خط */
-        }
-        
         /* Lightbox Styles */
         #lightbox {
             display: none;
@@ -196,23 +144,34 @@
         #lightbox .next {
             right: 20px;
         }
-        
-        .lightbox {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8); /* پس‌زمینه تیره */
-        justify-content: center;
-        align-items: center;
+
+        /* Modal Styles for Image Zoom */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
         }
-        
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 3px;
+
+        .modal-content {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
         }
 
         /* Contact Section Styles */
@@ -268,60 +227,38 @@
             background-color: rgb(55, 140, 225);
         }
 
+        /* Contact Icon Styles */
         .contact-icon {
-        position: fixed;
-        left: 20px; /* distance from the left edge */
-        bottom: 20px; /* distance from the bottom of the page */
-        z-index: 100; /* make sure it appears above other content */
-        cursor: pointer;
-        width: 60px; /* set width */
-        height: 60px; /* set height */
-        border-radius: 50%; /* ensure it's circular */
-        background-color: #1f79da; /* background color */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 4px 6px rgba(31, 121, 218, 0.3); /* shadow for a nice effect */
-        border: 2px solid #1f79da; /* default border */
-        transition: border-color 0.3s ease-in-out, 
-                    background-color 0.3s ease-in-out, 
-                    transform 0.2s ease-in-out; /* smooth transition */
-    }
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            z-index: 100;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #1f79da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(31, 121, 218, 0.3);
+            border: 2px solid #1f79da;
+            transition: border-color 0.3s ease-in-out, 
+                        background-color 0.3s ease-in-out, 
+                        transform 0.2s ease-in-out;
+        }
 
-    /* Hover effect */
-    .contact-icon:hover {
-        border-color: #101010; /* new border color */
-        background-color: #000000; /* optional: change background color too */
-        transform: scale(0.9); /* shrink the icon slightly */
-    }
-
+        .contact-icon:hover {
+            border-color: #101010;
+            background-color: #000000;
+            transform: scale(0.9);
+        }
 
         .contact-img {
-            width: 35px; /* size of the icon inside the circle */
-            height: 35px; /* size of the icon inside the circle */
-            border-radius: 50%; /* round the icon inside the circle */
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
         }
-
-        .form-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* ✅ Separate fields & logo */
-        }
-        .form-logo {
-        width: 30%; /* ✅ Adjust logo space */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        }
-
-        .form-logo img {
-            width: 50px; /* ✅ Adjust size */
-            height: auto;
-            border-radius: 50%; /* ✅ Make it round */
-        }
-
-
-
     </style>
 </head>
 
@@ -337,165 +274,94 @@
         </nav>
         <img src="IMG_20250121_222009_921.png" class="logo">
     </header>
+
+    <!-- Video Queue Section -->
+    <div class="video-queue">
+        <video autoplay loop muted controls>
+            <source src="document_5801138745327490746.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted controls>
+            <source src="document_5801138745327490747 copy.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted controls>
+            <source src="document_5801138745327490745 copy.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted controls>
+            <source src="document_5801138745327490744 copy 2.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <!-- Gallery Section -->
-  <div class="gallery">
-    <img src="IMG_20250121_213614_487.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213614_781.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213614_932.jpg"class="thumbnail" onclick="openImage(this)">
-    <video width="450" height="240" autoplay loop muted controls>
-        <source src="document_5801138745327490746.mp4" type="video/mp4">
-    </video>
-    
-    <video width="450" height="240" autoplay loop muted controls>
-        <source src="document_5801138745327490747 copy.mp4" type="video/mp4">
-    </video>
-    
-    <video width="450" height="240" autoplay loop muted controls>
-        <source src="document_5801138745327490745 copy.mp4" type="video/mp4">
-    </video>
+    <div class="gallery">
+        <img src="IMG_20250121_213614_487.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213614_781.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213614_932.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213614_749.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213614_782.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213557_573.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213557_178.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213557_463.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213557_415.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213557_335.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213610_312.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213609_915.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213618_947.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213618_962.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213619_055.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213627_807.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213628_540.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213627_785.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213633_559.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213633_907.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213633_951.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213637_606.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213633_488.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213633_362.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213637_384.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213637_909.jpg" class="thumbnail" onclick="openImage(this)">
+        <img src="IMG_20250121_213637_600.jpg" class="thumbnail" onclick="openImage(this)">
+    </div>
 
-    <video width="450" height="240" autoplay loop muted controls>
-        <source src="document_5801138745327490744 copy 2.mp4" type="video/mp4">
-    </video>
-    <img src="IMG_20250121_213614_749.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213614_782.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213557_573.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213557_178.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213557_463.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213557_415.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213557_335.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213610_312.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213609_915.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213618_947.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213618_962.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213619_055.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213627_807.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213628_540.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213627_785.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213633_559.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213633_907.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213633_951.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213637_606.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213633_488.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213633_362.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213637_384.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213637_909.jpg"class="thumbnail" onclick="openImage(this)">
-    <img src="IMG_20250121_213637_600.jpg"class="thumbnail" onclick="openImage(this)">
-</div> 
-
-<div id="imageModal" class="modal" onclick="closeImage()">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="fullImage">
-</div>
-
-
-<!-- پنجره باز شدن عکس -->
-<div id="lightbox" class="lightbox" onclick="closeImage()">
-    <img id="lightbox-img">
-</div>
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal" onclick="closeImage()">
+        <span class="close">×</span>
+        <img class="modal-content" id="fullImage">
+    </div>
 
     <!-- Lightbox -->
     <div id="lightbox">
-        <span class="close" onclick="closeLightbox()">&times;</span>
-        <span class="prev" onclick="changeImage(-1)">&#10094;</span>
-        <img id="lightbox-img" src=""/>
-        <span class="next" onclick="changeImage(1)">&#10095;</span>
+        <span class="close" onclick="closeLightbox()">×</span>
+        <span class="prev" onclick="changeImage(-1)">❮</span>
+        <img id="lightbox-img" src="">
+        <span class="next" onclick="changeImage(1)">❯</span>
     </div>
+
     <!-- Contact Section -->
     <section id="contact">
         <h2>Contact Us</h2>
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-            </div>
-            <button type="submit">Send Message</button>
-        </form>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit">Send Message</button>
     </section>
 
     <!-- Contact Icon -->
-    <!-- Contact Icon -->
     <div class="contact-icon">
-        <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()" style=" height: 51px">
+        <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
     </div>
-    <style>
-        .contact-icon {
-        position: fixed;
-        left: 20px;
-        bottom: 20px;
-        z-index: 100;
-        cursor: pointer;
-        }
-
-        .contact-img {
-            width: 50px;
-            height: 50px;
-        }
-
-        .thumbnail {
-        width: 150px;
-        height: 150px;
-        border-radius: 3px;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        }
-        
-        .thumbnail:hover {
-            transform: scale(1.05); /* عکس رو کمی بزرگ‌تر می‌کنه */
-        }
-
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            max-width: 80%;
-            max-height: 80%;
-            border-radius: 10px;
-        }
-        
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: black;
-            font-size: 30px;
-            cursor: pointer;
-        }
-
-        .video-queue {
-          display: flex;
-          justify-content: space-between;
-          gap: 20px;
-        }
-        
-        video {
-          border: 2px solid #ccc;
-          border-radius: 10px;
-        }
-
-
-    </style>
 
     <script>
-        const images = document.querySelectorAll('.gallery-image');
+        // Lightbox functionality
+        const images = document.querySelectorAll('.gallery img'); // Updated selector to match your images
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         let currentImageIndex;
@@ -517,19 +383,20 @@
             lightboxImg.src = images[currentImageIndex].src;
         }
 
+        // Modal functionality for image zoom
+        function openImage(img) {
+            document.getElementById("imageModal").style.display = "flex";
+            document.getElementById("fullImage").src = img.src;
+        }
+
+        function closeImage() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+        // Toggle contact form
         function toggleContactForm() {
             const contactForm = document.getElementById('contact');
             contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
-        }
-    </script>
-    <script>
-                function openImage(img) {
-        document.getElementById("imageModal").style.display = "flex";
-        document.getElementById("fullImage").src = img.src;
-        }
-        
-        function closeImage() {
-            document.getElementById("imageModal").style.display = "none";
         }
     </script>
 </body>
