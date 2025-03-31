@@ -81,14 +81,15 @@
         object-fit: cover; /* باعث میشه عکس بدون تغییر نسبت تصویر، توی اندازه مورد نظر جا بگیره */
         border-radius: 10px; /* اختیاری، برای زیبایی */
         }
-        .video-container {
-          display: grid;
-          /* تغییر در این قسمت: فقط یک ستون تعریف می‌کنیم */
-          grid-template-columns: 1fr;
-          gap: 9px;
-          width: 360px; /* این مقدار می‌تونه بسته به نیازتون تغییر کنه */
-          max-width: 402px; /* این مقدار هم می‌تونه بسته به نیازتون تغییر کنه */
-          margin: auto; /* برای قرارگیری در وسط صفحه */
+      .video-container {
+        display: flex;
+        flex-direction: column; /* Aligns videos in a vertical stack */
+        gap: 9px;
+        width: 360px;
+        max-width: 402px;
+        margin: auto;
+        }
+
         }
         video {
           /* ارتفاع رو می‌تونید بر اساس نسبت تصویر ویدیوها تنظیم کنید */
