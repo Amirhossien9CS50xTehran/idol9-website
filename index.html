@@ -447,21 +447,6 @@
             lightbox.style.display = 'none';
         }
 
-        function changeImage(direction) {
-            currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
-            lightboxImg.src = images[currentImageIndex].src;
-        }
-
-        // Modal functionality for image zoom
-        function openImage(img) {
-            document.getElementById("imageModal").style.display = "flex";
-            document.getElementById("fullImage").src = img.src;
-        }
-
-        function closeImage() {
-            document.getElementById("imageModal").style.display = "none";
-        }
-
         // Toggle contact form
         function toggleContactForm() {
             const contactForm = document.getElementById('contact');
