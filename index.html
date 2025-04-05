@@ -327,110 +327,144 @@
 <body>
     <!-- Header -->
     <header>
-         <nav class="menu">
+        <nav class="menu">
             <ul>
                 <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#videos">Videos</a></li>
-                <li><a href="#contact" onclick="toggleContactForm()">Contact</a></li>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="#contact">Contact Us</a></li>
             </ul>
         </nav>
-        
-        <!-- Gallery Section -->
-        <section id="gallery">
-            <h2>Gallery</h2>
-            <div class="gallery">
-                <div class="gallery-item">
-                    <img src="image1.jpg" alt="Image 1">
-                </div>
-                <div class="gallery-item">
-                    <img src="image2.jpg" alt="Image 2">
-                </div>
-                <div class="gallery-item">
-                    <img src="image3.jpg" alt="Image 3">
-                </div>
-                <!-- Add more images as needed -->
-            </div>
-        </section>
-        
-        <!-- Videos Section -->
-        <section id="videos">
-            <h2>Videos</h2>
-            <div class="video-container">
-                <div class="video-item">
-                    <video controls>
-                        <source src="video1.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="video-item">
-                    <video controls>
-                        <source src="video2.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="video-item">
-                    <video controls>
-                        <source src="video3.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <!-- Add more videos as needed -->
-            </div>
-        </section>
-        
-        <!-- Contact Form Section -->
-        <section id="contact" style="display:none;">
+        <img src="IMG_20250121_222009_921.png" class="logo">
+    </header>
+
+    <!-- Image Row Section (First Row) -->
+    <div class="image-row">
+        <img src="IMG_20250121_213614_487.jpg">
+        <img src="IMG_20250121_213614_781.jpg">
+        <img src="IMG_20250121_213614_932.jpg">
+    </div>
+
+    <!-- Video Queue Section -->
+    <div class="video-queue">
+        <video autoplay loop muted controls>
+            <source src="document_5801138745327490746.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted controls>
+            <source src="document_5801138745327490747 copy.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted controls>
+            <source src="document_5801138745327490745 copy.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted controls>
+            <source src="document_5801138745327490744 copy 2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="gallery">
+        <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
+        <img src="IMG_20250121_213614_782.jpg" class="thumbnail">
+        <img src="IMG_20250121_213557_573.jpg" class="thumbnail">
+        <img src="IMG_20250121_213557_178.jpg" class="thumbnail">
+        <img src="IMG_20250121_213557_463.jpg" class="thumbnail">
+        <img src="IMG_20250121_213557_415.jpg" class="thumbnail">
+        <img src="IMG_20250121_213557_335.jpg" class="thumbnail">
+        <img src="IMG_20250121_213604_794.jpg" class="thumbnail">
+        <img src="IMG_20250121_213609_915.jpg" class="thumbnail">
+        <img src="IMG_20250121_213618_947.jpg" class="thumbnail">
+        <img src="IMG_20250121_213618_962.jpg" class="thumbnail">
+        <img src="IMG_20250121_213619_055.jpg" class="thumbnail">
+        <img src="IMG_20250121_213627_807.jpg" class="thumbnail">
+        <img src="IMG_20250121_213628_540.jpg" class="thumbnail">
+        <img src="IMG_20250121_213627_785.jpg" class="thumbnail">
+        <img src="IMG_20250121_213633_559.jpg" class="thumbnail">
+        <img src="IMG_20250121_213633_907.jpg" class="thumbnail">
+        <img src="IMG_20250121_213633_951.jpg" class="thumbnail">
+        <img src="IMG_20250121_213637_606.jpg" class="thumbnail">
+        <img src="IMG_20250121_213633_488.jpg" class="thumbnail">
+        <img src="IMG_20250121_213633_362.jpg" class="thumbnail">
+        <img src="IMG_20250121_213637_384.jpg" class="thumbnail">
+        <img src="IMG_20250121_213637_909.jpg" class="thumbnail">
+        <img src="IMG_20250121_213637_600.jpg" class="thumbnail">
+
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeImage()">×</span>
+        <img class="modal-content" id="fullImage">
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox">
+        <span class="close" onclick="closeLightbox()">×</span>
+        <span class="prev" onclick="changeImage(-1)">❮</span>
+        <img id="lightbox-img" src="">
+        <span class="next" onclick="changeImage(1)">❯</span>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
             <h2>Contact Us</h2>
-            <form action="submit_contact.php" method="post">
+            <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-        </section>
-        
-        <!-- Lightbox -->
-        <div id="lightbox" style="display:none;">
-            <span onclick="closeLightbox()" class="close">&times;</span>
-            <img id="lightbox-img" src="" alt="Large View">
-            <div class="nav-arrows">
-                <span onclick="changeImage(-1)" class="prev">&#10094;</span>
-                <span onclick="changeImage(1)" class="next">&#10095;</span>
             </div>
-        </div>
-        
-        <script>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Contact Icon -->
+    <div class="contact-icon">
+        <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
+    </div>
+
+    <script>
         // Lightbox functionality
-        const images = document.querySelectorAll('.gallery img');
+        const images = document.querySelectorAll('.gallery img, .image-row img');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
-        let currentIndex = 0;
-        
+        let currentImageIndex;
+
         images.forEach((image, index) => {
             image.addEventListener('click', () => {
                 lightbox.style.display = 'flex';
                 lightboxImg.src = image.src;
-                currentIndex = index;
+                currentImageIndex = index;
             });
         });
-        
+
         function closeLightbox() {
             lightbox.style.display = 'none';
         }
-        
-        function changeImage(direction) {
-            currentIndex += direction;
-            if (currentIndex < 0) {
-                currentIndex = images.length - 1;
-            } else if (currentIndex >= images.length) {
-                currentIndex = 0;
-            }
-            lightboxImg.src = images[currentIndex].src;
-        }
-        
-        // Contact form toggle functionality
+
+        // Toggle contact form
         function toggleContactForm() {
             const contactForm = document.getElementById('contact');
-            contactForm.style.display = contactForm.style.display === 'block' ? 'none' : 'block';
+            contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
         }
-        </script>
+
+        // Prevent modal from closing when clicking on the image itself
+        document.getElementById("fullImage").addEventListener("click", function(e) {
+            e.stopPropagation();
+        });
+
+        // Reset form and close after submission
+        document.getElementById("contactForm").addEventListener("submit", function() {
+            setTimeout(() => {
+                document.getElementById("contactForm").reset();
+                toggleContactForm(); // Close the form after submission
+            }, 1000); // Delay to allow mailto to trigger
+        });
+    </script>
+</body>
+</html>
