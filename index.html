@@ -114,26 +114,12 @@
             margin-left: 0;
         }
 
-        /* Responsive adjustment for smaller screens */
-        @media (max-width: 768px) {
-            .image-row {
-                grid-template-columns: 1fr; /* Single column on small screens */
-            }
-            .video-queue {
-                grid-template-columns: 1fr; /* Single column on small screens */
-            }
-            .gallery {
-                grid-template-columns: 1fr; /* Single column on small screens */
-            }
-        }
-
         /* Gallery Styles */
         .gallery {
             display: grid;
             grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
             gap: 10px;
             width: 100%; /* Full width */
-            height: 504px;
             margin: 0; /* No margins */
             padding: 5px 0; /* Reduced vertical padding */
             position: relative;
@@ -154,6 +140,23 @@
 
         .gallery img:hover {
             transform: scale(1.05);
+        }
+
+        /* Responsive adjustment for smaller screens */
+        @media (max-width: 768px) {
+            .image-row {
+                grid-template-columns: 1fr; /* Single column on small screens */
+            }
+            .video-queue {
+                grid-template-columns: 1fr; /* Single column on small screens */
+            }
+            .gallery {
+                grid-template-columns: 1fr; /* Single column on small screens */
+                height: auto; /* Remove fixed height for mobile */
+            }
+            .gallery img {
+                height: auto; /* Allow natural height in mobile */
+            }
         }
 
         /* Contact Section Styles */
@@ -271,16 +274,16 @@
     <!-- Video Queue Section -->
     <div class="video-queue">
         <video autoplay loop muted>
-            <source src="WhatsApp Video 2025-04-05 at 9.22.19 PM.mp4" type="video/mp4">
+            <source src="document_5801138745327490746.mp4" type="video/mp4">
         </video>
         <video autoplay loop muted>
-            <source src="WhatsApp Video 2025-04-05 at 9.22.18 PM.mp4" type="video/mp4">
+            <source src="document_5801138745327490747 copy.mp4" type="video/mp4">
         </video>
         <video autoplay loop muted>
-            <source src="WhatsApp Video 2025-04-05 at 9.22.09 PM.mp4" type="video/mp4">
+            <source src="document_5801138745327490745 copy.mp4" type="video/mp4">
         </video>
         <video autoplay loop muted>
-            <source src="WhatsApp Video 2025-04-05 at 9.22.05 PM.mp4" type="video/mp4">
+            <source src="document_5801138745327490744 copy 2.mp4" type="video/mp4">
         </video>
     </div>
 
