@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>idol9</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
+        /* Reset default browser margins and padding */
         html, body {
             margin: 0;
             padding: 0;
@@ -67,6 +69,8 @@
             margin: 0;
             padding: 5px 0;
             position: relative;
+            left: 0;
+            right: 0;
             box-sizing: border-box;
         }
 
@@ -75,8 +79,9 @@
             height: 504px;
             object-fit: cover;
             border-radius: 3px;
-            cursor: pointer;
+            cursor: default;
             transition: transform 0.3s;
+            margin: 0;
         }
 
         .image-row img:hover {
@@ -91,7 +96,10 @@
             margin: 0;
             padding: 5px 0;
             position: relative;
+            left: 0;
+            right: 0;
             box-sizing: border-box;
+            margin-left: 0;
         }
 
         .video-queue video {
@@ -100,6 +108,8 @@
             object-fit: cover;
             border-radius: 15px;
             border: 2px solid #ccc;
+            margin: 0;
+            margin-left: 0;
         }
 
         .gallery {
@@ -110,12 +120,13 @@
             margin: 0;
             padding: 5px 0;
             position: relative;
+            left: 0;
+            right: 0;
             box-sizing: border-box;
         }
 
         .gallery .image-container {
             position: relative;
-            cursor: pointer;
         }
 
         .gallery img {
@@ -123,36 +134,50 @@
             height: 504px;
             object-fit: cover;
             border-radius: 3px;
+            cursor: pointer;
             transition: transform 0.3s;
+            margin: 0;
+        }
+
+        .gallery .caption {
+            position: absolute;
+            top: 50%; /* قرار گرفتن در وسط عمودی */
+            left: 50%; /* قرار گرفتن در وسط افقی */
+            transform: translate(-50%, -50%); /* تنظیم دقیق موقعیت وسط */
+            background: rgba(0, 0, 0, 0.5); /* پس‌زمینه نیمه‌شفاف مشکی */
+            backdrop-filter: blur(5px); /* افکت شیشه‌ای */
+            color: white; /* رنگ متن سفید */
+            padding: 15px 20px; /* پدینگ بیشتر برای زیبایی */
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            border-radius: 8px; /* گوشه‌های گرد */
+            max-width: 80%; /* محدودیت عرض متن */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* سایه ملایم */
+        }
+
+        .gallery .caption.active {
+            opacity: 1;
         }
 
         .gallery img:hover {
             transform: scale(1.05);
         }
 
-        .caption {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .image-container.active .caption {
-            opacity: 1;
-        }
-
         @media (max-width: 768px) {
-            .image-row, .video-queue, .gallery {
+            .image-row {
                 grid-template-columns: 1fr;
             }
-
+            .video-queue {
+                grid-template-columns: 1fr;
+            }
+            .gallery {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
             .gallery img {
                 height: auto;
             }
@@ -198,111 +223,235 @@
 
         #contact button {
             width: 100%;
-            background-color: #007BFF;
+            height: 40px;
+            background-color: #313131;
             color: white;
             border: none;
-            padding: 10px;
             border-radius: 5px;
-            font-size: 1rem;
             cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s ease;
         }
 
         #contact button:hover {
-            background-color: #0056b3;
+            background-color: rgb(55, 140, 225);
         }
 
-        #contactBtn {
+        .contact-icon {
             position: fixed;
-            bottom: 20px;
             left: 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 5px;
+            bottom: 20px;
+            z-index: 100;
             cursor: pointer;
-            z-index: 10000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #1f79da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(31, 121, 218, 0.3);
+            border: 2px solid #1f79da;
+            transition: border-color 0.3s ease-in-out, 
+                        background-color 0.3s ease-in-out, 
+                        transform 0.2s ease-in-out;
         }
 
-        #contactBtn:hover {
-            background-color: #0056b3;
+        .contact-icon:hover {
+            border-color: #101010;
+            background-color: #000000;
+            transform: scale(0.9);
+        }
+
+        .contact-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
         }
     </style>
 </head>
-<body>
 
+<body>
+    <!-- Header -->
     <header>
-        <div class="menu">
+        <nav class="menu">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#">Videos</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about-us">About Us</a></li>
+                <li><a href="#contact">Contact Us</a></li>
             </ul>
-        </div>
-        <img src="logo.png" alt="Logo" class="logo">
+        </nav>
+        <img src="IMG_20250121_222009_921.png" class="logo">
     </header>
 
+    <!-- Image Row Section (First Row) -->
     <div class="image-row">
-        <img src="image1.jpg" alt="Image 1" />
-        <img src="image2.jpg" alt="Image 2" />
-        <img src="image3.jpg" alt="Image 3" />
+        <img src="IMG_20250121_213614_487.jpg">
+        <img src="IMG_20250121_213614_781.jpg">
+        <img src="IMG_20250121_213614_932.jpg">
     </div>
 
+    <!-- Video Queue Section -->
     <div class="video-queue">
-        <video src="video1.mp4" autoplay loop muted></video>
-        <video src="video2.mp4" autoplay loop muted></video>
-        <video src="video3.mp4" autoplay loop muted></video>
-        <video src="video4.mp4" autoplay loop muted></video>
+        <video autoplay loop muted>
+            <source src="document_5801138745327490746.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted>
+            <source src="document_5801138745327490747 copy.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted>
+            <source src="document_5801138745327490745 copy.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted>
+            <source src="document_5801138745327490744 copy 2.mp4" type="video/mp4">
+        </video>
     </div>
 
-    <div class="gallery">
+    <!-- Gallery Section -->
+    <div class="gallery" id="gallery">
         <div class="image-container">
-            <img src="gallery1.jpg" alt="Gallery Image 1">
-            <div class="caption">Gallery Image 1 Description</div>
+            <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 1: اینجا یه منظره قشنگه!</div>
         </div>
         <div class="image-container">
-            <img src="gallery2.jpg" alt="Gallery Image 2">
-            <div class="caption">Gallery Image 2 Description</div>
+            <img src="IMG_20250121_213614_782.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 2: این یه لحظه خاصه!</div>
         </div>
         <div class="image-container">
-            <img src="gallery3.jpg" alt="Gallery Image 3">
-            <div class="caption">Gallery Image 3 Description</div>
+            <img src="IMG_20250121_213557_573.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 3: طبیعت در بهترین حالتش!</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_178.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 4</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_463.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 5</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_415.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 6</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_335.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 7</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213604_794.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 8</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213609_915.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 9</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213618_947.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 10</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213618_962.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 11</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213619_055.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 12</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213627_807.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 13</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213628_540.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 14</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213627_785.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 15</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_559.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 16</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_907.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 17</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_951.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 18</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_606.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 19</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_488.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 20</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_362.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 21</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_384.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 22</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_909.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 23</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_600.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 24</div>
         </div>
     </div>
 
-    <button id="contactBtn">Contact Us</button>
+    <!-- Contact Section -->
+    <section id="contact">
+        <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
+            <h2>Contact Us</h2>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
 
-    <div id="contact">
-        <h2>Contact Us</h2>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" placeholder="Your name">
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Your email">
-        </div>
-        <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" rows="4" placeholder="Your message"></textarea>
-        </div>
-        <button>Send</button>
+    <!-- Contact Icon -->
+    <div class="contact-icon">
+        <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
     </div>
 
     <script>
-        document.querySelectorAll('.image-container').forEach(container => {
-            container.addEventListener('click', () => {
-                container.classList.toggle('active');
-            });
+        function toggleContactForm() {
+            const contactForm = document.getElementById('contact');
+            contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
+        }
+
+        document.getElementById("contactForm").addEventListener("submit", function() {
+            setTimeout(() => {
+                document.getElementById("contactForm").reset();
+                toggleContactForm();
+            }, 1000);
         });
 
-        const contactBtn = document.getElementById('contactBtn');
-        const contactForm = document.getElementById('contact');
-
-        contactBtn.addEventListener('click', () => {
-            contactForm.style.display = contactForm.style.display === 'block' ? 'none' : 'block';
+        document.querySelectorAll('.gallery img').forEach(img => {
+            img.addEventListener('click', function() {
+                const caption = this.nextElementSibling;
+                caption.classList.toggle('active');
+            });
         });
     </script>
 </body>
