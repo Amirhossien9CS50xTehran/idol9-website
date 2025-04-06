@@ -12,18 +12,17 @@
             padding: 0;
             box-sizing: border-box;
             width: 100%;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            scroll-behavior: smooth; /* اسکرول نرم برای کل صفحه */
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: Arial, sans-serif;
             height: 100%;
-            overflow-y: scroll; /* Enable vertical scroll */
-            scrollbar-width: none; /* Hide scrollbar in Firefox */
+            overflow-y: scroll;
+            scrollbar-width: none;
         }
 
-        /* Hide scrollbar in Webkit browsers (Chrome, Safari, Opera) */
         ::-webkit-scrollbar {
             display: none;
         }
@@ -62,14 +61,13 @@
             border-radius: 6px;
         }
 
-        /* Image Row Styles (First Row) */
         .image-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            width: 100%; /* Full width */
-            margin: 0; /* No margins */
-            padding: 5px 0; /* Reduced vertical padding */
+            width: 100%;
+            margin: 0;
+            padding: 5px 0;
             position: relative;
             left: 0;
             right: 0;
@@ -78,26 +76,25 @@
 
         .image-row img {
             width: 100%;
-            height: 504px; /* Height unchanged */
+            height: 504px;
             object-fit: cover;
             border-radius: 3px;
-            cursor: default; /* تغییر به default */
+            cursor: default;
             transition: transform 0.3s;
-            margin: 0; /* No individual margins */
+            margin: 0;
         }
 
         .image-row img:hover {
             transform: scale(1.05);
         }
 
-        /* Video Queue Styles */
         .video-queue {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            width: 100%; /* Full width */
-            margin: 0; /* No margins */
-            padding: 5px 0; /* Reduced vertical padding */
+            width: 100%;
+            margin: 0;
+            padding: 5px 0;
             position: relative;
             left: 0;
             right: 0;
@@ -107,22 +104,21 @@
 
         .video-queue video {
             width: 100%;
-            height: 600px; /* Height unchanged */
+            height: 600px;
             object-fit: cover;
-            border-radius: 15px; /* Rounder corners */
+            border-radius: 15px;
             border: 2px solid #ccc;
-            margin: 0; /* No individual margins */
+            margin: 0;
             margin-left: 0;
         }
 
-        /* Gallery Styles */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            width: 100%; /* Full width */
-            margin: 0; /* No margins */
-            padding: 5px 0; /* Reduced vertical padding */
+            width: 100%;
+            margin: 0;
+            padding: 5px 0;
             position: relative;
             left: 0;
             right: 0;
@@ -130,62 +126,63 @@
         }
 
         .gallery .image-container {
-            position: relative; /* برای قرار دادن توضیحات روی عکس */
+            position: relative;
         }
 
         .gallery img {
             width: 100%;
-            height: 504px; /* Height unchanged */
+            height: 504px;
             object-fit: cover;
             border-radius: 3px;
-            cursor: pointer; /* تغییر به pointer برای نشان دادن قابل کلیک بودن */
+            cursor: pointer;
             transition: transform 0.3s;
-            margin: 0; /* No individual margins */
+            margin: 0;
         }
 
         .gallery .caption {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.2); /* پس‌زمینه شفاف سفید */
+            top: 50%; /* قرار گرفتن در وسط عمودی */
+            left: 50%; /* قرار گرفتن در وسط افقی */
+            transform: translate(-50%, -50%); /* تنظیم دقیق موقعیت وسط */
+            background: rgba(0, 0, 0, 0.5); /* پس‌زمینه نیمه‌شفاف مشکی */
             backdrop-filter: blur(5px); /* افکت شیشه‌ای */
-            color: #000; /* رنگ متن */
-            padding: 10px;
+            color: white; /* رنگ متن سفید */
+            padding: 15px 20px; /* پدینگ بیشتر برای زیبایی */
             text-align: center;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            opacity: 0; /* ابتدا مخفی */
-            transition: opacity 0.3s ease; /* انیمیشن محو شدن */
-            pointer-events: none; /* جلوگیری از تداخل کلیک */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            border-radius: 8px; /* گوشه‌های گرد */
+            max-width: 80%; /* محدودیت عرض متن */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* سایه ملایم */
         }
 
         .gallery .caption.active {
-            opacity: 1; /* نمایش با کلیک */
+            opacity: 1;
         }
 
         .gallery img:hover {
             transform: scale(1.05);
         }
 
-        /* Responsive adjustment for smaller screens */
         @media (max-width: 768px) {
             .image-row {
-                grid-template-columns: 1fr; /* Single column on small screens */
+                grid-template-columns: 1fr;
             }
             .video-queue {
-                grid-template-columns: 1fr; /* Single column on small screens */
+                grid-template-columns: 1fr;
             }
             .gallery {
-                grid-template-columns: 1fr; /* Single column on small screens */
-                height: auto; /* Remove fixed height for mobile */
+                grid-template-columns: 1fr;
+                height: auto;
             }
             .gallery img {
-                height: auto; /* Allow natural height in mobile */
+                height: auto;
             }
         }
 
-        /* Contact Section Styles */
         #contact {
             position: fixed;
             bottom: 20px;
@@ -225,8 +222,8 @@
         }
 
         #contact button {
-            width: 100%; /* Full width of the form */
-            height: 40px; /* Adjusted height for text button */
+            width: 100%;
+            height: 40px;
             background-color: #313131;
             color: white;
             border: none;
@@ -242,7 +239,6 @@
             background-color: rgb(55, 140, 225);
         }
 
-        /* Contact Icon Styles */
         .contact-icon {
             position: fixed;
             left: 20px;
@@ -439,25 +435,22 @@
     </div>
 
     <script>
-        // Toggle contact form
         function toggleContactForm() {
             const contactForm = document.getElementById('contact');
             contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
         }
 
-        // Reset form and close after submission
         document.getElementById("contactForm").addEventListener("submit", function() {
             setTimeout(() => {
                 document.getElementById("contactForm").reset();
-                toggleContactForm(); // Close the form after submission
-            }, 1000); // Delay to allow mailto to trigger
+                toggleContactForm();
+            }, 1000);
         });
 
-        // نمایش/مخفی کردن توضیحات گالری
         document.querySelectorAll('.gallery img').forEach(img => {
             img.addEventListener('click', function() {
-                const caption = this.nextElementSibling; // انتخاب تگ caption بعد از عکس
-                caption.classList.toggle('active'); // تغییر وضعیت نمایش/مخفی
+                const caption = this.nextElementSibling;
+                caption.classList.toggle('active');
             });
         });
     </script>
