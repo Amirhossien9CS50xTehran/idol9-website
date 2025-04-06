@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>idol9</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- اضافه کردن فونت Poppins از Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         html, body {
             margin: 0;
@@ -95,18 +97,19 @@
 
         .image-row .caption {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 50%; /* وسط عمودی */
+            left: 20px; /* فاصله 20px از سمت چپ */
+            transform: translateY(-50%); /* فقط محور Y وسط می‌مونه */
             color: white;
             padding: 15px 20px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
+            text-align: left; /* متن از چپ شروع می‌شه */
+            font-size: 1rem; /* کمی کوچیک‌تر برای ظرافت بیشتر */
+            font-family: 'Poppins', sans-serif; /* فونت شکیل */
+            font-weight: 400; /* نه خیلی بولد */
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
-            max-width: 80%;
+            max-width: 50%; /* عرض کپشن محدود می‌شه تا از عکس بیرون نزنه */
             background-color: rgba(128, 128, 128, 0.5);
             border-radius: 8px;
         }
@@ -172,18 +175,19 @@
 
         .gallery .caption {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 50%; /* وسط عمودی */
+            left: 20px; /* فاصله 20px از سمت چپ */
+            transform: translateY(-50%); /* فقط محور Y وسط می‌مونه */
             color: white;
             padding: 15px 20px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
+            text-align: left; /* متن از چپ شروع می‌شه */
+            font-size: 1rem; /* کمی کوچیک‌تر برای ظرافت بیشتر */
+            font-family: 'Poppins', sans-serif; /* فونت شکیل */
+            font-weight: 400; /* نه خیلی بولد */
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
-            max-width: 80%;
+            max-width: 50%; /* عرض کپشن محدود می‌شه تا از عکس بیرون نزنه */
             background-color: rgba(128, 128, 128, 0.5);
             border-radius: 8px;
         }
@@ -209,6 +213,11 @@
             }
             .gallery img {
                 height: auto;
+            }
+            .image-row .caption,
+            .gallery .caption {
+                max-width: 80%; /* توی موبایل عرض کپشن بیشتر می‌شه */
+                font-size: 0.9rem; /* توی موبایل فونت کمی کوچیک‌تر */
             }
         }
 
