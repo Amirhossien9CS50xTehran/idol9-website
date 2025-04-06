@@ -6,22 +6,24 @@
     <title>idol9</title>
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* Reset default browser margins and padding */
         html, body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             width: 100%;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            scroll-behavior: smooth; /* اسکرول نرم برای کل صفحه */
         }
 
         body {
             font-family: Arial, sans-serif;
             height: 100%;
-            overflow-y: scroll;
-            scrollbar-width: none;
+            overflow-y: scroll; /* Enable vertical scroll */
+            scrollbar-width: none; /* Hide scrollbar in Firefox */
         }
 
+        /* Hide scrollbar in Webkit browsers (Chrome, Safari, Opera) */
         ::-webkit-scrollbar {
             display: none;
         }
@@ -60,46 +62,42 @@
             border-radius: 6px;
         }
 
+        /* Image Row Styles (First Row) */
         .image-row {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
             gap: 10px;
-            width: 100%;
-            margin: 0;
-            padding: 5px 0;
+            width: 100%; /* Full width */
+            margin: 0; /* No margins */
+            padding: 5px 0; /* Reduced vertical padding */
             position: relative;
             left: 0;
             right: 0;
             box-sizing: border-box;
         }
 
-        .image-container {
-            position: relative;
-            width: 100%;
-        }
-
         .image-row img {
             width: 100%;
-            height: 504px;
+            height: 504px; /* Height unchanged */
             object-fit: cover;
             border-radius: 3px;
-            cursor: default;
+            cursor: default; /* تغییر به default */
             transition: transform 0.3s;
-            margin: 0;
-            display: block;
+            margin: 0; /* No individual margins */
         }
 
         .image-row img:hover {
             transform: scale(1.05);
         }
 
+        /* Video Queue Styles */
         .video-queue {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
             gap: 10px;
-            width: 100%;
-            margin: 0;
-            padding: 5px 0;
+            width: 100%; /* Full width */
+            margin: 0; /* No margins */
+            padding: 5px 0; /* Reduced vertical padding */
             position: relative;
             left: 0;
             right: 0;
@@ -109,21 +107,22 @@
 
         .video-queue video {
             width: 100%;
-            height: 600px;
+            height: 600px; /* Height unchanged */
             object-fit: cover;
-            border-radius: 15px;
+            border-radius: 15px; /* Rounder corners */
             border: 2px solid #ccc;
-            margin: 0;
+            margin: 0; /* No individual margins */
             margin-left: 0;
         }
 
+        /* Gallery Styles */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
             gap: 10px;
-            width: 100%;
-            margin: 0;
-            padding: 5px 0;
+            width: 100%; /* Full width */
+            margin: 0; /* No margins */
+            padding: 5px 0; /* Reduced vertical padding */
             position: relative;
             left: 0;
             right: 0;
@@ -132,51 +131,36 @@
 
         .gallery img {
             width: 100%;
-            height: 504px;
+            height: 504px; /* Height unchanged */
             object-fit: cover;
             border-radius: 3px;
-            cursor: default;
+            cursor: default; /* تغییر به default */
             transition: transform 0.3s;
-            margin: 0;
-            display: block;
+            margin: 0; /* No individual margins */
         }
 
         .gallery img:hover {
             transform: scale(1.05);
         }
 
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            color: white;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-size: 1.2rem;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
+        /* Responsive adjustment for smaller screens */
         @media (max-width: 768px) {
             .image-row {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Single column on small screens */
             }
             .video-queue {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Single column on small screens */
             }
             .gallery {
-                grid-template-columns: 1fr;
-                height: auto;
+                grid-template-columns: 1fr; /* Single column on small screens */
+                height: auto; /* Remove fixed height for mobile */
             }
             .gallery img {
-                height: auto;
+                height: auto; /* Allow natural height in mobile */
             }
         }
 
+        /* Contact Section Styles */
         #contact {
             position: fixed;
             bottom: 20px;
@@ -216,8 +200,8 @@
         }
 
         #contact button {
-            width: 100%;
-            height: 40px;
+            width: 100%; /* Full width of the form */
+            height: 40px; /* Adjusted height for text button */
             background-color: #313131;
             color: white;
             border: none;
@@ -233,6 +217,7 @@
             background-color: rgb(55, 140, 225);
         }
 
+        /* Contact Icon Styles */
         .contact-icon {
             position: fixed;
             left: 20px;
@@ -250,7 +235,7 @@
             border: 2px solid #1f79da;
             transition: border-color 0.3s ease-in-out, 
                         background-color 0.3s ease-in-out, 
-董事                        transform 0.2s ease-in-out;
+                        transform 0.2s ease-in-out;
         }
 
         .contact-icon:hover {
@@ -268,6 +253,7 @@
 </head>
 
 <body>
+    <!-- Header -->
     <header>
         <nav class="menu">
             <ul>
@@ -279,21 +265,14 @@
         <img src="IMG_20250121_222009_921.png" class="logo">
     </header>
 
+    <!-- Image Row Section (First Row) -->
     <div class="image-row">
-        <div class="image-container">
-            <img src="IMG_20250121_213614_487.jpg">
-            <div class="overlay">توضیحات عکس اول</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213614_781.jpg">
-            <div class="overlay">توضیحات عکس دوم</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213614_932.jpg">
-            <div class="overlay">توضیحات عکس سوم</div>
-        </div>
+        <img src="IMG_20250121_213614_487.jpg">
+        <img src="IMG_20250121_213614_781.jpg">
+        <img src="IMG_20250121_213614_932.jpg">
     </div>
 
+    <!-- Video Queue Section -->
     <div class="video-queue">
         <video autoplay loop muted>
             <source src="document_5801138745327490746.mp4" type="video/mp4">
@@ -309,105 +288,35 @@
         </video>
     </div>
 
+    <!-- Gallery Section -->
     <div class="gallery" id="gallery">
-        <div class="image-container">
-            <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 1</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213614_782.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 2</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213557_573.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 3</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213557_178.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 4</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213557_463.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 5</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213557_415.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 6</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213557_335.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 7</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213604_794.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 8</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213609_915.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 9</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213618_947.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 10</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213618_962.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 11</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213619_055.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 12</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213627_807.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 13</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213628_540.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 14</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213627_785.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 15</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213633_559.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 16</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213633_907.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 17</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213633_951.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 18</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213637_606.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 19</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213633_488.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 20</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213633_362.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 21</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213637_384.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 22</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213637_909.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 23</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213637_600.jpg" class="thumbnail">
-            <div class="overlay">توضیحات گالری 24</div>
-        </div>
+        <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
+        <img src="IMG_20250121_213614_782.jpg" class="thumbnail">
+        <img src="IMG_20250121_213557_573.jpg" class="thumbnail">
+        <img src="IMG_20250121_213557_178.jpg" class="thumbnail">
+        <img src="IMG_20250121_213557_463.jpg" class="thumbnail">
+        <img src="IMG_20250121_213557_415.jpg" class="thumbnail">
+        <img src="IMG_20250121_213557_335.jpg" class="thumbnail">
+        <img src="IMG_20250121_213604_794.jpg" class="thumbnail">
+        <img src="IMG_20250121_213609_915.jpg" class="thumbnail">
+        <img src="IMG_20250121_213618_947.jpg" class="thumbnail">
+        <img src="IMG_20250121_213618_962.jpg" class="thumbnail">
+        <img src="IMG_20250121_213619_055.jpg" class="thumbnail">
+        <img src="IMG_20250121_213627_807.jpg" class="thumbnail">
+        <img src="IMG_20250121_213628_540.jpg" class="thumbnail">
+        <img src="IMG_20250121_213627_785.jpg" class="thumbnail">
+        <img src="IMG_20250121_213633_559.jpg" class="thumbnail">
+        <img src="IMG_20250121_213633_907.jpg" class="thumbnail">
+        <img src="IMG_20250121_213633_951.jpg" class="thumbnail">
+        <img src="IMG_20250121_213637_606.jpg" class="thumbnail">
+        <img src="IMG_20250121_213633_488.jpg" class="thumbnail">
+        <img src="IMG_20250121_213633_362.jpg" class="thumbnail">
+        <img src="IMG_20250121_213637_384.jpg" class="thumbnail">
+        <img src="IMG_20250121_213637_909.jpg" class="thumbnail">
+        <img src="IMG_20250121_213637_600.jpg" class="thumbnail">
     </div>
 
+    <!-- Contact Section -->
     <section id="contact">
         <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
             <h2>Contact Us</h2>
@@ -427,6 +336,7 @@
         </form>
     </section>
 
+    <!-- Contact Icon -->
     <div class="contact-icon">
         <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
     </div>
@@ -442,16 +352,8 @@
         document.getElementById("contactForm").addEventListener("submit", function() {
             setTimeout(() => {
                 document.getElementById("contactForm").reset();
-                toggleContactForm();
-            }, 1000);
-        });
-
-        // Show/Hide overlay on image click
-        document.querySelectorAll('.image-container img').forEach(img => {
-            img.addEventListener('click', function() {
-                const overlay = this.nextElementSibling;
-                overlay.style.display = (overlay.style.display === 'none' || overlay.style.display === '') ? 'flex' : 'none';
-            });
+                toggleContactForm(); // Close the form after submission
+            }, 1000); // Delay to allow mailto to trigger
         });
     </script>
 </body>
