@@ -55,6 +55,12 @@
             border-radius: 4px;
         }
 
+        .menu a.active {
+            background-color: rgb(55, 140, 225);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
         .logo {
             width: 102px;
             border-radius: 6px;
@@ -300,7 +306,8 @@
     <header>
         <nav class="menu">
             <ul>
-                <li><a href="About.html">About Us</a></li>
+                <li><a href="#gallery">Gallery</a></li> <!-- لینک به بخش گالری -->
+                <li><a href="about.html">About Us</a></li> <!-- لینک اصلاح‌شده به about.html -->
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
         </nav>
@@ -484,6 +491,15 @@
                 const caption = this.nextElementSibling;
                 caption.classList.toggle('active');
             });
+        });
+
+        // برای هایلایت کردن لینک فعال
+        const currentPage = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage || (currentPage === '' && href === '#gallery')) {
+                link.classList.add('active');
+            }
         });
     </script>
 </body>
