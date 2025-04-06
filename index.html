@@ -315,7 +315,8 @@
     <header>
         <nav class="menu">
             <ul>
-                <li><a href="about.html">About Us</a></li> <!-- لینک اصلاح‌شده به about.html -->
+                <li><a href="index.html">Gallery</a></li> <!-- لینک به صفحه اصلی -->
+                <li><a href="about.html">About Us</a></li>
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
         </nav>
@@ -505,7 +506,7 @@
         const currentPage = window.location.pathname.split('/').pop();
         document.querySelectorAll('.menu a').forEach(link => {
             const href = link.getAttribute('href');
-            if (href === currentPage || (currentPage === '' && href === '#gallery')) {
+            if (href === currentPage || (currentPage === '' && href === 'index.html')) {
                 link.classList.add('active');
             }
         });
