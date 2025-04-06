@@ -153,10 +153,21 @@
             width: 100%;
             margin: 0;
             padding: 5px 0;
-            position: relative;
+            position: fixed; /* ثابت در بالای صفحه */
+            top: 0;
             left: 0;
             right: 0;
+            height: 100vh; /* تمام‌صفحه */
+            background-color: rgba(0, 0, 0, 0.9); /* پس‌زمینه تیره برای بهتر دیده شدن */
+            overflow-y: auto; /* اسکرول عمودی برای گالری */
+            z-index: 1000; /* بالاتر از بقیه المان‌ها */
             box-sizing: border-box;
+            transition: transform 0.3s ease; /* انیمیشن برای ورود/خروج */
+            transform: translateY(-100%); /* به صورت پیش‌فرض مخفی (بالای صفحه) */
+        }
+
+        .gallery.active {
+            transform: translateY(0); /* وقتی فعال می‌شه، از بالا وارد می‌شه */
         }
 
         .gallery .image-container {
@@ -200,6 +211,27 @@
             transform: scale(1.05);
         }
 
+        /* استایل دکمه بستن */
+        .close-gallery {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            z-index: 1001;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-gallery:hover {
+            background-color: #e60000;
+        }
+
         @media (max-width: 768px) {
             .image-row {
                 grid-template-columns: 1fr;
@@ -209,7 +241,7 @@
             }
             .gallery {
                 grid-template-columns: 1fr;
-                height: auto;
+                height: 100vh;
             }
             .gallery img {
                 height: auto;
@@ -315,7 +347,8 @@
     <header>
         <nav class="menu">
             <ul>
-                <li><a href="about.html">About Us</a></li> <!-- لینک اصلاح‌شده به about.html -->
+                <li><a href="#" onclick="toggleGallery()">Gallery</a></li> <!-- لینک گالری با تابع جدید -->
+                <li><a href="about.html">About Us</a></li>
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
         </nav>
@@ -353,6 +386,7 @@
     </div>
 
     <div class="gallery" id="gallery">
+        <button class="close-gallery" onclick="toggleGallery()">Close</button> <!-- دکمه بستن -->
         <div class="image-container">
             <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
             <div class="caption">Modern bedroom with a tufted gray fabric bed, light wooden floor, and gray rug. Features a white marble headboard wall, crystal chandelier, metallic nightstands, glass decor, and potted plants</div>
@@ -374,7 +408,7 @@
             <div class="caption">Modern living room with a beige fabric sofa, tan leather chair, and gray rug. Features a wooden shelf with glass panels, LED lighting, ceramic decor, books, and dried branches on a sleek black coffee table</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213557_415.jpg" class="thumbnail">
+            <img src="IMG_ universes/20250121_213557_415.jpg" class="thumbnail">
             <div class="caption">Modern kitchen with beige cabinets, white stone countertop, and light wooden floor. Features gray fabric bar stools, wooden shelves with glass panels, black appliances, glassware, ceramic decor, and dried branches</div>
         </div>
         <div class="image-container">
@@ -480,6 +514,12 @@
             contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
         }
 
+        // تابع برای نمایش/مخفی کردن گالری
+        function toggleGallery() {
+            const gallery = document.getElementById('gallery');
+            gallery.classList.toggle('active');
+        }
+
         document.getElementById("contactForm").addEventListener("submit", function() {
             setTimeout(() => {
                 document.getElementById("contactForm").reset();
@@ -499,15 +539,6 @@
                 const caption = this.nextElementSibling;
                 caption.classList.toggle('active');
             });
-        });
-
-        // برای هایلایت کردن لینک فعال
-        const currentPage = window.location.pathname.split('/').pop();
-        document.querySelectorAll('.menu a').forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === currentPage || (currentPage === '' && href === '#gallery')) {
-                link.classList.add('active');
-            }
         });
     </script>
 </body>
