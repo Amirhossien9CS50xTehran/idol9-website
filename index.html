@@ -315,9 +315,8 @@
     <header>
         <nav class="menu">
             <ul>
-                <li><a href="index.html" data-page="index.html">Gallery</a></li> <!-- اضافه کردن data-page -->
-                <li><a href="about.html" data-page="about.html">About Us</a></li>
-                <li><a href="#contact" data-page="#contact">Contact Us</a></li>
+                <li><a href="about.html">About Us</a></li> <!-- لینک اصلاح‌شده به about.html -->
+                <li><a href="#contact">Contact Us</a></li>
             </ul>
         </nav>
         <img src="IMG_20250121_222009_921.png" class="logo">
@@ -503,31 +502,13 @@
         });
 
         // برای هایلایت کردن لینک فعال
-        function highlightActiveLink() {
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html'; // اگر صفحه خالی بود، index.html فرض می‌شه
-            const links = document.querySelectorAll('.menu a');
-
-            // حذف کلاس active از همه لینک‌ها
-            links.forEach(link => {
-                link.classList.remove('active');
-            });
-
-            // اضافه کردن کلاس active به لینک فعلی
-            links.forEach(link => {
-                const href = link.getAttribute('data-page');
-                if (href === currentPage) {
-                    link.classList.add('active');
-                } else if (href === '#contact' && window.location.hash === '#contact') {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        // اجرای اولیه
-        highlightActiveLink();
-
-        // گوش دادن به تغییرات hash (برای Contact Us)
-        window.addEventListener('hashchange', highlightActiveLink);
+        const currentPage = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage || (currentPage === '' && href === '#gallery')) {
+                link.classList.add('active');
+            }
+        });
     </script>
 </body>
 </html>
