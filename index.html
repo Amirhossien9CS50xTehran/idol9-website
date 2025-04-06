@@ -98,11 +98,11 @@
         .image-row .caption {
             position: absolute;
             top: 50%; /* وسط عمودی */
-            right: 20px; /* فاصله 20px از سمت راست */
+            left: 20px; /* فاصله 20px از سمت چپ */
             transform: translateY(-50%); /* فقط محور Y وسط می‌مونه */
             color: white;
             padding: 15px 20px;
-            text-align: right; /* متن از راست شروع می‌شه */
+            text-align: left; /* متن از چپ شروع می‌شه */
             font-size: 1rem; /* کمی کوچیک‌تر برای ظرافت بیشتر */
             font-family: 'Poppins', sans-serif; /* فونت شکیل */
             font-weight: 400; /* نه خیلی بولد */
@@ -153,21 +153,10 @@
             width: 100%;
             margin: 0;
             padding: 5px 0;
-            position: fixed; /* ثابت در بالای صفحه */
-            top: 0;
+            position: relative;
             left: 0;
             right: 0;
-            height: 100vh; /* تمام‌صفحه */
-            background-color: rgba(0, 0, 0, 0.9); /* پس‌زمینه تیره برای بهتر دیده شدن */
-            overflow-y: auto; /* اسکرول عمودی برای گالری */
-            z-index: 1000; /* بالاتر از بقیه المان‌ها */
             box-sizing: border-box;
-            transition: transform 0.3s ease; /* انیمیشن برای ورود/خروج */
-            transform: translateY(-100%); /* به صورت پیش‌فرض مخفی (بالای صفحه) */
-        }
-
-        .gallery.active {
-            transform: translateY(0); /* وقتی فعال می‌شه، از بالا وارد می‌شه */
         }
 
         .gallery .image-container {
@@ -187,11 +176,11 @@
         .gallery .caption {
             position: absolute;
             top: 50%; /* وسط عمودی */
-            right: 20px; /* فاصله 20px از سمت راست */
+            left: 20px; /* فاصله 20px از سمت چپ */
             transform: translateY(-50%); /* فقط محور Y وسط می‌مونه */
             color: white;
             padding: 15px 20px;
-            text-align: right; /* متن از راست شروع می‌شه */
+            text-align: left; /* متن از چپ شروع می‌شه */
             font-size: 1rem; /* کمی کوچیک‌تر برای ظرافت بیشتر */
             font-family: 'Poppins', sans-serif; /* فونت شکیل */
             font-weight: 400; /* نه خیلی بولد */
@@ -211,27 +200,6 @@
             transform: scale(1.05);
         }
 
-        /* استایل دکمه بستن */
-        .close-gallery {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            z-index: 1001;
-            transition: background-color 0.3s ease;
-        }
-
-        .close-gallery:hover {
-            background-color: #e60000;
-        }
-
         @media (max-width: 768px) {
             .image-row {
                 grid-template-columns: 1fr;
@@ -241,7 +209,7 @@
             }
             .gallery {
                 grid-template-columns: 1fr;
-                height: 100vh;
+                height: auto;
             }
             .gallery img {
                 height: auto;
@@ -347,7 +315,7 @@
     <header>
         <nav class="menu">
             <ul>
-                <li><a href="about.html">About Us</a></li>
+                <li><a href="about.html">About Us</a></li> <!-- لینک اصلاح‌شده به about.html -->
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
         </nav>
@@ -384,7 +352,7 @@
         </video>
     </div>
 
-       <div class="gallery" id="gallery">
+    <div class="gallery" id="gallery">
         <div class="image-container">
             <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
             <div class="caption">Modern bedroom with a tufted gray fabric bed, light wooden floor, and gray rug. Features a white marble headboard wall, crystal chandelier, metallic nightstands, glass decor, and potted plants</div>
@@ -483,7 +451,6 @@
         </div>
     </div>
 
-
     <section id="contact">
         <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
             <h2>Contact Us</h2>
@@ -513,27 +480,6 @@
             contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
         }
 
-        // تابع برای نمایش/مخفی کردن گالری
-        function toggleGallery() {
-            const gallery = document.getElementById('gallery');
-            gallery.classList.toggle('active');
-            // وقتی گالری بسته می‌شه، پارامتر URL رو پاک می‌کنیم
-            if (!gallery.classList.contains('active')) {
-                window.history.replaceState({}, document.title, 'index.html');
-            }
-        }
-
-        // چک کردن پارامتر URL برای نمایش گالری
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('showGallery') === 'true') {
-                const gallery = document.getElementById('gallery');
-                gallery.classList.add('active');
-                // اسکرول به بالای صفحه
-                window.scrollTo(0, 0);
-            }
-        };
-
         document.getElementById("contactForm").addEventListener("submit", function() {
             setTimeout(() => {
                 document.getElementById("contactForm").reset();
@@ -553,6 +499,15 @@
                 const caption = this.nextElementSibling;
                 caption.classList.toggle('active');
             });
+        });
+
+        // برای هایلایت کردن لینک فعال
+        const currentPage = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage || (currentPage === '' && href === '#gallery')) {
+                link.classList.add('active');
+            }
         });
     </script>
 </body>
