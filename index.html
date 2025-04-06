@@ -6,7 +6,6 @@
     <title>idol9</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Reset default browser margins and padding */
         html, body {
             margin: 0;
             padding: 0;
@@ -160,10 +159,8 @@
             font-size: 1.2rem;
             padding: 10px;
             box-sizing: border-box;
-            border-radius: 3px;
             transition: opacity 0.3s ease;
             opacity: 0;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* سایه برای خوانایی */
         }
 
         @media (max-width: 768px) {
@@ -273,7 +270,6 @@
 </head>
 
 <body>
-    <!-- Header -->
     <header>
         <nav class="menu">
             <ul>
@@ -285,7 +281,6 @@
         <img src="IMG_20250121_222009_921.png" class="logo">
     </header>
 
-    <!-- Image Row Section (First Row) -->
     <div class="image-row">
         <div class="image-container">
             <img src="IMG_20250121_213614_487.jpg">
@@ -301,10 +296,9 @@
         </div>
     </div>
 
-    <!-- Video Queue Section -->
     <div class="video-queue">
         <video autoplay loop muted>
-            <source src="document_5801138745327490746.mp 4" type="video/mp4">
+            <source src="document_5801138745327490746.mp4" type="video/mp4">
         </video>
         <video autoplay loop muted>
             <source src="document_5801138745327490747 copy.mp4" type="video/mp4">
@@ -317,7 +311,6 @@
         </video>
     </div>
 
-    <!-- Gallery Section -->
     <div class="gallery" id="gallery">
         <div class="image-container">
             <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
@@ -417,7 +410,6 @@
         </div>
     </div>
 
-    <!-- Contact Section -->
     <section id="contact">
         <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
             <h2>Contact Us</h2>
@@ -437,19 +429,16 @@
         </form>
     </section>
 
-    <!-- Contact Icon -->
     <div class="contact-icon">
         <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
     </div>
 
     <script>
-        // Toggle contact form
         function toggleContactForm() {
             const contactForm = document.getElementById('contact');
-            contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
+            contactForm.style.display = contactForm.style.display === 'none' || contactForm Wstyle.display === '' ? 'block' : 'none';
         }
 
-        // Reset form and close after submission
         document.getElementById("contactForm").addEventListener("submit", function() {
             setTimeout(() => {
                 document.getElementById("contactForm").reset();
@@ -457,7 +446,6 @@
             }, 1000);
         });
 
-        // Show/Hide overlay on image click
         document.querySelectorAll('.image-container img').forEach(img => {
             img.addEventListener('click', function() {
                 const overlay = this.nextElementSibling;
