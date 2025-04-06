@@ -129,14 +129,39 @@
             box-sizing: border-box;
         }
 
+        .gallery .image-container {
+            position: relative; /* برای قرار دادن توضیحات روی عکس */
+        }
+
         .gallery img {
             width: 100%;
             height: 504px; /* Height unchanged */
             object-fit: cover;
             border-radius: 3px;
-            cursor: default; /* تغییر به default */
+            cursor: pointer; /* تغییر به pointer برای نشان دادن قابل کلیک بودن */
             transition: transform 0.3s;
             margin: 0; /* No individual margins */
+        }
+
+        .gallery .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.2); /* پس‌زمینه شفاف سفید */
+            backdrop-filter: blur(5px); /* افکت شیشه‌ای */
+            color: #000; /* رنگ متن */
+            padding: 10px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            opacity: 0; /* ابتدا مخفی */
+            transition: opacity 0.3s ease; /* انیمیشن محو شدن */
+            pointer-events: none; /* جلوگیری از تداخل کلیک */
+        }
+
+        .gallery .caption.active {
+            opacity: 1; /* نمایش با کلیک */
         }
 
         .gallery img:hover {
@@ -290,30 +315,102 @@
 
     <!-- Gallery Section -->
     <div class="gallery" id="gallery">
-        <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
-        <img src="IMG_20250121_213614_782.jpg" class="thumbnail">
-        <img src="IMG_20250121_213557_573.jpg" class="thumbnail">
-        <img src="IMG_20250121_213557_178.jpg" class="thumbnail">
-        <img src="IMG_20250121_213557_463.jpg" class="thumbnail">
-        <img src="IMG_20250121_213557_415.jpg" class="thumbnail">
-        <img src="IMG_20250121_213557_335.jpg" class="thumbnail">
-        <img src="IMG_20250121_213604_794.jpg" class="thumbnail">
-        <img src="IMG_20250121_213609_915.jpg" class="thumbnail">
-        <img src="IMG_20250121_213618_947.jpg" class="thumbnail">
-        <img src="IMG_20250121_213618_962.jpg" class="thumbnail">
-        <img src="IMG_20250121_213619_055.jpg" class="thumbnail">
-        <img src="IMG_20250121_213627_807.jpg" class="thumbnail">
-        <img src="IMG_20250121_213628_540.jpg" class="thumbnail">
-        <img src="IMG_20250121_213627_785.jpg" class="thumbnail">
-        <img src="IMG_20250121_213633_559.jpg" class="thumbnail">
-        <img src="IMG_20250121_213633_907.jpg" class="thumbnail">
-        <img src="IMG_20250121_213633_951.jpg" class="thumbnail">
-        <img src="IMG_20250121_213637_606.jpg" class="thumbnail">
-        <img src="IMG_20250121_213633_488.jpg" class="thumbnail">
-        <img src="IMG_20250121_213633_362.jpg" class="thumbnail">
-        <img src="IMG_20250121_213637_384.jpg" class="thumbnail">
-        <img src="IMG_20250121_213637_909.jpg" class="thumbnail">
-        <img src="IMG_20250121_213637_600.jpg" class="thumbnail">
+        <div class="image-container">
+            <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 1: اینجا یه منظره قشنگه!</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213614_782.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 2: این یه لحظه خاصه!</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_573.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 3: طبیعت در بهترین حالتش!</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_178.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 4</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_463.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 5</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_415.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 6</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_335.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 7</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213604_794.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 8</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213609_915.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 9</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213618_947.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 10</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213618_962.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 11</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213619_055.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 12</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213627_807.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 13</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213628_540.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 14</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213627_785.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 15</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_559.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 16</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_907.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 17</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_951.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 18</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_606.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 19</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_488.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 20</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_362.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 21</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_384.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 22</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_909.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 23</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_600.jpg" class="thumbnail">
+            <div class="caption">توضیحات عکس 24</div>
+        </div>
     </div>
 
     <!-- Contact Section -->
@@ -354,6 +451,14 @@
                 document.getElementById("contactForm").reset();
                 toggleContactForm(); // Close the form after submission
             }, 1000); // Delay to allow mailto to trigger
+        });
+
+        // نمایش/مخفی کردن توضیحات گالری
+        document.querySelectorAll('.gallery img').forEach(img => {
+            img.addEventListener('click', function() {
+                const caption = this.nextElementSibling; // انتخاب تگ caption بعد از عکس
+                caption.classList.toggle('active'); // تغییر وضعیت نمایش/مخفی
+            });
         });
     </script>
 </body>
