@@ -347,7 +347,7 @@
     <header>
         <nav class="menu">
             <ul>
-                <li><a href="#" onclick="toggleGallery()">Gallery</a></li> <!-- لینک گالری با تابع جدید -->
+                <li><a href="index.html?showGallery=true">Gallery</a></li> <!-- لینک به index.html با پارامتر -->
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
@@ -408,7 +408,7 @@
             <div class="caption">Modern living room with a beige fabric sofa, tan leather chair, and gray rug. Features a wooden shelf with glass panels, LED lighting, ceramic decor, books, and dried branches on a sleek black coffee table</div>
         </div>
         <div class="image-container">
-            <img src="IMG_ universes/20250121_213557_415.jpg" class="thumbnail">
+            <img src="IMG_20250121_213557_415.jpg" class="thumbnail">
             <div class="caption">Modern kitchen with beige cabinets, white stone countertop, and light wooden floor. Features gray fabric bar stools, wooden shelves with glass panels, black appliances, glassware, ceramic decor, and dried branches</div>
         </div>
         <div class="image-container">
@@ -518,7 +518,22 @@
         function toggleGallery() {
             const gallery = document.getElementById('gallery');
             gallery.classList.toggle('active');
+            // وقتی گالری بسته می‌شه، پارامتر URL رو پاک می‌کنیم
+            if (!gallery.classList.contains('active')) {
+                window.history.replaceState({}, document.title, 'index.html');
+            }
         }
+
+        // چک کردن پارامتر URL برای نمایش گالری
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('showGallery') === 'true') {
+                const gallery = document.getElementById('gallery');
+                gallery.classList.add('active');
+                // اسکرول به بالای صفحه
+                window.scrollTo(0, 0);
+            }
+        };
 
         document.getElementById("contactForm").addEventListener("submit", function() {
             setTimeout(() => {
