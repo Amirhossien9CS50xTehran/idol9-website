@@ -6,7 +6,6 @@
     <title>idol9</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Reset default browser margins and padding */
         html, body {
             margin: 0;
             padding: 0;
@@ -64,7 +63,7 @@
         .image-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            gap: 10 acionpx;
             width: 100%;
             margin: 0;
             padding: 5px 0;
@@ -74,14 +73,38 @@
             box-sizing: border-box;
         }
 
+        .image-row .image-container {
+            position: relative;
+        }
+
         .image-row img {
             width: 100%;
             height: 504px;
             object-fit: cover;
             border-radius: 3px;
-            cursor: default;
+            cursor: pointer; /* تغییر به pointer */
             transition: transform 0.3s;
             margin: 0;
+        }
+
+        .image-row .caption {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white; /* رنگ متن سفید */
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            max-width: 80%;
+        }
+
+        .image-row .caption.active {
+            opacity: 1;
         }
 
         .image-row img:hover {
@@ -141,22 +164,18 @@
 
         .gallery .caption {
             position: absolute;
-            top: 50%; /* قرار گرفتن در وسط عمودی */
-            left: 50%; /* قرار گرفتن در وسط افقی */
-            transform: translate(-50%, -50%); /* تنظیم دقیق موقعیت وسط */
-            background: rgba(0, 0, 0, 0.5); /* پس‌زمینه نیمه‌شفاف مشکی */
-            backdrop-filter: blur(5px); /* افکت شیشه‌ای */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             color: white; /* رنگ متن سفید */
-            padding: 15px 20px; /* پدینگ بیشتر برای زیبایی */
+            padding: 15px 20px;
             text-align: center;
             font-size: 1.2rem;
             font-weight: bold;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
-            border-radius: 8px; /* گوشه‌های گرد */
-            max-width: 80%; /* محدودیت عرض متن */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* سایه ملایم */
+            max-width: 80%;
         }
 
         .gallery .caption.active {
@@ -274,7 +293,6 @@
 </head>
 
 <body>
-    <!-- Header -->
     <header>
         <nav class="menu">
             <ul>
@@ -286,14 +304,21 @@
         <img src="IMG_20250121_222009_921.png" class="logo">
     </header>
 
-    <!-- Image Row Section (First Row) -->
     <div class="image-row">
-        <img src="IMG_20250121_213614_487.jpg">
-        <img src="IMG_20250121_213614_781.jpg">
-        <img src="IMG_20250121_213614_932.jpg">
+        <div class="image-container">
+            <img src="IMG_20250121_213614_487.jpg">
+            <div class="caption">توضیحات عکس 1: این یه منظره فوق‌العاده‌ست!</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213614_781.jpg">
+            <div class="caption">توضیحات عکس 2: لحظه‌ای خاص!</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213614_932.jpg">
+            <div class="caption">توضیحات عکس 3: طبیعت زیبا!</div>
+        </div>
     </div>
 
-    <!-- Video Queue Section -->
     <div class="video-queue">
         <video autoplay loop muted>
             <source src="document_5801138745327490746.mp4" type="video/mp4">
@@ -305,11 +330,10 @@
             <source src="document_5801138745327490745 copy.mp4" type="video/mp4">
         </video>
         <video autoplay loop muted>
-            <source src="document_5801138745327490744 copy 2.mp4" type="video/mp4">
+            <source classificatiom<source src="document_5801138745327490744 copy 2.mp4" type="video/mp4">
         </video>
     </div>
 
-    <!-- Gallery Section -->
     <div class="gallery" id="gallery">
         <div class="image-container">
             <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
@@ -409,7 +433,6 @@
         </div>
     </div>
 
-    <!-- Contact Section -->
     <section id="contact">
         <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
             <h2>Contact Us</h2>
@@ -429,7 +452,6 @@
         </form>
     </section>
 
-    <!-- Contact Icon -->
     <div class="contact-icon">
         <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
     </div>
@@ -447,7 +469,16 @@
             }, 1000);
         });
 
+        // برای گالری
         document.querySelectorAll('.gallery img').forEach(img => {
+            img.addEventListener('click', function() {
+                const caption = this.nextElementSibling;
+                caption.classList.toggle('active');
+            });
+        });
+
+        // برای سه عکس اول
+        document.querySelectorAll('.image-row img').forEach(img => {
             img.addEventListener('click', function() {
                 const caption = this.nextElementSibling;
                 caption.classList.toggle('active');
