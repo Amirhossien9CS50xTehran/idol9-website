@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>idol9</title>
     <link rel="stylesheet" href="styles.css">
-    <li><a href="/contact.html">Contact Us</a></li>
-    <!-- اضافه کردن فونت Poppins از Google Fonts -->
+    <!-- Adding Poppins font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -98,19 +97,19 @@
 
         .image-row .caption {
             position: absolute;
-            top: 50%; /* وسط عمودی */
-            right: 20px; /* فاصله 20px از سمت راست */
-            transform: translateY(-50%); /* فقط محور Y وسط می‌مونه */
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
             color: white;
             padding: 15px 20px;
-            text-align: right; /* متن از راست شروع می‌شه */
-            font-size: 1rem; /* کمی کوچیک‌تر برای ظرافت بیشتر */
-            font-family: 'Poppins', sans-serif; /* فونت شکیل */
-            font-weight: 400; /* نه خیلی بولد */
+            text-align: right;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
-            max-width: 50%; /* عرض کپشن محدود می‌شه تا از عکس بیرون نزنه */
+            max-width: 50%;
             background-color: rgba(128, 128, 128, 0.5);
             border-radius: 8px;
         }
@@ -137,7 +136,7 @@
             margin-left: 0;
         }
 
-        .video-queue video {
+        .ół-queue video {
             width: 100%;
             height: 600px;
             object-fit: cover;
@@ -176,19 +175,19 @@
 
         .gallery .caption {
             position: absolute;
-            top: 50%; /* وسط عمودی */
-            right: 20px; /* فاصله 20px از سمت راست */
-            transform: translateY(-50%); /* فقط محور Y وسط می‌مونه */
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
             color: white;
             padding: 15px 20px;
-            text-align: right; /* متن از راست شروع می‌شه */
-            font-size: 1rem; /* کمی کوچیک‌تر برای ظرافت بیشتر */
-            font-family: 'Poppins', sans-serif; /* فونت شکیل */
-            font-weight: 400; /* نه خیلی بولد */
+            text-align: right;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
-            max-width: 50%; /* عرض کپشن محدود می‌شه تا از عکس بیرون نزنه */
+            max-width: 50%;
             background-color: rgba(128, 128, 128, 0.5);
             border-radius: 8px;
         }
@@ -217,8 +216,8 @@
             }
             .image-row .caption,
             .gallery .caption {
-                max-width: 80%; /* توی موبایل عرض کپشن بیشتر می‌شه */
-                font-size: 0.9rem; /* توی موبایل فونت کمی کوچیک‌تر */
+                max-width: 80%;
+                font-size: 0.9rem;
             }
         }
 
@@ -316,8 +315,8 @@
     <header>
         <nav class="menu">
             <ul>
-                <li><a href="about.html">About Us</a></li> <!-- لینک اصلاح‌شده به about.html -->
-                <li><a href="/contact.html">Contact Us</a></li> <!-- Changed from #contact to contact.html -->
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
             </ul>
         </nav>
         <img src="IMG_20250121_222009_921.png" class="logo">
@@ -432,7 +431,7 @@
         </div>
         <div class="image-container">
             <img src="IMG_20250121_213633_488.jpg" class="thumbnail">
-            <div class="caption">Modern living room with gray fabric sofas, light wooden floor, and gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</div>
+            <div class="caption">Modern living room with gray fabric sofas, light wooden floor, and gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</></div>
         </div>
         <div class="image-container">
             <img src="IMG_20250121_213633_362.jpg" class="thumbnail">
@@ -502,7 +501,7 @@
             });
         });
 
-        // برای هایلایت کردن لینک فعال
+        // Highlight the active link
         const currentPage = window.location.pathname.split('/').pop();
         document.querySelectorAll('.menu a').forEach(link => {
             const href = link.getAttribute('href');
