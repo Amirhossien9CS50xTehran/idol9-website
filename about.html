@@ -68,13 +68,14 @@
         .about-container {
             display: flex;
             align-items: center;
-            gap: 12px;
-            max-width: 1200px;
-            margin: 0 auto;
+            gap: 20px; /* فاصله بین عکس و متن */
+            max-width: 1200px; /* حداکثر عرض کانتینر */
+            margin: 0 auto; /* وسط‌چین کردن */
         }
 
         .about-text {
-            flex: 1;
+            flex: 1; /* متن باقی‌مونده فضا رو بگیره */
+            text-align: left; /* متن از چپ شروع بشه */
         }
 
         .about-section h1 {
@@ -86,16 +87,13 @@
         .about-section p {
             font-size: 1.2rem;
             line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
             color: #555;
         }
 
         .about-image img {
-            max-width: 100%;
+            width: 400px; /* اندازه ثابت برای دسکتاپ */
             height: auto;
             border-radius: 3px;
-            margin-left: 0;
         }
 
         #contact {
@@ -186,16 +184,21 @@
             border-radius: 50%;
         }
 
-        /* تنظیمات رسپانسیو */
+        /* تنظیمات رسپانسیو برای گوشی */
         @media (max-width: 768px) {
             .about-container {
-                flex-direction: column;
+                flex-direction: column; /* توی گوشی عمودی بشه */
                 padding: 20px;
             }
 
             .about-image img {
-                width: 100%;
-                margin: 0;
+                width: 100%; /* توی گوشی کل عرض رو بگیره */
+                max-width: 400px; /* یه حد ماکزیمم برای جلوگیری از بزرگ شدن بیش از حد */
+                margin: 0 auto; /* وسط‌چین بشه */
+            }
+
+            .about-text {
+                text-align: center; /* توی گوشی متن وسط‌چین بشه */
             }
 
             .about-section h1 {
@@ -207,15 +210,15 @@
             }
 
             .menu ul {
-                gap: 10px; /* فاصله بین منوها توی گوشی کمتر بشه */
+                gap: 10px;
             }
 
             .menu a {
-                font-size: medium; /* فونت منو توی گوشی کوچیک‌تر بشه */
+                font-size: medium;
             }
 
             .logo {
-                width: 80px; /* لوگو توی گوشی کوچیک‌تر بشه */
+                width: 80px;
             }
 
             #contact {
