@@ -1,165 +1,305 @@
-form {
-    width: 300px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-}
-
-label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-input, textarea {
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     width: 100%;
-    padding: 10px;
-    margin: 36px 0 36px;
-    border: 1px solid #ccc;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #313131;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: large;
+}
+
+.menu a:hover {
+    background-color: rgb(55, 140, 225);
+    padding: 5px;
     border-radius: 4px;
 }
 
-button {
-    width: auto;
-    padding: 12px;
-    background-color: #00eeff;
+.menu a.active {
+    background-color: rgb(55, 140, 225);
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.logo {
+    width: 102px;
+    border-radius: 6px;
+}
+
+.image-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+    padding: 5px 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+}
+
+.image-row .image-container {
+    position: relative;
+}
+
+.image-row img {
+    width: 100%;
+    height: 504px;
+    object-fit: cover;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    margin: 0;
+}
+
+.image-row .caption {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    color: white;
+    padding: 15px 20px;
+    text-align: right;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    max-width: 50%;
+    background-color: rgba(128, 128, 128, 0.5);
+    border-radius: 8px;
+}
+
+.image-row .caption.active {
+    opacity: 1;
+}
+
+.image-row img:hover {
+    transform: scale(1.05);
+}
+
+.video-queue {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+    padding: 5px 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    margin-left: 0;
+}
+
+.video-queue video {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 2px solid #ccc;
+    margin: 0;
+    margin-left: 0;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+    padding: 5px 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+}
+
+.gallery .image-container {
+    position: relative;
+}
+
+.gallery img {
+    width: 100%;
+    height: 504px;
+    object-fit: cover;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    margin: 0;
+}
+
+.gallery .caption {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    color: white;
+    padding: 15px 20px;
+    text-align: right;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    max-width: 50%;
+    background-color: rgba(128, 128, 128, 0.5);
+    border-radius: 8px;
+}
+
+.gallery .caption.active {
+    opacity: 1;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .image-row {
+        grid-template-columns: 1fr;
+    }
+    .video-queue {
+        grid-template-columns: 1fr;
+    }
+    .gallery {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+    .gallery img {
+        height: auto;
+    }
+    .image-row .caption,
+    .gallery .caption {
+        max-width: 80%;
+        font-size: 0.9rem;
+    }
+}
+
+#contact {
+    position: fixed;
+    bottom: 20px;
+    left: 63px;
+    width: 300px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: none;
+    z-index: 9999;
+}
+
+#contact h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+#contact .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+#contact label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 9px;
+}
+
+#contact input,
+#contact textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#contact button {
+    width: 100%;
+    height: 40px;
+    background-color: #313131;
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #ef1d1d;
-}
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    margin: 0;
-    text-align: center;
+#contact button:hover {
+    background-color: rgb(55, 140, 225);
 }
 
-h1 {
-    color: #000000;
-}
-
-p {
-    font-size: 18px;
-    line-height: 1.6;
-}
-
-ul, ol {
-    list-style-position: inside;
-}
-
-a {
-    color: #0971f0;
-    text-decoration: none;
-    font-size: 18px;
-    margin-top: 10px;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-div {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h3 {
-    color: #333;
-}
-
-p {
-    font-size: 16px;
-}
-img {
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-body {
-    font-family: 'Roboto', sans-serif;
-}
-body {
-    margin-top: 20px;
-    padding: 0;
-}
-img {
-    width: auto;
-    height: auto;
-    max-width: 100%;
-}
-
-h1 {
-    padding-top: 20px;
-}
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-}
-/* Slider Styles */
-.slider-container {
-    position: relative;
-    width: 369px;
-    max-width: 369px; /* یا همون سایز عکس‌های سایتت */
-    height: 402px; /* یا هر اندازه‌ای که با بقیه‌ی عکسات هماهنگ باشه */
-    margin: 20px auto; /* مرکز قرار گرفتن */
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    justify-content: center;
-}
-
-.slider {
-    display: flex;
-    transition: transform 0.6s ease-in-out;
-}
-
-.slide {
-    min-width: 100%;
-    height: 100%;
-}
-
-.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* تصاویر رو برش می‌ده تا با سایز هماهنگ بشن */
-    border-radius: 10px;
-}
-
-/* Navigation Buttons */
-.prev, .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px 15px;
+.contact-icon {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 100;
     cursor: pointer;
-    font-size: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #1f79da;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(31, 121, 218, 0.3);
+    border: 2px solid #1f79da;
+    transition: border-color 0.3s ease-in-out, 
+                background-color 0.3s ease-in-out, 
+                transform 0.2s ease-in-out;
+}
+
+.contact-icon:hover {
+    border-color: #101010;
+    background-color: #000000;
+    transform: scale(0.9);
+}
+
+.contact-img {
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 
-.prev { left: 10px; }
-.next { right: 10px; }
-
-.prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+.content {
+    padding: 20px;
+    text-align: center;
 }
