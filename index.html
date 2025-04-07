@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>idol9</title>
-    <link rel="icon" type="image/png" href="IMG_20250121_222009_921 - Copy (15).png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="IMG_20250121_222009_921 - Copy (15).png"> <!-- فاویکون اصلاح‌شده -->
+    <link rel="stylesheet" href="styles.css"> <!-- اگه فایل styles.css نداری، این خط رو حذف کن -->
+    <!-- اضافه کردن فونت Poppins از Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -292,14 +293,12 @@
             align-items: center;
             box-shadow: 0 4px 6px rgba(31, 121, 218, 0.3);
             border: 2px solid #1f79da;
-            transform: scale(1); /* مقدار پیش‌فرض برای حالت اولیه */
             transition: border-color 0.3s ease-in-out, 
                         background-color 0.3s ease-in-out, 
                         transform 0.2s ease-in-out;
         }
 
-        .contact-icon:hover,
-        .contact-icon:active { /* ترکیب hover و active برای موبایل */
+        .contact-icon:hover {
             border-color: #101010;
             background-color: #000000;
             transform: scale(0.9);
@@ -479,18 +478,7 @@
     <script>
         function toggleContactForm() {
             const contactForm = document.getElementById('contact');
-            const contactIcon = document.querySelector('.contact-icon');
-            const isFormVisible = contactForm.style.display === 'block';
-
-            // تغییر نمایش فرم
-            contactForm.style.display = isFormVisible ? 'none' : 'block';
-
-            // ریست کردن استایل دکمه وقتی فرم بسته می‌شه
-            if (isFormVisible) {
-                contactIcon.style.transform = 'scale(1)';
-                contactIcon.style.backgroundColor = '#1f79da';
-                contactIcon.style.borderColor = '#1f79da';
-            }
+            contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
         }
 
         document.getElementById("contactForm").addEventListener("submit", function() {
