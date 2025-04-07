@@ -5,24 +5,230 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - idol9</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-y: scroll;
+            scrollbar-width: none;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #313131;
+        }
+
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: large;
+        }
+
+        .menu a:hover {
+            background-color: rgb(55, 140, 225);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .logo {
+            width: 102px;
+            border-radius: 6px;
+        }
+
+        .about-section {
+            padding: 50px 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        .about-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #313131;
+        }
+
+        .about-section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #555;
+        }
+
+        #contact {
+            position: fixed;
+            bottom: 20px;
+            left: 63px;
+            width: 300px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: none;
+            z-index: 9999;
+        }
+
+        #contact h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        #contact .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        #contact label {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 9px;
+        }
+
+        #contact input,
+        #contact textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        #contact button {
+            width: 100%;
+            height: 40px;
+            background-color: #313131;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        #contact button:hover {
+            background-color: rgb(55, 140, 225);
+        }
+
+        .contact-icon {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            z-index: 100;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #1f79da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(31, 121, 218, 0.3);
+            border: 2px solid #1f79da;
+            transition: border-color 0.3s ease-in-out, 
+                        background-color 0.3s ease-in-out, 
+                        transform 0.2s ease-in-out;
+        }
+
+        .contact-icon:hover {
+            border-color: #101010;
+            background-color: #000000;
+            transform: scale(0.9);
+        }
+
+        .contact-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
 </head>
+
 <body>
     <header>
         <nav class="menu">
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#gallery">Gallery</a></li> <!-- لینک به صفحه اصلی -->
                 <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="/contact.html">Contact Us</a></li>
             </ul>
         </nav>
-        <img src="IMG_20250121_222009_921.png" class="logo" alt="idol9 Logo">
+        <img src="IMG_20250121_222009_921.png" class="logo">
     </header>
 
-    <div class="content">
+    <section class="about-section" id="about-us">
         <h1>About Us</h1>
-        <p>Welcome to idol9! This is the About Us page where you can learn more about our mission and vision.</p>
+        <p>
+           About Us
+           Welcome to idol9—where your dream spaces come to life! We’re a passionate team dedicated to crafting modern, luxurious, and timeless interiors that reflect your unique style. From cozy living rooms to sleek kitchens and serene bedrooms, we believe every corner of your home should tell a story of elegance and comfort.
+            
+           At idol9, we’re all about quality, innovation, and bringing your vision to reality. We handpick the finest materials and blend them with cutting-edge design to create spaces that aren’t just beautiful—they’re a true extension of you. Whether you’re looking for a small refresh or a complete transformation, we’re here to guide you every step of the way with care and creativity.
+            
+           Take a peek at our gallery to explore our latest projects, and let’s start this journey together. Ready to turn your home into a masterpiece? Reach out today—we can’t wait to create something extraordinary with you!
+        </p>
+    </section>
+
+    <section id="contact">
+        <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
+            <h2>Contact Us</h2>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <div class="contact-icon">
+        <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        function toggleContactForm() {
+            const contactForm = document.getElementById('contact');
+            contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
+        }
+
+        document.getElementById("contactForm").addEventListener("submit", function() {
+            setTimeout(() => {
+                document.getElementById("contactForm").reset();
+                toggleContactForm();
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
