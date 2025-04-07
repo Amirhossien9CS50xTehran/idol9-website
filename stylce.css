@@ -88,18 +88,17 @@ header {
 .image-row .caption {
     position: absolute;
     top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: white;
     padding: 15px 20px;
-    text-align: right;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
-    max-width: 50%;
+    max-width: 80%;
     background-color: rgba(128, 128, 128, 0.5);
     border-radius: 8px;
 }
@@ -166,18 +165,17 @@ header {
 .gallery .caption {
     position: absolute;
     top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: white;
     padding: 15px 20px;
-    text-align: right;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
-    max-width: 50%;
+    max-width: 80%;
     background-color: rgba(128, 128, 128, 0.5);
     border-radius: 8px;
 }
@@ -204,11 +202,6 @@ header {
     .gallery img {
         height: auto;
     }
-    .image-row .caption,
-    .gallery .caption {
-        max-width: 80%;
-        font-size: 0.9rem;
-    }
 }
 
 #contact {
@@ -222,6 +215,12 @@ header {
     border-radius: 8px;
     display: none;
     z-index: 9999;
+}
+
+#contact.static-contact {
+    position: static;
+    margin: 20px auto;
+    display: block;
 }
 
 #contact h2 {
