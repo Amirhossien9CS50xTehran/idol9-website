@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* کپی کردن استایل‌های اصلی از index.html */
         html, body {
             margin: 0;
             padding: 0;
@@ -67,6 +66,11 @@
             width: 102px;
             border-radius: 6px;
         }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -80,11 +84,12 @@
         </nav>
         <img src="IMG_20250121_222009_921.png" class="logo">
     </header>
-    <h1>About Us</h1>
-    <p>Welcome to idol9! This is the About Us page where you can learn more about our mission and vision.</p>
+    <div class="content">
+        <h1>About Us</h1>
+        <p>Welcome to idol9! This is the About Us page where you can learn more about our mission and vision.</p>
+    </div>
 
     <script>
-        // Highlight the active link
         const currentPage = window.location.pathname.split('/').pop();
         document.querySelectorAll('.menu a').forEach(link => {
             const href = link.getAttribute('href');
