@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>idol9</title>
-    <link rel="icon" type="image/png" href="IMG_20250121_222009_921 - Copy (15).png"> <!-- فاویکون اصلاح‌شده -->
-    <link rel="stylesheet" href="styles.css"> <!-- اگه فایل styles.css نداری، این خط رو حذف کن -->
-    <!-- اضافه کردن فونت Poppins از Google Fonts -->
+    <link rel="icon" type="image/png" href="IMG_20250121_222009_921 - Copy (15).png">
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -227,10 +226,9 @@
             bottom: 20px;
             left: 63px;
             width: 300px;
-            background-color: #f9f9f9;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            border-radius:  volet8px;
             display: none;
             z-index: 9999;
         }
@@ -452,121 +450,122 @@
         </div>
     </div>
 
-   <section id="contact">
-    <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain" class="contact-form">
-        <h2>Contact Us</h2>
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        </div>
-        <div class="form-group">
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="5" placeholder="Write your message" required></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Send Message</button>
-    </form>
-</section>
+    <section id="contact">
+        <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain" class="contact-form">
+            <h2>Contact Us</h2>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" placeholder="Write your message" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+    </section>
 
-<style>
-.contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 2rem;
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.5s ease-in;
-}
+    <style>
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            /* background: #ffffff; - این خط حذف شده */
+            background: transparent; /* جایگزین شده با شفاف */
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in;
+        }
 
-.contact-form h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 2rem;
-    font-family: Arial, sans-serif;
-}
+        .contact-form h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 2rem;
+            font-family: Arial, sans-serif;
+        }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
 
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #555;
-    font-weight: 500;
-}
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
 
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-}
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
-}
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
 
-.submit-btn {
-    display: block;
-    width: 100%;
-    padding: 0.9rem;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 0.9rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
 
-.submit-btn:hover {
-    background: #0056b3;
-    transform: translateY(-2px);
-}
+        .submit-btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
 
-.submit-btn:active {
-    transform: translateY(0);
-}
+        .submit-btn:active {
+            transform: translateY(0);
+        }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-/* Responsive */
-@media (max-width: 480px) {
-    .contact-form {
-        padding: 1rem;
-    }
-    
-    .form-group input,
-    .form-group textarea {
-        font-size: 0.9rem;
-    }
-}
-</style>
+        /* Responsive */
+        @media (max-width: 480px) {
+            .contact-form {
+                padding: 1rem;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 
     <div class="contact-icon">
         <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
@@ -599,7 +598,6 @@
             });
         });
 
-        // برای هایلایت کردن لینک فعال
         const currentPage = window.location.pathname.split('/').pop();
         document.querySelectorAll('.menu a').forEach(link => {
             const href = link.getAttribute('href');
