@@ -3,143 +3,513 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Idol9</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>idol9</title>
+    <link rel="stylesheet" href="styles.css">
+    <li><a href="/contact.html">Contact Us</a></li>
+    <!-- اضافه کردن فونت Poppins از Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * {
+        html, body {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-y: scroll;
+            scrollbar-width: none;
         }
 
-        .contact-container {
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            max-width: 600px;
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #313131;
+        }
+
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: large;
+        }
+
+        .menu a:hover {
+            background-color: rgb(55, 140, 225);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .menu a.active {
+            background-color: rgb(55, 140, 225);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .logo {
+            width: 102px;
+            border-radius: 6px;
+        }
+
+        .image-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
             width: 100%;
-            text-align: center;
-            animation: fadeIn 1s ease-in-out;
+            margin: 0;
+            padding: 5px 0;
+            position: relative;
+            left: 0;
+            right: 0;
+            box-sizing: border-box;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .image-row .image-container {
+            position: relative;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #313131;
-            margin-bottom: 20px;
-        }
-
-        .contact-info {
-            margin: 30px 0;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .contact-item:hover {
-            transform: translateY(-5px);
-            background-color: #e6f0ff;
-        }
-
-        .contact-item i {
-            font-size: 1.5rem;
-            color: #1f79da;
-            margin-right: 15px;
-        }
-
-        .contact-item p {
-            font-size: 1.2rem;
-            color: #333;
+        .image-row img {
+            width: 100%;
+            height: 504px;
+            object-fit: cover;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: transform 0.3s;
             margin: 0;
         }
 
-        .contact-item a {
-            color: #1f79da;
-            text-decoration: none;
-            font-weight: 400;
-            transition: color 0.3s ease;
+        .image-row .caption {
+            position: absolute;
+            top: 50%; /* وسط عمودی */
+            right: 20px; /* فاصله 20px از سمت راست */
+            transform: translateY(-50%); /* فقط محور Y وسط می‌مونه */
+            color: white;
+            padding: 15px 20px;
+            text-align: right; /* متن از راست شروع می‌شه */
+            font-size: 1rem; /* کمی کوچیک‌تر برای ظرافت بیشتر */
+            font-family: 'Poppins', sans-serif; /* فونت شکیل */
+            font-weight: 400; /* نه خیلی بولد */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            max-width: 50%; /* عرض کپشن محدود می‌شه تا از عکس بیرون نزنه */
+            background-color: rgba(128, 128, 128, 0.5);
+            border-radius: 8px;
         }
 
-        .contact-item a:hover {
-            color: #0066cc;
-            text-decoration: underline;
+        .image-row .caption.active {
+            opacity: 1;
         }
 
-        .back-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 25px;
-            background-color: #313131;
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .back-button:hover {
-            background-color: #1f79da;
+        .image-row img:hover {
             transform: scale(1.05);
         }
 
-        @media (max-width: 480px) {
-            .contact-container {
-                padding: 20px;
+        .video-queue {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            width: 100%;
+            margin: 0;
+            padding: 5px 0;
+            position: relative;
+            left: 0;
+            right: 0;
+            box-sizing: border-box;
+            margin-left: 0;
+        }
+
+        .video-queue video {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 2px solid #ccc;
+            margin: 0;
+            margin-left: 0;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            width: 100%;
+            margin: 0;
+            padding: 5px 0;
+            position: relative;
+            left: 0;
+            right: 0;
+            box-sizing: border-box;
+        }
+
+        .gallery .image-container {
+            position: relative;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 504px;
+            object-fit: cover;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin: 0;
+        }
+
+        .gallery .caption {
+            position: absolute;
+            top: 50%; /* وسط عمودی */
+            right: 20px; /* فاصله 20px از سمت راست */
+            transform: translateY(-50%); /* فقط محور Y وسط می‌مونه */
+            color: white;
+            padding: 15px 20px;
+            text-align: right; /* متن از راست شروع می‌شه */
+            font-size: 1rem; /* کمی کوچیک‌تر برای ظرافت بیشتر */
+            font-family: 'Poppins', sans-serif; /* فونت شکیل */
+            font-weight: 400; /* نه خیلی بولد */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            max-width: 50%; /* عرض کپشن محدود می‌شه تا از عکس بیرون نزنه */
+            background-color: rgba(128, 128, 128, 0.5);
+            border-radius: 8px;
+        }
+
+        .gallery .caption.active {
+            opacity: 1;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .image-row {
+                grid-template-columns: 1fr;
             }
-            h1 {
-                font-size: 2rem;
+            .video-queue {
+                grid-template-columns: 1fr;
             }
-            .contact-item p {
-                font-size: 1rem;
+            .gallery {
+                grid-template-columns: 1fr;
+                height: auto;
             }
-            .contact-item i {
-                font-size: 1.2rem;
+            .gallery img {
+                height: auto;
             }
+            .image-row .caption,
+            .gallery .caption {
+                max-width: 80%; /* توی موبایل عرض کپشن بیشتر می‌شه */
+                font-size: 0.9rem; /* توی موبایل فونت کمی کوچیک‌تر */
+            }
+        }
+
+        #contact {
+            position: fixed;
+            bottom: 20px;
+            left: 63px;
+            width: 300px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: none;
+            z-index: 9999;
+        }
+
+        #contact h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        #contact .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        #contact label {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 9px;
+        }
+
+        #contact input,
+        #contact textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        #contact button {
+            width: 100%;
+            height: 40px;
+            background-color: #313131;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        #contact button:hover {
+            background-color: rgb(55, 140, 225);
+        }
+
+        .contact-icon {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            z-index: 100;
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #1f79da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(31, 121, 218, 0.3);
+            border: 2px solid #1f79da;
+            transition: border-color 0.3s ease-in-out, 
+                        background-color 0.3s ease-in-out, 
+                        transform 0.2s ease-in-out;
+        }
+
+        .contact-icon:hover {
+            border-color: #101010;
+            background-color: #000000;
+            transform: scale(0.9);
+        }
+
+        .contact-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
         }
     </style>
 </head>
+
 <body>
-    <div class="contact-container">
-        <h1>Contact Us</h1>
-        <div class="contact-info">
-            <div class="contact-item">
-                <i>📸</i>
-                <p>Instagram: <a href="https://instagram.com/idol9.architecture" target="_blank">@idol9.architecture</a></p>
-            </div>
-            <div class="contact-item">
-                <i>✈️</i>
-                <p>Telegram: <a href="https://t.me/idol369" target="_blank">@idol369</a></p>
-            </div>
-            <div class="contact-item">
-                <i>📞</i>
-                <p>Phone: +971 52 649 0850</p>
-            </div>
+    <header>
+        <nav class="menu">
+            <ul>
+                <li><a href="about.html">About Us</a></li> <!-- لینک اصلاح‌شده به about.html -->
+                <li><a href="/contact.html">Contact Us</a></li> <!-- Changed from #contact to contact.html -->
+            </ul>
+        </nav>
+        <img src="IMG_20250121_222009_921.png" class="logo">
+    </header>
+
+    <div class="image-row">
+        <div class="image-container">
+            <img src="IMG_20250121_213614_487.jpg">
+            <div class="caption">This luxurious living room blends plush boucle fabric seating, a polished black marble feature wall, brushed gold accents, and soft wood flooring, creating an elegant and harmonious ambiance</div>
         </div>
-        <a href="index.html" class="back-button">Back to Home</a>
+        <div class="image-container">
+            <img src="IMG_20250121_213614_781.jpg">
+            <div class="caption">This luxurious living room blends plush boucle fabric seating, a polished black marble feature wall, brushed gold accents, and soft wood flooring, creating an elegant and harmonious ambiance</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213614_932.jpg">
+            <div class="caption">This luxurious living room blends plush boucle fabric seating, a polished black marble feature wall, brushed gold accents, and soft wood flooring, creating an elegant and harmonious ambiance</div>
+        </div>
     </div>
+
+    <div class="video-queue">
+        <video autoplay loop muted>
+            <source src="WhatsApp Video 2025-04-05 at 9.22.09 PM.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted>
+            <source src="WhatsApp Video 2025-04-05 at 9.22.18 PM.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted>
+            <source src="WhatsApp Video 2025-04-05 at 9.22.19 PM.mp4" type="video/mp4">
+        </video>
+        <video autoplay loop muted>
+            <source src="WhatsApp Video 2025-04-05 at 9.22.05 PM.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="gallery" id="gallery">
+        <div class="image-container">
+            <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
+            <div class="caption">Modern bedroom with a tufted gray fabric bed, light wooden floor, and gray rug. Features a white marble headboard wall, crystal chandelier, metallic nightstands, glass decor, and potted plants</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213614_782.jpg" class="thumbnail">
+            <div class="caption">Modern bedroom with a tufted gray fabric bed, light wooden floor, and gray rug. Features a white marble headboard wall, crystal chandelier, metallic nightstands, glass decor, and potted plants</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_573.jpg" class="thumbnail">
+            <div class="caption">This luxurious living room blends plush boucle fabric seating, a polished black marble feature wall, brushed gold accents, and soft wood flooring, creating an elegant and harmonious ambiance</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_178.jpg" class="thumbnail">
+            <div class="caption">Modern living room with a tan leather sofa, light wooden floor, and gray rug. Features a white stone TV wall with wooden shelves, black track lighting, a glossy black coffee table, glass decor, and dried branches</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_463.jpg" class="thumbnail">
+            <div class="caption">Modern living room with a beige fabric sofa, tan leather chair, and gray rug. Features a wooden shelf with glass panels, LED lighting, ceramic decor, books, and dried branches on a sleek black coffee table</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_415.jpg" class="thumbnail">
+            <div class="caption">Modern kitchen with beige cabinets, white stone countertop, and light wooden floor. Features gray fabric bar stools, wooden shelves with glass panels, black appliances, glassware, ceramic decor, and dried branches</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213557_335.jpg" class="thumbnail">
+            <div class="caption">Modern living room with a white fabric sofa, light wooden floor, and gray rug. Features a white marble TV wall, black track lighting, a sleek arched floor lamp, and minimal glass decor</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213604_794.jpg" class="thumbnail">
+            <div class="caption">Modern dining area with a white stone table, black wooden chairs with beige cushions, and light tiled floor. Features a minimalist pendant light, wooden wall panels, sheer curtains, and a cylindrical decor piece</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213609_915.jpg" class="thumbnail">
+            <div class="caption">Modern kitchen with beige cabinets, white marble countertop, and light wooden floor. Features black chairs, a black pendant light, black track lighting, a marble backsplash, and minimal black decor</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213618_947.jpg" class="thumbnail">
+            <div class="caption">Modern living room with a beige fabric sofa, light wooden floor, and white rug. Features wooden walls, a white stone accent wall, a live-edge wooden coffee table, black ceramic decor, and dried branches</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213618_962.jpg" class="thumbnail">
+            <div class="caption">Modern living room with beige fabric chairs, light wooden floor, and gray rug. Features wooden walls, a marble accent wall, a wooden coffee table, a modern lamp, black ceramic decor, and dried branches</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213619_055.jpg" class="thumbnail">
+            <div class="caption">Modern living room with beige fabric sofas, light tiled floor, and white rug. Features wooden walls with arched details, a white stone accent wall, a wooden coffee table, a modern lamp, and ceramic decor</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213627_807.jpg" class="thumbnail">
+            <div class="caption">Modern living room with beige fabric sofas, light tiled floor, and sheer curtains. Features wooden slat partitions, a stone accent wall, a crystal chandelier, a wooden coffee table, and potted plants</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213628_540.jpg" class="thumbnail">
+            <div class="caption">Modern living room with beige fabric sofas, light tiled floor, and sheer curtains. Features wooden slat partitions, a stone accent wall, a crystal chandelier, a wooden coffee table, and potted plants</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213627_785.jpg" class="thumbnail">
+            <div class="caption">Modern living room with beige fabric sofas, light tiled floor, and sheer curtains. Features wooden slat partitions, a stone accent wall, a crystal chandelier, a wooden coffee table, and potted plants</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_559.jpg" class="thumbnail">
+            <div class="caption">Modern bedroom with a gray fabric bed, white bedding, and light tiled floor. Features sheer gray curtains, a blue spherical pillow, and minimal wall decor with a small light fixture</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_907.jpg" class="thumbnail">
+            <div class="caption">Modern study with a wooden desk, white fabric chair, and light wooden floor. Features wooden shelves, sheer gray curtains, books, a small figurine, and a white spherical side table</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_951.jpg" class="thumbnail">
+            <div class="caption">Modern bedroom with a gray fabric bed, white bedding, and light wooden floor. Features wooden slat walls, a white nightstand, a spherical pendant light, books, and a black ceramic vase</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_606.jpg" class="thumbnail">
+            <div class="caption">Modern living room with gray fabric sofas, light wooden floor, and gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_488.jpg" class="thumbnail">
+            <div class="caption">Modern living room with gray fabric sofas, light wooden floor, and gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213633_362.jpg" class="thumbnail">
+            <div class="caption">Modern living room with gray fabric sofas, light wooden floor, and gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_384.jpg" class="thumbnail">
+            <div class="caption">Modern bedroom with a blue fabric bed, white bedding, and gray rug. Features gray walls with LED lighting, sheer curtains, a wooden wardrobe, a modern chandelier, and abstract wall art</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_909.jpg" class="thumbnail">
+            <div class="caption">Modern bedroom with a blue fabric bed, white bedding, and gray rug. Features gray walls with LED lighting, sheer curtains, a wooden wardrobe, a modern chandelier, and abstract wall art</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_600.jpg" class="thumbnail">
+            <div class="caption">Modern bedroom with a blue fabric bed, white bedding, and gray rug. Features gray walls with LED lighting, sheer curtains, a wooden wardrobe, a modern chandelier, and abstract wall art</div>
+        </div>
+    </div>
+
+    <section id="contact">
+        <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
+            <h2>Contact Us</h2>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <div class="contact-icon">
+        <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
+    </div>
+
+    <script>
+        function toggleContactForm() {
+            const contactForm = document.getElementById('contact');
+            contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
+        }
+
+        document.getElementById("contactForm").addEventListener("submit", function() {
+            setTimeout(() => {
+                document.getElementById("contactForm").reset();
+                toggleContactForm();
+            }, 1000);
+        });
+
+        document.querySelectorAll('.gallery img').forEach(img => {
+            img.addEventListener('click', function() {
+                const caption = this.nextElementSibling;
+                caption.classList.toggle('active');
+            });
+        });
+
+        document.querySelectorAll('.image-row img').forEach(img => {
+            img.addEventListener('click', function() {
+                const caption = this.nextElementSibling;
+                caption.classList.toggle('active');
+            });
+        });
+
+        // برای هایلایت کردن لینک فعال
+        const currentPage = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.menu a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPage || (currentPage === '' && href === '#gallery')) {
+                link.classList.add('active');
+            }
+        });
+    </script>
 </body>
 </html>
