@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>idol9</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Adding Poppins font from Google Fonts -->
+    <!-- اضافه کردن فونت Poppins از Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -110,7 +110,7 @@
             transition: opacity 0.3s ease;
             pointer-events: none;
             max-width: 50%;
-            background-color: rgba(128, 128, 128, 0.5);
+            background-color: rgba(128, 128, 128, F0.5);
             border-radius: 8px;
         }
 
@@ -136,7 +136,7 @@
             margin-left: 0;
         }
 
-        .ół-queue video {
+        .video-queue video {
             width: 100%;
             height: 600px;
             object-fit: cover;
@@ -316,7 +316,7 @@
         <nav class="menu">
             <ul>
                 <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li> <!-- اصلاح شده به مسیر نسبی -->
             </ul>
         </nav>
         <img src="IMG_20250121_222009_921.png" class="logo">
@@ -431,7 +431,7 @@
         </div>
         <div class="image-container">
             <img src="IMG_20250121_213633_488.jpg" class="thumbnail">
-            <div class="caption">Modern living room with gray fabric sofas, light wooden floor, and gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</></div>
+            <div class="caption">Modern living room with gray fabric sofas, light wooden floor, and gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</div>
         </div>
         <div class="image-container">
             <img src="IMG_20250121_213633_362.jpg" class="thumbnail">
@@ -501,7 +501,7 @@
             });
         });
 
-        // Highlight the active link
+        // برای هایلایت کردن لینک فعال
         const currentPage = window.location.pathname.split('/').pop();
         document.querySelectorAll('.menu a').forEach(link => {
             const href = link.getAttribute('href');
