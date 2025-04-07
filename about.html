@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - idol9</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         html, body {
             margin: 0;
@@ -66,6 +65,18 @@
             background-color: #f9f9f9;
         }
 
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
         .about-section h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
@@ -78,6 +89,13 @@
             max-width: 800px;
             margin: 0 auto;
             color: #555;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 3px;
+            margin-left: 0;
         }
 
         #contact {
@@ -167,6 +185,50 @@
             height: 50px;
             border-radius: 50%;
         }
+
+        /* تنظیمات رسپانسیو */
+        @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .about-image img {
+                width: 100%;
+                margin: 0;
+            }
+
+            .about-section h1 {
+                font-size: 1.8rem;
+            }
+
+            .about-section p {
+                font-size: 1rem;
+            }
+
+            .menu ul {
+                gap: 10px; /* فاصله بین منوها توی گوشی کمتر بشه */
+            }
+
+            .menu a {
+                font-size: medium; /* فونت منو توی گوشی کوچیک‌تر بشه */
+            }
+
+            .logo {
+                width: 80px; /* لوگو توی گوشی کوچیک‌تر بشه */
+            }
+
+            #contact {
+                width: 90%;
+                left: 5%;
+                bottom: 10px;
+            }
+
+            .contact-icon {
+                left: 10px;
+                bottom: 10px;
+            }
+        }
     </style>
 </head>
 
@@ -174,51 +236,30 @@
     <header>
         <nav class="menu">
             <ul>
-                <li><a href="index.html#gallery">Gallery</a></li> <!-- لینک به صفحه اصلی -->
+                <li><a href="index.html#gallery">Gallery</a></li>
                 <li><a href="about.html">About Us</a></li>
             </ul>
         </nav>
-        <img src="IMG_20250121_222009_921.png" class="logo">
+        <img src="IMG_20250121_222009_921.png" class="logo" alt="Logo">
     </header>
 
-   <section class="about-section" id="about-us">
-  <div class="about-container">
-    <div class="about-text">
-
-      <div class="about-container">
-        <div class="about-image">
-          <img src="IMG_4898.JPG">
+    <section class="about-section" id="about-us">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="IMG_4898.JPG" alt="About Us Image">
+            </div>
+            <div class="about-text">
+                <h1>About Us</h1>
+                <p>
+                    Welcome to idol9—where your dream spaces come to life! We’re a passionate team dedicated to crafting modern, luxurious, and timeless interiors that reflect your unique style. From cozy living rooms to sleek kitchens and serene bedrooms, we believe every corner of your home should tell a story of elegance and comfort.
+                    
+                    At idol9, we’re all about quality, innovation, and bringing your vision to reality. We handpick the finest materials and blend them with cutting-edge design to create spaces that aren’t just beautiful—they’re a true extension of you. Whether you’re looking for a small refresh or a complete transformation, we’re here to guide you every step of the way with care and creativity.
+                    
+                    Take a peek at our gallery to explore our latest projects, and let’s start this journey together. Ready to turn your home into a masterpiece? Reach out today—we can’t wait to create something extraordinary with you!
+                </p>
+            </div>
         </div>
-        <div class="about-text">
-          <h1>About Us</h1>
-          <p>
-            Welcome to idol9—where your dream spaces come to life! We’re a passionate team dedicated to crafting modern, luxurious, and timeless interiors that reflect your unique style. From cozy living rooms to sleek kitchens and serene bedrooms, we believe every corner of your home should tell a story of elegance and comfort.
-            
-            At idol9, we’re all about quality, innovation, and bringing your vision to reality. We handpick the finest materials and blend them with cutting-edge design to create spaces that aren’t just beautiful—they’re a true extension of you. Whether you’re looking for a small refresh or a complete transformation, we’re here to guide you every step of the way with care and creativity.
-            
-            Take a peek at our gallery to explore our latest projects, and let’s start this journey together. Ready to turn your home into a masterpiece? Reach out today—we can’t wait to create something extraordinary with you!</p>
-        </div>
-      </div>
-      
-</section>
-
-<style>
-  .about-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .about-text {
-    flex: 1;
-  }
-
-  .about-image img {
-    width: 396px;
-    border-radius: 3px;
-    margin-left: 36px; /* این فاصله رو کوچیک کن یا حتی 10px بذار */
-  }
-</style>
-
+    </section>
 
     <section id="contact">
         <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
