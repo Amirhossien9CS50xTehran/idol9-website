@@ -228,7 +228,7 @@
             width: 300px;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius:  volet8px;
+            border-radius: 8px;
             display: none;
             z-index: 9999;
         }
@@ -474,8 +474,7 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 2rem;
-            /* background: #ffffff; - این خط حذف شده */
-            background: #ffffff; /* جایگزین شده با شفاف */
+            background: transparent;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             animation: fadeIn 0.5s ease-in;
@@ -531,7 +530,7 @@
             border-radius: 8px;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s ease;
+            transition: background 0.3s ease, transform 0.3s ease; /* زمان transform به 0.3s تغییر کرد */
         }
 
         .submit-btn:hover {
@@ -540,7 +539,7 @@
         }
 
         .submit-btn:active {
-            transform: translateY(0);
+            transform: translateY(1px); /* تغییر به 1px برای کاهش لرزش */
         }
 
         @keyframes fadeIn {
@@ -554,7 +553,6 @@
             }
         }
 
-        /* Responsive */
         @media (max-width: 480px) {
             .contact-form {
                 padding: 1rem;
