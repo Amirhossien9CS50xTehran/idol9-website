@@ -532,12 +532,12 @@
             }
         });
 
-        // Three.js code to load Wooden Chair.glb model
+        // Three.js code to load Stool.glb model
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xe6e6e6); // خاکستری شیک
+        scene.background = new THREE.Color(0xffffff); // سفید برای وضوح
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 600, 0.1, 1000);
-        camera.position.set(0, 3, 15); // دوربین برای صندلی چوبی
+        camera.position.set(0, 2, 10); // دوربین نزدیک‌تر برای چهارپایه
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, 600);
@@ -554,22 +554,22 @@
         controls.panSpeed = 0.8;
         controls.screenSpacePanning = true;
         controls.minDistance = 0.5;
-        controls.maxDistance = 200; // برای مدلای بزرگ
-        controls.target.set(0, 1.5, 0);
+        controls.maxDistance = 50; // برای مدلای کوچیک
+        controls.target.set(0, 1, 0);
 
-        // نورپردازی حرفه‌ای
-        const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+        // نورپردازی قوی
+        const ambientLight = new THREE.AmbientLight(0xffffff, 2.5);
         scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
-        directionalLight.position.set(8, 8, 8);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+        directionalLight.position.set(5, 5, 5);
         directionalLight.castShadow = true;
         directionalLight.shadow.mapSize.width = 2048;
         directionalLight.shadow.mapSize.height = 2048;
         scene.add(directionalLight);
 
-        const spotLight = new THREE.SpotLight(0xffffff, 2);
-        spotLight.position.set(-5, 7, -5);
+        const spotLight = new THREE.SpotLight(0xffffff, 2.5);
+        spotLight.position.set(-5, 5, -5);
         spotLight.angle = Math.PI / 4;
         spotLight.penumbra = 0.5;
         spotLight.castShadow = true;
@@ -578,15 +578,15 @@
         // لود مدل
         const loader = new THREE.GLTFLoader();
         loader.load(
-            'Wooden Chair.glb', // مدل جدید
+            'Stool.glb', // مدل جدید
             (gltf) => {
                 const model = gltf.scene;
                 model.traverse((child) => {
                     if (child.isMesh) {
                         child.castShadow = true;
                         child.receiveShadow = true;
-                        child.material.roughness = 0.6; // برای تکسچرای چوبی
-                        child.material.metalness = 0.3;
+                        child.material.roughness = 0.7; // برای چهارپایه
+                        child.material.metalness = 0.2;
                     }
                 });
                 scene.add(model);
@@ -597,17 +597,17 @@
                 const size = box.getSize(new THREE.Vector3());
                 model.position.sub(center); // وسط صفحه
                 const maxDim = Math.max(size.x, size.y, size.z);
-                const scale = 5 / maxDim; // مقیاس نرمال
+                const scale = 4 / maxDim; // مقیاس برای چهارپایه
                 model.scale.set(scale, scale, scale);
                 model.position.y = size.y * scale / 2; // روی زمین
 
-                console.log('صندلی چوبی لود شد! 🪑 سایز:', maxDim);
+                console.log('چهارپایه لود شد! 🪑 سایز:', maxDim);
             },
             (xhr) => {
                 console.log(`لودینگ: ${Math.round(xhr.loaded / xhr.total * 100)}%`);
             },
             (error) => {
-                console.error('خطا تو لود Wooden Chair.glb:', error);
+                console.error('خطا تو لود Stool.glb:', error);
                 // مکعب قرمز برای دیباگ
                 const cube = new THREE.Mesh(
                     new THREE.BoxGeometry(1, 1, 1),
