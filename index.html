@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>idol9</title>
     <link rel="icon" type="image/png" href="IMG_20250121_222009_921 - Copy (15).png">
+    <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Add Model Viewer script -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         html, body {
             margin: 0;
@@ -199,23 +202,22 @@
             transform: scale(1.05);
         }
 
-        #model-viewer {
+        /* New styles for 3D model section */
+        .model-section {
             width: 100%;
-            height: 600px;
-            margin: 20px 0;
-            position: relative;
-            background-color: #f0f0f0; /* To see if it's empty */
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
         }
 
-        #error-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: red;
-            font-size: 1.2rem;
-            font-family: Arial, sans-serif;
-            display: none;
+        model-viewer {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            border-radius: 8px;
+            --poster-color: transparent;
         }
 
         @media (max-width: 768px) {
@@ -237,7 +239,7 @@
                 max-width: 80%;
                 font-size: 0.9rem;
             }
-            #model-viewer {
+            model-viewer {
                 height: 400px;
             }
         }
@@ -373,6 +375,19 @@
         </video>
     </div>
 
+    <!-- New 3D Model Section -->
+    <section class="model-section">
+        <model-viewer 
+            src="assets/models/Chair (2).glb" 
+            alt="3D Chair Model" 
+            camera-controls 
+            auto-rotate 
+            shadow-intensity="1"
+            exposure="0.8"
+            environment-image="neutral">
+        </model-viewer>
+    </section>
+
     <div class="gallery" id="gallery">
         <div class="image-container">
             <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
@@ -472,11 +487,6 @@
         </div>
     </div>
 
-    <!-- 3D Model Section -->
-    <div id="model-viewer">
-        <div id="error-message">Failed to load the 3D model! Check file path or server.</div>
-    </div>
-
     <section id="contact">
         <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
             <h2>Contact Us</h2>
@@ -500,19 +510,12 @@
         <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
     </div>
 
-    <!-- Three.js Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r156/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.156.0/examples/jsm/controls/OrbitControls.js"></script>
-    <script src="https://unpkg.com/three@0.156.0/examples/jsm/loaders/GLTFLoader.js"></script>
-
     <script>
-        // Toggle contact form visibility
         function toggleContactForm() {
             const contactForm = document.getElementById('contact');
             contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
         }
 
-        // Reset contact form after submission
         document.getElementById("contactForm").addEventListener("submit", function() {
             setTimeout(() => {
                 document.getElementById("contactForm").reset();
@@ -520,7 +523,6 @@
             }, 1000);
         });
 
-        // Toggle captions on gallery images
         document.querySelectorAll('.gallery img').forEach(img => {
             img.addEventListener('click', function() {
                 const caption = this.nextElementSibling;
@@ -528,7 +530,6 @@
             });
         });
 
-        // Toggle captions on image-row images
         document.querySelectorAll('.image-row img').forEach(img => {
             img.addEventListener('click', function() {
                 const caption = this.nextElementSibling;
@@ -536,174 +537,11 @@
             });
         });
 
-        // Highlight active menu link
         const currentPage = window.location.pathname.split('/').pop();
         document.querySelectorAll('.menu a').forEach(link => {
             const href = link.getAttribute('href');
             if (href === currentPage || (currentPage === '' && href === '#gallery')) {
                 link.classList.add('active');
-            }
-        });
-
-        // Check media files availability
-        function checkMediaFiles() {
-            const images = document.querySelectorAll('img');
-            images.forEach(img => {
-                img.onerror = () => console.warn(`Image failed to load: ${img.src}`);
-            });
-            const videos = document.querySelectorAll('video source');
-            videos.forEach(vid => {
-                const video = vid.parentElement;
-                video.onerror = () => console.warn(`Video failed to load: ${vid.src}`);
-            });
-        }
-
-        // Three.js code for model rendering
-        let scene, camera, renderer, controls;
-
-        function init() {
-            // Check if model-viewer exists
-            const modelViewer = document.getElementById('model-viewer');
-            if (!modelViewer) {
-                console.error('Error: #model-viewer div not found!');
-                return;
-            }
-
-            // Set up scene
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xffffff);
-            console.log('Scene initialized');
-
-            // Set up camera
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / 600, 0.1, 1000);
-            camera.position.set(0, 2, 5);
-            console.log('Camera initialized');
-
-            // Set up renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.setSize(window.innerWidth, 600);
-            renderer.shadowMap.enabled = true;
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-            modelViewer.appendChild(renderer.domElement);
-            console.log('Renderer appended to #model-viewer');
-
-            // Set up lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-            scene.add(ambientLight);
-
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight.position.set(5, 10, 7);
-            directionalLight.castShadow = true;
-            directionalLight.shadow.mapSize.width = 1024;
-            directionalLight.shadow.mapSize.height = 1024;
-            scene.add(directionalLight);
-            console.log('Lighting setup complete');
-
-            // Set up controls
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.minDistance = 1;
-            controls.maxDistance = 10;
-            controls.zoomSpeed = 2.0;
-            controls.target.set(0, 1, 0);
-            console.log('OrbitControls initialized');
-
-            // Add a test cube to ensure rendering works
-            const cube = new THREE.Mesh(
-                new THREE.BoxGeometry(0.5, 0.5, 0.5),
-                new THREE.MeshStandardMaterial({ color: 0x00ff00 })
-            );
-            cube.position.set(2, 0.25, 0);
-            cube.castShadow = true;
-            cube.receiveShadow = true;
-            scene.add(cube);
-            console.log('Green test cube added at (2, 0.25, 0)');
-
-            // Load model
-            const loader = new THREE.GLTFLoader();
-            loader.load(
-                'Big Tree.glb', // Adjust path if needed
-                (gltf) => {
-                    const chair = gltf.scene;
-                    chair.traverse((child) => {
-                        if (child.isMesh) {
-                            child.castShadow = true;
-                            child.receiveShadow = true;
-                            if (child.material) {
-                                child.material.roughness = 0.5;
-                                child.material.metalness = 0.2;
-                            }
-                        }
-                    });
-
-                    // Auto-scale and center
-                    const box = new THREE.Box3().setFromObject(chair);
-                    const center = box.getCenter(new THREE.Vector3());
-                    const size = box.getSize(new THREE.Vector3());
-                    chair.position.sub(center);
-                    const maxDim = Math.max(size.x, size.y, size.z);
-                    const scale = 5 / maxDim;
-                    chair.scale.set(scale, scale, scale);
-                    chair.position.y = size.y * scale / 2;
-
-                    scene.add(chair);
-                    document.getElementById('error-message').style.display = 'none';
-                    console.log('Chair (2) loaded! Size:', maxDim, 'Scale:', scale);
-                },
-                (xhr) => {
-                    console.log(`Model loading: ${Math.round(xhr.loaded / xhr.total * 100)}%`);
-                },
-                (error) => {
-                    console.error('Error loading Chair (2).glb:', error);
-                    document.getElementById('error-message').style.display = 'block';
-                    const errorCube = new THREE.Mesh(
-                        new THREE.BoxGeometry(1, 1, 1),
-                        new THREE.MeshStandardMaterial({ color: 0xff0000 })
-                    );
-                    errorCube.position.set(0, 0.5, 0);
-                    scene.add(errorCube);
-                    console.log('Red error cube added at (0, 0.5, 0)');
-                }
-            );
-
-            // Check media files
-            checkMediaFiles();
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            controls.update();
-            renderer.render(scene, camera);
-        }
-
-        function onWindowResize() {
-            const width = window.innerWidth;
-            const height = 600;
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
-        }
-
-        // Initialize and start
-        try {
-            init();
-            animate();
-            console.log('Three.js initialization complete');
-        } catch (error) {
-            console.error('Initialization failed:', error);
-        }
-
-        // Handle window resize
-        window.addEventListener('resize', onWindowResize);
-
-        // Log page load status
-        window.addEventListener('load', () => {
-            console.log('Page fully loaded');
-            const modelViewer = document.getElementById('model-viewer');
-            if (modelViewer.children.length <= 1) {
-                console.warn('Warning: #model-viewer may be empty! Check model path or server.');
             }
         });
     </script>
