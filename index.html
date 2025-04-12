@@ -473,7 +473,7 @@
 
     <!-- 3D Model Section -->
     <div id="model-viewer">
-        <div id="error-message">Failed to load model!</div>
+        <div id="error-message">Failed to load the 3D model! Check file path or server.</div>
     </div>
 
     <section id="contact">
@@ -548,6 +548,19 @@
             }
         });
 
+        // Check media files availability
+        function checkMediaFiles() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.onerror = () => console.warn(`Image failed to load: ${img.src}`);
+            });
+            const videos = document.querySelectorAll('video source');
+            videos.forEach(vid => {
+                const video = vid.parentElement;
+                video.onerror = () => console.warn(`Video failed to load: ${vid.src}`);
+            });
+        }
+
         // Three.js code for high-quality model rendering
         let scene, camera, renderer, controls, composer;
         let chair;
@@ -605,7 +618,7 @@
             // Load Chair (2).glb model
             const loader = new THREE.GLTFLoader();
             loader.load(
-                'models/Chair (2).glb', // Adjust path to your model
+                'Chair (2).glb', // Adjust path to your model
                 (gltf) => {
                     chair = gltf.scene;
                     chair.traverse((child) => {
@@ -632,7 +645,7 @@
 
                     scene.add(chair);
                     document.getElementById('error-message').style.display = 'none';
-                    console.log('Chair (2) loaded successfully! 🪑 Size:', maxDim);
+                    console.log('Chair (2) loaded successfully! Size:', maxDim);
                 },
                 (xhr) => {
                     console.log(`Loading: ${Math.round(xhr.loaded / xhr.total * 100)}%`);
@@ -669,6 +682,9 @@
                 0.85 // Threshold
             );
             composer.addPass(bloomPass);
+
+            // Check media files
+            checkMediaFiles();
         }
 
         function animate() {
@@ -692,6 +708,11 @@
 
         // Handle window resize
         window.addEventListener('resize', onWindowResize);
+
+        // Log page load status
+        window.addEventListener('load', () => {
+            console.log('Page fully loaded. Checking for issues...');
+        });
     </script>
 </body>
 </html>
