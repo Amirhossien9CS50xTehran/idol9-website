@@ -204,6 +204,7 @@
             height: 600px;
             margin: 20px 0;
             position: relative;
+            background-color: #f0f0f0; /* To make empty state visible */
         }
 
         #error-message {
@@ -426,7 +427,7 @@
             <div class="caption">Modern living room with beige fabric sofas, light tiled floor, and sheer curtains. Features wooden slat partitions, a stone accent wall, a crystal chandelier, a wooden coffee table, and potted plants</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213628_540.jpg" class="thumbnail">
+            <img src="IMG_Altri mobili di design moderno per la casa.jpg" class="thumbnail">
             <div class="caption">Modern living room with beige fabric sofas, light tiled floor, and sheer curtains. Features wooden slat partitions, a stone accent wall, a crystal chandelier, a wooden coffee table, and potted plants</div>
         </div>
         <div class="image-container">
@@ -566,30 +567,38 @@
         let chair;
 
         function init() {
+            // Check if model-viewer exists
+            const modelViewer = document.getElementById('model-viewer');
+            if (!modelViewer) {
+                console.error('Error: #model-viewer div not found!');
+                return;
+            }
+
             // Set up scene
             scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xffffff); // White background for clarity
+            scene.background = new THREE.Color(0xffffff);
 
             // Set up camera
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / 600, 0.1, 1000);
             camera.position.set(0, 2, 5);
 
-            // Set up renderer with high quality
+            // Set up renderer
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Optimize for high-DPI displays
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             renderer.setSize(window.innerWidth, 600);
             renderer.shadowMap.enabled = true;
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Soft shadows
-            document.getElementById('model-viewer').appendChild(renderer.domElement);
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            modelViewer.appendChild(renderer.domElement);
+            console.log('Renderer initialized');
 
-            // Set up advanced lighting
+            // Set up lighting
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
             scene.add(ambientLight);
 
             const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
             directionalLight.position.set(5, 10, 7);
             directionalLight.castShadow = true;
-            directionalLight.shadow.mapSize.width = 2048; // High-res shadows
+            directionalLight.shadow.mapSize.width = 2048;
             directionalLight.shadow.mapSize.height = 2048;
             scene.add(directionalLight);
 
@@ -602,30 +611,31 @@
 
             const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.4);
             scene.add(hemisphereLight);
+            console.log('Lighting setup complete');
 
-            // Set up enhanced OrbitControls
+            // Set up controls
             controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true; // Smooth movement
+            controls.enableDamping = true;
             controls.dampingFactor = 0.05;
-            controls.minDistance = 1; // Minimum zoom distance
-            controls.maxDistance = 10; // Maximum zoom distance
-            controls.zoomSpeed = 2.0; // Faster zoom
+            controls.minDistance = 1;
+            controls.maxDistance = 10;
+            controls.zoomSpeed = 2.0;
             controls.rotateSpeed = 1.2;
             controls.panSpeed = 0.8;
             controls.screenSpacePanning = true;
             controls.target.set(0, 1, 0);
+            console.log('OrbitControls initialized');
 
-            // Load Chair (2).glb model
+            // Load model
             const loader = new THREE.GLTFLoader();
             loader.load(
-                'Stool.glb', // Adjust path to your model
+                'Chair (2).glb', // Adjust path if needed
                 (gltf) => {
                     chair = gltf.scene;
                     chair.traverse((child) => {
                         if (child.isMesh) {
                             child.castShadow = true;
                             child.receiveShadow = true;
-                            // Enhance material for better visuals
                             if (child.material) {
                                 child.material.roughness = 0.4;
                                 child.material.metalness = 0.3;
@@ -633,34 +643,33 @@
                         }
                     });
 
-                    // Auto-scale and center model
+                    // Auto-scale and center
                     const box = new THREE.Box3().setFromObject(chair);
                     const center = box.getCenter(new THREE.Vector3());
                     const size = box.getSize(new THREE.Vector3());
-                    chair.position.sub(center); // Center the model
+                    chair.position.sub(center);
                     const maxDim = Math.max(size.x, size.y, size.z);
-                    const scale = 6 / maxDim; // Scale to fit view
+                    const scale = 6 / maxDim;
                     chair.scale.set(scale, scale, scale);
-                    chair.position.y = size.y * scale / 2; // Place on ground
+                    chair.position.y = size.y * scale / 2;
 
                     scene.add(chair);
                     document.getElementById('error-message').style.display = 'none';
                     console.log('Chair (2) loaded successfully! Size:', maxDim);
                 },
                 (xhr) => {
-                    console.log(`Loading: ${Math.round(xhr.loaded / xhr.total * 100)}%`);
+                    console.log(`Model loading: ${Math.round(xhr.loaded / xhr.total * 100)}%`);
                 },
                 (error) => {
                     console.error('Error loading Chair (2).glb:', error);
                     document.getElementById('error-message').style.display = 'block';
-                    // Add a debug cube if model fails to load
                     const cube = new THREE.Mesh(
                         new THREE.BoxGeometry(1, 1, 1),
                         new THREE.MeshStandardMaterial({ color: 0xff0000 })
                     );
                     cube.position.set(0, 0.5, 0);
                     scene.add(cube);
-                    console.log('Red cube added due to model load failure.');
+                    console.log('Red cube added due to model load failure');
                 }
             );
 
@@ -669,19 +678,16 @@
             const renderPass = new THREE.RenderPass(scene, camera);
             composer.addPass(renderPass);
 
-            // Add SSAA for better Anti-Aliasing
             const ssaaPass = new THREE.SSAARenderPass(scene, camera);
-            ssaaPass.sampleLevel = 4; // High sampling
+            ssaaPass.sampleLevel = 4;
             composer.addPass(ssaaPass);
 
-            // Add Bloom effect
             const bloomPass = new THREE.UnrealBloomPass(
                 new THREE.Vector2(window.innerWidth, 600),
-                0.4, // Strength
-                0.4, // Radius
-                0.85 // Threshold
+                0.4, 0.4, 0.85
             );
             composer.addPass(bloomPass);
+            console.log('Post-processing setup complete');
 
             // Check media files
             checkMediaFiles();
@@ -695,7 +701,7 @@
 
         function onWindowResize() {
             const width = window.innerWidth;
-            const height = 600; // Fixed height from CSS
+            const height = 600;
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
             renderer.setSize(width, height);
@@ -703,15 +709,24 @@
         }
 
         // Initialize and start
-        init();
-        animate();
+        try {
+            init();
+            animate();
+            console.log('Three.js initialization complete');
+        } catch (error) {
+            console.error('Initialization failed:', error);
+        }
 
         // Handle window resize
         window.addEventListener('resize', onWindowResize);
 
         // Log page load status
         window.addEventListener('load', () => {
-            console.log('Page fully loaded. Checking for issues...');
+            console.log('Page fully loaded');
+            const modelViewer = document.getElementById('model-viewer');
+            if (modelViewer.children.length <= 1) {
+                console.warn('Warning: #model-viewer may be empty! Check model path or server.');
+            }
         });
     </script>
 </body>
