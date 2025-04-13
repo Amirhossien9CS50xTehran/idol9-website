@@ -148,7 +148,7 @@
                 console.log('Model center:', center);
 
                 // Adjust scale manually
-                const scaleFactor = 0.5; // Scale is fine now
+                const scaleFactor = 0.5;
                 model.scale.set(scaleFactor, scaleFactor, scaleFactor);
                 console.log('Model scaled to:', model.scale);
 
@@ -156,35 +156,26 @@
                 model.position.set(-center.x * scaleFactor, -center.y * scaleFactor, -center.z * scaleFactor);
                 console.log('Model position adjusted to:', model.position);
 
-                // Apply a simple material as fallback
-                model.traverse((child) => {
-                    if (child.isMesh) {
-                        child.material = new THREE.MeshStandardMaterial({
-                            color: 0x8B4513, // Brown color as a fallback
-                            metalness: 0.1,
-                            roughness: 0.7
-                        });
-                        console.log('Applied simple brown material to mesh:', child);
-                    }
-                });
-
                 // Texture loader with explicit path
-                const texturePath = 'textures/'; // Adjust this path if needed
+                const texturePath = ''; // تکسچرها توی همون پوشه‌ی فایل HTML هستن
                 const textureLoader = new THREE.TextureLoader();
                 let diffuseMap, aoMap;
 
-                // Load textures
+                // Load textures with error handling
                 textureLoader.load(
                     texturePath + 'rosewood_veneer1_diff_2k.jpg',
                     (texture) => {
                         diffuseMap = texture;
                         diffuseMap.flipY = false;
                         diffuseMap.encoding = THREE.sRGBEncoding;
-                        console.log('Diffuse texture loaded successfully');
+                        console.log('Diffuse texture loaded successfully:', diffuseMap);
                         applyTextures();
                     },
                     undefined,
-                    (error) => console.error('Error loading Diffuse texture:', error)
+                    (error) => {
+                        console.error('Error loading Diffuse texture:', error);
+                        applyTextures(); // حتی اگه تکسچر لود نشه، متریال رو اعمال کن
+                    }
                 );
 
                 textureLoader.load(
@@ -192,18 +183,21 @@
                     (texture) => {
                         aoMap = texture;
                         aoMap.flipY = false;
-                        console.log('AO texture loaded successfully');
+                        console.log('AO texture loaded successfully:', aoMap);
                         applyTextures();
                     },
                     undefined,
-                    (error) => console.error('Error loading AO texture:', error)
+                    (error) => {
+                        console.error('Error loading AO texture:', error);
+                        applyTextures(); // حتی اگه تکسچر لود نشه، متریال رو اعمال کن
+                    }
                 );
 
-                // Apply textures after both are loaded
+                // Apply textures after both are loaded (or failed)
                 let texturesLoaded = 0;
                 function applyTextures() {
                     texturesLoaded++;
-                    if (texturesLoaded < 2) return; // Wait for both textures
+                    if (texturesLoaded < 2) return; // Wait for both textures to attempt loading
 
                     model.traverse((child) => {
                         if (child.isMesh) {
@@ -214,14 +208,14 @@
                             }
 
                             const material = new THREE.MeshStandardMaterial({
-                                map: diffuseMap || null,
+                                map: diffuseMap || null, // اگه تکسچر لود نشده، null می‌ذاریم
                                 aoMap: aoMap || null,
                                 aoMapIntensity: 1.0,
                                 metalness: 0.1,
                                 roughness: 0.7
                             });
                             child.material = material;
-                            console.log('Applied wood material with textures to mesh:', child);
+                            console.log('Applied material with textures to mesh:', child);
                         }
                     });
                 }
