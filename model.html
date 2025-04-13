@@ -156,7 +156,7 @@
                 model.position.set(-center.x * scaleFactor, -center.y * scaleFactor, -center.z * scaleFactor);
                 console.log('Model position adjusted to:', model.position);
 
-                // Apply a simple material first to test rendering
+                // Apply a simple material as fallback
                 model.traverse((child) => {
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
@@ -168,55 +168,54 @@
                     }
                 });
 
-                // Texture loader with explicit path check
+                // Texture loader with explicit path
+                const texturePath = 'textures/'; // Adjust this path if needed
                 const textureLoader = new THREE.TextureLoader();
-                const texturePath = ''; // Adjust this if textures are in a subfolder, e.g., 'textures/'
-                const diffuseMap = textureLoader.load(
+                let diffuseMap, aoMap;
+
+                // Load textures
+                textureLoader.load(
                     texturePath + 'rosewood_veneer1_diff_2k.jpg',
-                    () => {
+                    (texture) => {
+                        diffuseMap = texture;
+                        diffuseMap.flipY = false;
+                        diffuseMap.encoding = THREE.sRGBEncoding;
                         console.log('Diffuse texture loaded successfully');
-                        applyTextures(); // Apply textures after both are loaded
+                        applyTextures();
                     },
                     undefined,
                     (error) => console.error('Error loading Diffuse texture:', error)
                 );
-                const aoMap = textureLoader.load(
+
+                textureLoader.load(
                     texturePath + 'rosewood_veneer1_ao_2k.jpg',
-                    () => {
+                    (texture) => {
+                        aoMap = texture;
+                        aoMap.flipY = false;
                         console.log('AO texture loaded successfully');
-                        applyTextures(); // Apply textures after both are loaded
+                        applyTextures();
                     },
                     undefined,
                     (error) => console.error('Error loading AO texture:', error)
                 );
 
-                // Texture settings
+                // Apply textures after both are loaded
                 let texturesLoaded = 0;
                 function applyTextures() {
                     texturesLoaded++;
-                    if (texturesLoaded < 2) return; // Wait for both textures to load
+                    if (texturesLoaded < 2) return; // Wait for both textures
 
-                    if (diffuseMap) {
-                        diffuseMap.flipY = false;
-                        diffuseMap.encoding = THREE.sRGBEncoding;
-                        console.log('Diffuse map settings applied');
-                    }
-                    if (aoMap) {
-                        aoMap.flipY = false;
-                        console.log('AO map settings applied');
-                    }
-
-                    // Apply wood material with textures
                     model.traverse((child) => {
                         if (child.isMesh) {
+                            // Ensure UV2 exists for AO map
                             if (child.geometry.attributes.uv && !child.geometry.attributes.uv2) {
                                 child.geometry.attributes.uv2 = child.geometry.attributes.uv;
                                 console.log('UV2 generated for mesh:', child);
                             }
 
                             const material = new THREE.MeshStandardMaterial({
-                                map: diffuseMap,
-                                aoMap: aoMap,
+                                map: diffuseMap || null,
+                                aoMap: aoMap || null,
                                 aoMapIntensity: 1.0,
                                 metalness: 0.1,
                                 roughness: 0.7
