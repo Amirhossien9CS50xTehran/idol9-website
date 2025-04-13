@@ -148,7 +148,7 @@
                 console.log('Model center:', center);
 
                 // Adjust scale manually
-                const scaleFactor = 0.5; // Increased scale to make the model larger
+                const scaleFactor = 0.5; // Scale is fine now
                 model.scale.set(scaleFactor, scaleFactor, scaleFactor);
                 console.log('Model scaled to:', model.scale);
 
@@ -168,34 +168,45 @@
                     }
                 });
 
-                // Texture loader
+                // Texture loader with explicit path check
                 const textureLoader = new THREE.TextureLoader();
+                const texturePath = ''; // Adjust this if textures are in a subfolder, e.g., 'textures/'
                 const diffuseMap = textureLoader.load(
-                    'rosewood_veneer1_diff_2k.jpg',
-                    () => console.log('Diffuse texture loaded successfully'),
+                    texturePath + 'rosewood_veneer1_diff_2k.jpg',
+                    () => {
+                        console.log('Diffuse texture loaded successfully');
+                        applyTextures(); // Apply textures after both are loaded
+                    },
                     undefined,
                     (error) => console.error('Error loading Diffuse texture:', error)
                 );
                 const aoMap = textureLoader.load(
-                    'rosewood_veneer1_ao_2k.jpg',
-                    () => console.log('AO texture loaded successfully'),
+                    texturePath + 'rosewood_veneer1_ao_2k.jpg',
+                    () => {
+                        console.log('AO texture loaded successfully');
+                        applyTextures(); // Apply textures after both are loaded
+                    },
                     undefined,
                     (error) => console.error('Error loading AO texture:', error)
                 );
 
                 // Texture settings
-                if (diffuseMap) {
-                    diffuseMap.flipY = false;
-                    diffuseMap.encoding = THREE.sRGBEncoding;
-                    console.log('Diffuse map settings applied');
-                }
-                if (aoMap) {
-                    aoMap.flipY = false;
-                    console.log('AO map settings applied');
-                }
+                let texturesLoaded = 0;
+                function applyTextures() {
+                    texturesLoaded++;
+                    if (texturesLoaded < 2) return; // Wait for both textures to load
 
-                // Apply wood material with textures
-                if (diffuseMap && aoMap) {
+                    if (diffuseMap) {
+                        diffuseMap.flipY = false;
+                        diffuseMap.encoding = THREE.sRGBEncoding;
+                        console.log('Diffuse map settings applied');
+                    }
+                    if (aoMap) {
+                        aoMap.flipY = false;
+                        console.log('AO map settings applied');
+                    }
+
+                    // Apply wood material with textures
                     model.traverse((child) => {
                         if (child.isMesh) {
                             if (child.geometry.attributes.uv && !child.geometry.attributes.uv2) {
@@ -214,8 +225,6 @@
                             console.log('Applied wood material with textures to mesh:', child);
                         }
                     });
-                } else {
-                    console.warn('Textures failed to load, keeping simple brown material');
                 }
 
                 // Adjust camera position based on model size
