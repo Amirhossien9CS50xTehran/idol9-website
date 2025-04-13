@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>idol9</title>
-    <link rel="icon" type="image/png" href="IMG_20250121_222009_921 - Copy (15).png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="IMG_20250121_222009_921 - Copy (15).png"> <!-- فاویکون اصلاح‌شده -->
+    <link rel="stylesheet" href="styles.css"> <!-- اگه فایل styles.css نداری، این خط رو حذف کن -->
+    <link rel="stylesheet" href="model.html"> <!-- اگه فایل styles.css نداری، این خط رو حذف کن -->
+    <!-- اضافه کردن فونت Poppins از Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Model Viewer script -->
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
         html, body {
             margin: 0;
@@ -202,26 +202,6 @@
             transform: scale(1.05);
         }
 
-        /* Styles for 3D model section */
-        .model-section {
-            width: 100%;
-            padding: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f9f9f9;
-            margin-bottom: 20px;
-        }
-
-        model-viewer {
-            width: 100%;
-            max-width: 800px;
-            height: 600px;
-            border-radius: 8px;
-            --poster-color: transparent;
-            background-color: #ffffff;
-        }
-
         @media (max-width: 768px) {
             .image-row {
                 grid-template-columns: 1fr;
@@ -240,9 +220,6 @@
             .gallery .caption {
                 max-width: 80%;
                 font-size: 0.9rem;
-            }
-            model-viewer {
-                height: 400px;
             }
         }
 
@@ -476,20 +453,6 @@
         </div>
     </div>
 
-    <!-- 3D Model Section moved below gallery -->
-    <section class="model-section">
-        <model-viewer 
-            src="assets/models/Chair (2).glb" 
-            alt="3D Chair Model" 
-            camera-controls 
-            auto-rotate 
-            shadow-intensity="1"
-            exposure="0.8"
-            environment-image="neutral"
-            poster="assets/models/placeholder.png">
-        </model-viewer>
-    </section>
-
     <section id="contact">
         <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
             <h2>Contact Us</h2>
@@ -540,22 +503,13 @@
             });
         });
 
+        // برای هایلایت کردن لینک فعال
         const currentPage = window.location.pathname.split('/').pop();
         document.querySelectorAll('.menu a').forEach(link => {
             const href = link.getAttribute('href');
             if (href === currentPage || (currentPage === '' && href === '#gallery')) {
                 link.classList.add('active');
             }
-        });
-
-        // Debug model loading issues
-        document.querySelector('model-viewer').addEventListener('error', (event) => {
-            console.error('Model Viewer Error:', event.detail);
-            alert('Failed to load the 3D model. Please check the file path or model format.');
-        });
-
-        document.querySelector('model-viewer').addEventListener('load', () => {
-            console.log('3D model loaded successfully!');
         });
     </script>
 </body>
