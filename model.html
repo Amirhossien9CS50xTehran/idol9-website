@@ -140,7 +140,7 @@
         // Load the 3D model
         const loader = new THREE.GLTFLoader();
         loader.load(
-            'Chair (2).glb',
+            'models/Chair (2).glb', // Update this path if the model is in a subfolder
             function (gltf) {
                 console.log('Model loaded successfully:', gltf);
                 const model = gltf.scene;
