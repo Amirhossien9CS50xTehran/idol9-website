@@ -195,8 +195,10 @@
                                 aoMap: aoMap, // Ambient Occlusion map
                                 aoMapIntensity: 1.0, // Intensity of AO
                                 metalness: 0.1, // Low metalness for wood
-                                roughness: 0.7 // Manual roughness value (no roughness map)
+                                roughness: 0.7 // Manual roughness value
                             });
+                        } else {
+                            console.warn('Some textures failed to load. Using fallback material.');
                         }
 
                         child.material = material;
@@ -229,7 +231,7 @@
                 controls.update();
             },
             function (xhr) {
-                console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                console.log('Model loading progress:', (xhr.loaded / xhr.total * 100) + '% loaded');
             },
             function (error) {
                 console.error('Error loading model:', error);
