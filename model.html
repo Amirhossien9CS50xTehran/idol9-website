@@ -138,38 +138,14 @@
                 const model = gltf.scene;
                 scene.add(model);
 
-                // لودر تکسچر
-                const textureLoader = new THREE.TextureLoader();
-
-                // بارگذاری تکسچرها
-                const diffuseMap = textureLoader.load('rosewood_veneer1_diff_2k.jpg');
-                const aoMap = textureLoader.load('rosewood_veneer1_ao_2k.jpg');
-                const displacementMap = textureLoader.load('rosewood_veneer1_disp_2k.png');
-                const normalMap = textureLoader.load('rosewood_veneer1_nor_gl_2k.exr');
-                const roughnessMap = textureLoader.load('rosewood_veneer1_rough_2k.exr');
-
-                // تنظیمات تکسچرها (اختیاری، برای بهینه‌سازی)
-                [diffuseMap, aoMap, displacementMap, normalMap, roughnessMap].forEach((tex) => {
-                    tex.flipY = false; // برای GLB معمولاً لازم نیست Y رو فلیپ کنیم
-                    tex.encoding = THREE.sRGBEncoding; // برای Diffuse رنگ‌ها رو درست می‌کنه
-                });
-
-                // تغییر متریال مدل
+                // تغییر متریال مدل به رنگ قهوه‌ای روشن
                 model.traverse((child) => {
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
-                            map: diffuseMap, // تکسچر اصلی (رنگ)
-                            aoMap: aoMap, // سایه‌های طبیعی
-                            displacementMap: displacementMap, // عمق سطح
-                            displacementScale: 0.1, // شدت Displacement (قابل تنظیم)
-                            normalMap: normalMap, // جزئیات نورپردازی
-                            roughnessMap: roughnessMap, // زبری/براقی
-                            roughness: 1.0, // مقدار پیش‌فرض (تکسچر Roughness کنترلش می‌کنه)
-                            metalness: 0.3 // مدلت چوبیه، فلزی بودن کمه
+                            color: 0x8B4513, // رنگ قهوه‌ای روشن
+                            metalness: 0.3,
+                            roughness: 0.7
                         });
-
-                        // فعال کردن aoMap (نیاز به UV دوم داره، فرض می‌کنم مدلت داره)
-                        child.geometry.attributes.uv2 = child.geometry.attributes.uv;
                     }
                 });
 
