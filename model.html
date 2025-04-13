@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Model - idol9</title>
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/amirhossien9CS50xtehran/idol9-web/main/site/IMG_20250121_222009_921%20-%20Copy%20(15).png">
+    <link rel="icon" type="image/png" href="IMG_20250121_222009_921 - Copy (15).png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
         html, body {
@@ -102,7 +102,7 @@
                 <li><a href="model.html" class="active">3D Model</a></li>
             </ul>
         </nav>
-        <img src="https://raw.githubusercontent.com/amirhossien9CS50xtehran/idol9-web/main/site/IMG_20250121_222009_921.png" class="logo" alt="Logo">
+        <img src="IMG_20250121_222009_921.png" class="logo" alt="Logo">
     </header>
 
     <div class="model-container" id="model-viewer">
@@ -134,7 +134,7 @@
         // Load the 3D model
         const loader = new THREE.GLTFLoader();
         loader.load(
-            'https://raw.githubusercontent.com/amirhossien9CS50xtehran/idol9-web/main/site/Chair%20(2).glb',
+            'Chair (2).glb',
             function (gltf) {
                 console.log('Model loaded successfully:', gltf);
                 const model = gltf.scene;
@@ -168,13 +168,14 @@
                     }
                 });
 
-                // Texture loader with raw GitHub links
+                // Texture loader with relative paths
+                const texturePath = ''; // تکسچرها توی همون پوشه‌ی فایل HTML هستن
                 const textureLoader = new THREE.TextureLoader();
                 let diffuseMap, aoMap;
 
                 // Load textures with error handling
                 textureLoader.load(
-                    'https://raw.githubusercontent.com/amirhossien9CS50xtehran/idol9-web/main/site/rosewood_veneer1_diff_2k.jpg',
+                    texturePath + 'rosewood_veneer1_diff_2k.jpg',
                     (texture) => {
                         diffuseMap = texture;
                         diffuseMap.flipY = false;
@@ -190,7 +191,7 @@
                 );
 
                 textureLoader.load(
-                    'https://raw.githubusercontent.com/amirhossien9CS50xtehran/idol9-web/main/site/rosewood_veneer1_ao_2k.jpg',
+                    texturePath + 'rosewood_veneer1_ao_2k.jpg',
                     (texture) => {
                         aoMap = texture;
                         aoMap.flipY = false;
