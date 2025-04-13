@@ -1,49 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display 3D Chair Model</title>
+    <title>3D Model - idol9</title>
+    <link rel="icon" type="image/png" href="IMG_20250121_222009_921 - Copy (15).png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body {
+        html, body {
             margin: 0;
-            overflow: hidden;
+            padding: 0;
+            box-sizing: border-box;
+            width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        canvas {
+        body {
+            font-family: Arial, sans-serif;
+            height: 100%;
+            overflow-y: scroll;
+            scrollbar-width: none;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #313131;
+        }
+
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: large;
+        }
+
+        .menu a:hover {
+            background-color: rgb(55, 140, 225);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .menu a.active {
+            background-color: rgb(55, 140, 225);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .logo {
+            width: 102px;
+            border-radius: 6px;
+        }
+
+        .model-container {
             width: 100%;
-            height: 100vh;
+            height: 600px;
+            margin: 10px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            background-color: #f9f9f9; /* همون بک‌گراند روشن سایتت */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .model-container canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .model-container {
+                height: 400px;
+            }
         }
     </style>
 </head>
-
 <body>
+    <header>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="model.html" class="active">3D Model</a></li>
+            </ul>
+        </nav>
+        <img src="IMG_20250121_222009_921.png" class="logo" alt="Logo">
+    </header>
+
+    <div class="model-container" id="model-viewer">
+        <!-- Canvas will be added here by Three.js -->
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://unpkg.com/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://unpkg.com/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script>
-        // Set up scene
+        const modelViewer = document.getElementById('model-viewer');
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        const camera = new THREE.PerspectiveCamera(75, modelViewer.offsetWidth / modelViewer.offsetHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // alpha: true برای بک‌گراند شفاف
+        renderer.setSize(modelViewer.offsetWidth, modelViewer.offsetHeight);
+        renderer.setClearColor(0x000000, 0); // بک‌گراند شفاف
+        modelViewer.appendChild(renderer.domElement);
 
-        // Add lighting
+        // اضافه کردن نور
         const light = new THREE.DirectionalLight(0xffffff, 0.8);
         light.position.set(1, 1, 1).normalize();
         scene.add(light);
-        scene.add(new THREE.AmbientLight(0x404040)); // Ambient light
+        scene.add(new THREE.AmbientLight(0x404040));
 
-        // Load GLB model
+        // بارگذاری مدل
+        let model; // متغیر برای ذخیره مدل
         const loader = new THREE.GLTFLoader();
         loader.load(
-            'Chair (2).glb', // Path to your GLB file
+            'Chair (2).glb',
             function (gltf) {
-                scene.add(gltf.scene);
-                gltf.scene.scale.set(1, 1, 1); // Scale the model (adjust if needed)
-                gltf.scene.position.set(0, 0, 0); // Position the model
+                model = gltf.scene; // ذخیره مدل
+                scene.add(model);
+                model.scale.set(1, 1, 1);
+                model.position.set(0, 0, 0);
             },
             function (xhr) {
                 console.log((xhr.loaded / xhr.total * 100) + '% loaded');
@@ -53,32 +144,25 @@
             }
         );
 
-        // Set camera position
+        // تنظیم دوربین
         camera.position.z = 5;
 
-        // Enable mouse rotation
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true; // For smoother movement
-        controls.dampingFactor = 0.05;
-        controls.screenSpacePanning = false;
-        controls.minDistance = 2; // Minimum zoom
-        controls.maxDistance = 10; // Maximum zoom
-
-        // Render loop
+        // حلقه انیمیشن
         function animate() {
             requestAnimationFrame(animate);
-            controls.update();
+            if (model) {
+                model.rotation.y += 0.01; // چرخش خودکار مدل حول محور Y
+            }
             renderer.render(scene, camera);
         }
         animate();
 
-        // Handle window resize
+        // مدیریت تغییر اندازه
         window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.aspect = modelViewer.offsetWidth / modelViewer.offsetHeight;
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setSize(modelViewer.offsetWidth, modelViewer.offsetHeight);
         });
     </script>
 </body>
-
 </html>
