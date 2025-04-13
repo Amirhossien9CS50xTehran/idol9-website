@@ -113,6 +113,7 @@
     <script src="https://unpkg.com/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://unpkg.com/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script>
+        // Get the model viewer container
         const modelViewer = document.getElementById('model-viewer');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, modelViewer.offsetWidth / modelViewer.offsetHeight, 0.1, 1000);
@@ -121,7 +122,7 @@
         renderer.setClearColor(0x000000, 0);
         modelViewer.appendChild(renderer.domElement);
 
-        // نورپردازی
+        // Lighting setup
         const light1 = new THREE.DirectionalLight(0xffffff, 0.8);
         light1.position.set(1, 1, 1).normalize();
         scene.add(light1);
@@ -130,54 +131,40 @@
         scene.add(light2);
         scene.add(new THREE.AmbientLight(0x404040));
 
-        // بارگذاری مدل
+        // Add a fallback box to confirm Three.js is working
+        const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+        const boxMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 }); // Red box
+        const box = new THREE.Mesh(boxGeometry, boxMaterial);
+        scene.add(box);
+
+        // Load the 3D model
         const loader = new THREE.GLTFLoader();
         loader.load(
             'Chair (2).glb',
             function (gltf) {
+                console.log('Model loaded successfully:', gltf);
                 const model = gltf.scene;
                 scene.add(model);
 
-                // لودر تکسچر
-                const textureLoader = new THREE.TextureLoader();
+                // Remove the fallback box since the model loaded
+                scene.remove(box);
 
-                // بارگذاری تکسچرها
-                const diffuseMap = textureLoader.load('rosewood_veneer1_diff_2k.jpg');
-                const aoMap = textureLoader.load('rosewood_veneer1_ao_2k.jpg');
-                const displacementMap = textureLoader.load('rosewood_veneer1_disp_2k.png');
-                const normalMap = textureLoader.load('rosewood_veneer1_nor_gl_2k.exr');
-                const roughnessMap = textureLoader.load('rosewood_veneer1_rough_2k.exr');
-
-                // تنظیمات تکسچرها (اختیاری، برای بهینه‌سازی)
-                [diffuseMap, aoMap, displacementMap, normalMap, roughnessMap].forEach((tex) => {
-                    tex.flipY = false; // برای GLB معمولاً لازم نیست Y رو فلیپ کنیم
-                    tex.encoding = THREE.sRGBEncoding; // برای Diffuse رنگ‌ها رو درست می‌کنه
-                });
-
-                // تغییر متریال مدل
+                // Apply a basic material (no textures for now)
                 model.traverse((child) => {
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
-                            map: diffuseMap, // تکسچر اصلی (رنگ)
-                            aoMap: aoMap, // سایه‌های طبیعی
-                            displacementMap: displacementMap, // عمق سطح
-                            displacementScale: 0.1, // شدت Displacement (قابل تنظیم)
-                            normalMap: normalMap, // جزئیات نورپردازی
-                            roughnessMap: roughnessMap, // زبری/براقی
-                            roughness: 1.0, // مقدار پیش‌فرض (تکسچر Roughness کنترلش می‌کنه)
-                            metalness: 0.3 // مدلت چوبیه، فلزی بودن کمه
+                            color: 0x8B4513, // Light brown color
+                            metalness: 0.3,
+                            roughness: 0.7
                         });
-
-                        // فعال کردن aoMap (نیاز به UV دوم داره، فرض می‌کنم مدلت داره)
-                        child.geometry.attributes.uv2 = child.geometry.attributes.uv;
                     }
                 });
 
-                // تنظیم مقیاس و موقعیت
+                // Set scale and position
                 model.scale.set(1, 1, 1);
                 model.position.set(0, 0, 0);
 
-                // محاسبه باکس مدل برای فیت کردن تو دوربین
+                // Fit model in camera view
                 const box = new THREE.Box3().setFromObject(model);
                 const center = box.getCenter(new THREE.Vector3());
                 const size = box.getSize(new THREE.Vector3());
@@ -189,7 +176,7 @@
                 camera.position.set(0, center.y, cameraZ);
                 camera.lookAt(center);
 
-                // تنظیم کنترل‌ها
+                // Orbit controls for rotation
                 const controls = new THREE.OrbitControls(camera, renderer.domElement);
                 controls.target.set(center.x, center.y, center.z);
                 controls.enableDamping = true;
@@ -202,18 +189,22 @@
                 console.log((xhr.loaded / xhr.total * 100) + '% loaded');
             },
             function (error) {
-                console.error('error warning!:', error);
+                console.error('Error loading model:', error);
             }
         );
 
-        // حلقه رندر
+        // Set camera position for the fallback box
+        camera.position.set(0, 0, 5);
+        camera.lookAt(0, 0, 0);
+
+        // Render loop
         function animate() {
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
         }
         animate();
 
-        // مدیریت تغییر اندازه
+        // Handle window resize
         window.addEventListener('resize', () => {
             camera.aspect = modelViewer.offsetWidth / modelViewer.offsetHeight;
             camera.updateProjectionMatrix();
