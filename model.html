@@ -148,7 +148,7 @@
                 console.log('Model center:', center);
 
                 // Adjust scale manually
-                const scaleFactor = 0.01; // Adjust this if the model is too large/small
+                const scaleFactor = 0.5; // Increased scale to make the model larger
                 model.scale.set(scaleFactor, scaleFactor, scaleFactor);
                 console.log('Model scaled to:', model.scale);
 
@@ -160,11 +160,11 @@
                 model.traverse((child) => {
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
-                            color: 0x00ff00, // Green color to confirm rendering
+                            color: 0x8B4513, // Brown color as a fallback
                             metalness: 0.1,
                             roughness: 0.7
                         });
-                        console.log('Applied simple green material to mesh:', child);
+                        console.log('Applied simple brown material to mesh:', child);
                     }
                 });
 
@@ -215,11 +215,12 @@
                         }
                     });
                 } else {
-                    console.warn('Textures failed to load, keeping simple material');
+                    console.warn('Textures failed to load, keeping simple brown material');
                 }
 
-                // Set camera position manually
-                camera.position.set(0, 1, 3);
+                // Adjust camera position based on model size
+                const maxDim = Math.max(size.x * scaleFactor, size.y * scaleFactor, size.z * scaleFactor);
+                camera.position.set(0, maxDim / 2, maxDim * 2);
                 camera.lookAt(0, 0, 0);
                 console.log('Camera position set to:', camera.position);
 
@@ -228,8 +229,8 @@
                 controls.target.set(0, 0, 0);
                 controls.enableDamping = true;
                 controls.dampingFactor = 0.05;
-                controls.minDistance = 1;
-                controls.maxDistance = 10;
+                controls.minDistance = maxDim * 0.5;
+                controls.maxDistance = maxDim * 10;
                 controls.update();
             },
             function (xhr) {
