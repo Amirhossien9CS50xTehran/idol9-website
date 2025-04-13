@@ -159,34 +159,19 @@
                     undefined,
                     (error) => console.error('Error loading Diffuse texture:', error)
                 );
-                const normalMap = textureLoader.load(
-                    'rosewood_veneer1_nor_gl_2k.jpg',
-                    () => console.log('Normal texture loaded successfully'),
-                    undefined,
-                    (error) => console.error('Error loading Normal texture:', error)
-                );
-                const roughnessMap = textureLoader.load(
-                    'rosewood_veneer1_rough_2k.jpg',
-                    () => console.log('Roughness texture loaded successfully'),
-                    undefined,
-                    (error) => console.error('Error loading Roughness texture:', error)
-                );
-                // If you have an AO map, uncomment and add the path
-                /*
                 const aoMap = textureLoader.load(
                     'rosewood_veneer1_ao_2k.jpg',
                     () => console.log('AO texture loaded successfully'),
                     undefined,
                     (error) => console.error('Error loading AO texture:', error)
                 );
-                */
 
                 // Texture settings
-                diffuseMap.flipY = false; // No need to flip Y for GLB
-                diffuseMap.encoding = THREE.sRGBEncoding; // Correct colors for Diffuse
-                normalMap.flipY = false;
-                roughnessMap.flipY = false;
-                // aoMap.flipY = false; // Uncomment if using aoMap
+                if (diffuseMap) {
+                    diffuseMap.flipY = false; // No need to flip Y for GLB
+                    diffuseMap.encoding = THREE.sRGBEncoding; // Correct colors for Diffuse
+                }
+                if (aoMap) aoMap.flipY = false;
 
                 // Apply wood material with textures
                 model.traverse((child) => {
@@ -196,16 +181,25 @@
                             child.geometry.attributes.uv2 = child.geometry.attributes.uv;
                         }
 
-                        child.material = new THREE.MeshStandardMaterial({
-                            map: diffuseMap, // Base color texture
-                            normalMap: normalMap, // Normal map for detail
-                            normalScale: new THREE.Vector2(1, 1), // Adjust normal map strength
-                            roughnessMap: roughnessMap, // Roughness map
-                            // aoMap: aoMap, // Ambient Occlusion map (uncomment if using)
-                            // aoMapIntensity: 1.0, // Intensity of AO (uncomment if using)
-                            metalness: 0.1, // Low metalness for wood
-                            roughness: 0.7 // Adjust roughness for wood
+                        // Default material in case textures fail to load
+                        let material = new THREE.MeshStandardMaterial({
+                            color: 0x8B4513, // Fallback brown color
+                            metalness: 0.1,
+                            roughness: 0.7
                         });
+
+                        // Apply textures if they loaded successfully
+                        if (diffuseMap && aoMap) {
+                            material = new THREE.MeshStandardMaterial({
+                                map: diffuseMap, // Base color texture
+                                aoMap: aoMap, // Ambient Occlusion map
+                                aoMapIntensity: 1.0, // Intensity of AO
+                                metalness: 0.1, // Low metalness for wood
+                                roughness: 0.7 // Manual roughness value (no roughness map)
+                            });
+                        }
+
+                        child.material = material;
                     }
                 });
 
