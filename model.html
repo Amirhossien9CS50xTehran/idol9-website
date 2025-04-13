@@ -21,7 +21,7 @@
             font-family: Arial, sans-serif;
             overflow-y: scroll;
             scrollbar-width: none;
-            background-color: #f9f9f9; /* بک‌گراند هماهنگ با سایت */
+            background-color: #f9f9f9;
         }
 
         ::-webkit-scrollbar {
@@ -70,7 +70,7 @@
 
         .model-container {
             width: 100%;
-            height: calc(100vh - 80px); /* ارتفاع کامل منهای هدر */
+            height: calc(100vh - 80px);
             margin: 0;
             border-radius: 15px;
             overflow: hidden;
@@ -87,7 +87,7 @@
 
         @media (max-width: 768px) {
             .model-container {
-                height: calc(100vh - 60px); /* تنظیم برای موبایل */
+                height: calc(100vh - 60px);
             }
         }
     </style>
@@ -118,7 +118,7 @@
         const camera = new THREE.PerspectiveCamera(75, modelViewer.offsetWidth / modelViewer.offsetHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(modelViewer.offsetWidth, modelViewer.offsetHeight);
-        renderer.setClearColor(0x000000, 0); // بک‌گراند شفاف
+        renderer.setClearColor(0x000000, 0);
         modelViewer.appendChild(renderer.domElement);
 
         // نورپردازی
@@ -138,8 +138,19 @@
                 const model = gltf.scene;
                 scene.add(model);
 
+                // تغییر متریال مدل به رنگ قهوه‌ای روشن
+                model.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material = new THREE.MeshStandardMaterial({
+                            color: 0x8B4513, // رنگ قهوه‌ای روشن
+                            metalness: 0.3,
+                            roughness: 0.7
+                        });
+                    }
+                });
+
                 // تنظیم مقیاس و موقعیت
-                model.scale.set(1, 1, 1); // اگه لازم بود تغییر بده
+                model.scale.set(1, 1, 1);
                 model.position.set(0, 0, 0);
 
                 // محاسبه باکس مدل برای فیت کردن تو دوربین
@@ -149,7 +160,7 @@
                 const maxDim = Math.max(size.x, size.y, size.z);
                 const fov = camera.fov * (Math.PI / 180);
                 let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-                cameraZ *= 1.5; // فاصله بیشتر برای دید کامل
+                cameraZ *= 1.5;
 
                 camera.position.set(0, center.y, cameraZ);
                 camera.lookAt(center);
