@@ -140,7 +140,7 @@
         // Load the 3D model
         const loader = new THREE.GLTFLoader();
         loader.load(
-            'https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf', // Public model for testing
+            'Chair (2).glb', // Your model
             function (gltf) {
                 console.log('Model loaded successfully:', gltf);
                 const model = gltf.scene;
@@ -152,38 +152,41 @@
                 // Texture loader
                 const textureLoader = new THREE.TextureLoader();
 
-                // Load wood textures (using public wood textures for demonstration)
+                // Load your wood textures
                 const diffuseMap = textureLoader.load(
-                    'https://threejs.org/examples/textures/wood/wood_diffuse.jpg', // Replace with 'rosewood_veneer1_diff_2k.jpg'
+                    'rosewood_veneer1_diff_2k.jpg',
                     () => console.log('Diffuse texture loaded successfully'),
                     undefined,
                     (error) => console.error('Error loading Diffuse texture:', error)
                 );
                 const normalMap = textureLoader.load(
-                    'https://threejs.org/examples/textures/wood/wood_normal.jpg', // Replace with 'rosewood_veneer1_nor_gl_2k.jpg'
+                    'rosewood_veneer1_nor_gl_2k.jpg',
                     () => console.log('Normal texture loaded successfully'),
                     undefined,
                     (error) => console.error('Error loading Normal texture:', error)
                 );
                 const roughnessMap = textureLoader.load(
-                    'https://threejs.org/examples/textures/wood/wood_roughness.jpg', // Replace with 'rosewood_veneer1_rough_2k.jpg'
+                    'rosewood_veneer1_rough_2k.jpg',
                     () => console.log('Roughness texture loaded successfully'),
                     undefined,
                     (error) => console.error('Error loading Roughness texture:', error)
                 );
+                // If you have an AO map, uncomment and add the path
+                /*
                 const aoMap = textureLoader.load(
-                    'https://threejs.org/examples/textures/wood/wood_ao.jpg', // Replace with your AO map if available
+                    'rosewood_veneer1_ao_2k.jpg',
                     () => console.log('AO texture loaded successfully'),
                     undefined,
                     (error) => console.error('Error loading AO texture:', error)
                 );
+                */
 
                 // Texture settings
                 diffuseMap.flipY = false; // No need to flip Y for GLB
                 diffuseMap.encoding = THREE.sRGBEncoding; // Correct colors for Diffuse
                 normalMap.flipY = false;
                 roughnessMap.flipY = false;
-                aoMap.flipY = false;
+                // aoMap.flipY = false; // Uncomment if using aoMap
 
                 // Apply wood material with textures
                 model.traverse((child) => {
@@ -196,9 +199,10 @@
                         child.material = new THREE.MeshStandardMaterial({
                             map: diffuseMap, // Base color texture
                             normalMap: normalMap, // Normal map for detail
+                            normalScale: new THREE.Vector2(1, 1), // Adjust normal map strength
                             roughnessMap: roughnessMap, // Roughness map
-                            aoMap: aoMap, // Ambient Occlusion map
-                            aoMapIntensity: 1.0, // Intensity of AO
+                            // aoMap: aoMap, // Ambient Occlusion map (uncomment if using)
+                            // aoMapIntensity: 1.0, // Intensity of AO (uncomment if using)
                             metalness: 0.1, // Low metalness for wood
                             roughness: 0.7 // Adjust roughness for wood
                         });
