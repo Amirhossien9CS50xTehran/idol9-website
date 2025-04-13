@@ -19,7 +19,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            overflow-y: scroll;
+            overflow-y: auto; /* Allow scrolling for multiple sections */
             scrollbar-width: none;
             background-color: #f9f9f9;
         }
@@ -34,6 +34,9 @@
             align-items: center;
             padding: 10px 20px;
             background-color: #313131;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .menu ul {
@@ -68,10 +71,60 @@
             border-radius: 6px;
         }
 
+        /* Slider Styles */
+        .slider-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide:nth-child(1) {
+            background-image: url('https://via.placeholder.com/1200x400?text=Slide+1');
+        }
+
+        .slide:nth-child(2) {
+            background-image: url('https://via.placeholder.com/1200x400?text=Slide+2');
+        }
+
+        .slide:nth-child(3) {
+            background-image: url('https://via.placeholder.com/1200x400?text=Slide+3');
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .slider-nav button {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* 3D Model Viewer Styles */
         .model-container {
             width: 100%;
-            height: calc(100vh - 80px);
-            margin: 0;
+            height: 500px;
+            margin: 20px 0;
             border-radius: 15px;
             overflow: hidden;
             background-color: #f9f9f9;
@@ -85,9 +138,70 @@
             height: 100%;
         }
 
+        /* Contact Form Styles */
+        .contact-section {
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-section form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-section input,
+        .contact-section textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .contact-section button {
+            padding: 10px;
+            background-color: rgb(55, 140, 225);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .contact-section button:hover {
+            background-color: rgb(45, 120, 205);
+        }
+
+        .contact-section .message {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .contact-section .message.success {
+            color: green;
+        }
+
+        .contact-section .message.error {
+            color: red;
+        }
+
         @media (max-width: 768px) {
             .model-container {
-                height: calc(100vh - 60px);
+                height: 400px;
+            }
+
+            .slide {
+                height: 300px;
             }
         }
     </style>
@@ -105,15 +219,67 @@
         <img src="IMG_20250121_222009_921.png" class="logo" alt="Logo">
     </header>
 
+    <!-- Slider Section -->
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+        <div class="slider-nav">
+            <button onclick="prevSlide()">❮</button>
+            <button onclick="nextSlide()">❯</button>
+        </div>
+    </div>
+
+    <!-- 3D Model Viewer Section -->
     <div class="model-container" id="model-viewer">
         <!-- Canvas will be added here by Three.js -->
     </div>
+
+    <!-- Contact Form Section -->
+    <section class="contact-section">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <div id="form-message" class="message"></div>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://unpkg.com/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://unpkg.com/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script>
-        // Get the model viewer container
+        // --- Slider Code ---
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            if (index >= totalSlides) currentIndex = 0;
+            if (index < 0) currentIndex = totalSlides - 1;
+            document.querySelector('.slider').style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentIndex++;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex--;
+            showSlide(currentIndex);
+        }
+
+        // Auto-slide every 4 seconds
+        setInterval(() => {
+            nextSlide();
+        }, 4000);
+
+        // --- 3D Model Viewer Code ---
         const modelViewer = document.getElementById('model-viewer');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, modelViewer.offsetWidth / modelViewer.offsetHeight, 0.1, 1000);
@@ -140,7 +306,7 @@
         // Load the 3D model
         const loader = new THREE.GLTFLoader();
         loader.load(
-            'models/Chair (2).glb', // Update this path if the model is in a subfolder
+            'https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf', // Public model for testing
             function (gltf) {
                 console.log('Model loaded successfully:', gltf);
                 const model = gltf.scene;
@@ -209,6 +375,44 @@
             camera.aspect = modelViewer.offsetWidth / modelViewer.offsetHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(modelViewer.offsetWidth, modelViewer.offsetHeight);
+        });
+
+        // --- Contact Form Submission ---
+        const contactForm = document.getElementById('contact-form');
+        const formMessage = document.getElementById('form-message');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(contactForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                message: formData.get('message')
+            };
+
+            try {
+                const response = await fetch('/.netlify/functions/send-email', { // Update this URL based on your deployment
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    formMessage.textContent = result.message;
+                    formMessage.classList.add('success');
+                    contactForm.reset();
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                formMessage.textContent = 'Failed to send message.';
+                formMessage.classList.add('error');
+                console.error('Error submitting form:', error);
+            }
         });
     </script>
 </body>
