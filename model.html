@@ -131,12 +131,6 @@
         scene.add(light2);
         scene.add(new THREE.AmbientLight(0x404040, 0.5));
 
-        // Add a fallback box to confirm Three.js is working
-        const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-        const boxMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-        const box = new THREE.Mesh(boxGeometry, boxMaterial);
-        scene.add(box);
-
         // Load the 3D model
         const loader = new THREE.GLTFLoader();
         loader.load(
@@ -146,10 +140,6 @@
                 const model = gltf.scene;
                 scene.add(model);
 
-                // Remove the fallback box
-                scene.remove(box);
-                console.log('Fallback box removed');
-
                 // Check model bounding box
                 const box = new THREE.Box3().setFromObject(model);
                 const size = box.getSize(new THREE.Vector3());
@@ -157,8 +147,8 @@
                 console.log('Model bounding box size:', size);
                 console.log('Model center:', center);
 
-                // Adjust scale manually (since the model is too large)
-                const scaleFactor = 0.01; // Reduce scale significantly
+                // Adjust scale manually
+                const scaleFactor = 0.01; // Adjust this if the model is too large/small
                 model.scale.set(scaleFactor, scaleFactor, scaleFactor);
                 console.log('Model scaled to:', model.scale);
 
@@ -166,7 +156,7 @@
                 model.position.set(-center.x * scaleFactor, -center.y * scaleFactor, -center.z * scaleFactor);
                 console.log('Model position adjusted to:', model.position);
 
-                // Apply a simple material to test rendering
+                // Apply a simple material first to test rendering
                 model.traverse((child) => {
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
@@ -178,8 +168,58 @@
                     }
                 });
 
+                // Texture loader
+                const textureLoader = new THREE.TextureLoader();
+                const diffuseMap = textureLoader.load(
+                    'rosewood_veneer1_diff_2k.jpg',
+                    () => console.log('Diffuse texture loaded successfully'),
+                    undefined,
+                    (error) => console.error('Error loading Diffuse texture:', error)
+                );
+                const aoMap = textureLoader.load(
+                    'rosewood_veneer1_ao_2k.jpg',
+                    () => console.log('AO texture loaded successfully'),
+                    undefined,
+                    (error) => console.error('Error loading AO texture:', error)
+                );
+
+                // Texture settings
+                if (diffuseMap) {
+                    diffuseMap.flipY = false;
+                    diffuseMap.encoding = THREE.sRGBEncoding;
+                    console.log('Diffuse map settings applied');
+                }
+                if (aoMap) {
+                    aoMap.flipY = false;
+                    console.log('AO map settings applied');
+                }
+
+                // Apply wood material with textures
+                if (diffuseMap && aoMap) {
+                    model.traverse((child) => {
+                        if (child.isMesh) {
+                            if (child.geometry.attributes.uv && !child.geometry.attributes.uv2) {
+                                child.geometry.attributes.uv2 = child.geometry.attributes.uv;
+                                console.log('UV2 generated for mesh:', child);
+                            }
+
+                            const material = new THREE.MeshStandardMaterial({
+                                map: diffuseMap,
+                                aoMap: aoMap,
+                                aoMapIntensity: 1.0,
+                                metalness: 0.1,
+                                roughness: 0.7
+                            });
+                            child.material = material;
+                            console.log('Applied wood material with textures to mesh:', child);
+                        }
+                    });
+                } else {
+                    console.warn('Textures failed to load, keeping simple material');
+                }
+
                 // Set camera position manually
-                camera.position.set(0, 1, 3); // Move camera up and back
+                camera.position.set(0, 1, 3);
                 camera.lookAt(0, 0, 0);
                 console.log('Camera position set to:', camera.position);
 
@@ -199,10 +239,6 @@
                 console.error('Error loading model:', error);
             }
         );
-
-        // Set camera position for the fallback box
-        camera.position.set(0, 0, 5);
-        camera.lookAt(0, 0, 0);
 
         // Render loop
         function animate() {
