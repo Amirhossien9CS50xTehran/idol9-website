@@ -116,7 +116,7 @@
         // Get the model viewer container
         const modelViewer = document.getElementById('model-viewer');
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, modelViewer.offsetWidth / modelViewer.offsetHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, modelViewer.offsetWidth / modelViewer.offsetHeight, 0.1, 10000); // Increased far plane
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(modelViewer.offsetWidth, modelViewer.offsetHeight);
         renderer.setClearColor(0x000000, 0);
@@ -133,26 +133,52 @@
 
         // Add a fallback box to confirm Three.js is working
         const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-        const boxMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 }); // Red box
+        const boxMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
         const box = new THREE.Mesh(boxGeometry, boxMaterial);
         scene.add(box);
 
         // Load the 3D model
         const loader = new THREE.GLTFLoader();
         loader.load(
-            'Chair (2).glb', // Your model
+            'Chair (2).glb',
             function (gltf) {
                 console.log('Model loaded successfully:', gltf);
                 const model = gltf.scene;
                 scene.add(model);
 
-                // Remove the fallback box since the model loaded
+                // Log model details
+                console.log('Model position before adjustment:', model.position);
+                console.log('Model scale before adjustment:', model.scale);
+
+                // Check model bounding box
+                const box = new THREE.Box3().setFromObject(model);
+                const size = box.getSize(new THREE.Vector3());
+                const center = box.getCenter(new THREE.Vector3());
+                console.log('Model bounding box size:', size);
+                console.log('Model center:', center);
+
+                // Adjust scale if too large or too small
+                const maxDim = Math.max(size.x, size.y, size.z);
+                let scaleFactor = 1;
+                if (maxDim > 50) { // If model is too large
+                    scaleFactor = 50 / maxDim;
+                    model.scale.set(scaleFactor, scaleFactor, scaleFactor);
+                    console.log('Model scaled down to:', model.scale);
+                } else if (maxDim < 0.1) { // If model is too small
+                    scaleFactor = 0.1 / maxDim;
+                    model.scale.set(scaleFactor, scaleFactor, scaleFactor);
+                    console.log('Model scaled up to:', model.scale);
+                }
+
+                // Center the model
+                model.position.set(-center.x, -center.y, -center.z); // Move model to origin
+                console.log('Model position adjusted to:', model.position);
+
+                // Remove the fallback box
                 scene.remove(box);
 
                 // Texture loader
                 const textureLoader = new THREE.TextureLoader();
-
-                // Load your wood textures
                 const diffuseMap = textureLoader.load(
                     'rosewood_veneer1_diff_2k.jpg',
                     () => console.log('Diffuse texture loaded successfully'),
@@ -168,35 +194,33 @@
 
                 // Texture settings
                 if (diffuseMap) {
-                    diffuseMap.flipY = false; // No need to flip Y for GLB
-                    diffuseMap.encoding = THREE.sRGBEncoding; // Correct colors for Diffuse
+                    diffuseMap.flipY = false;
+                    diffuseMap.encoding = THREE.sRGBEncoding;
                 }
                 if (aoMap) aoMap.flipY = false;
 
                 // Apply wood material with textures
                 model.traverse((child) => {
                     if (child.isMesh) {
-                        // Generate UV2 for aoMap if needed
                         if (child.geometry.attributes.uv && !child.geometry.attributes.uv2) {
                             child.geometry.attributes.uv2 = child.geometry.attributes.uv;
                         }
 
-                        // Default material in case textures fail to load
                         let material = new THREE.MeshStandardMaterial({
                             color: 0x8B4513, // Fallback brown color
                             metalness: 0.1,
                             roughness: 0.7
                         });
 
-                        // Apply textures if they loaded successfully
                         if (diffuseMap && aoMap) {
                             material = new THREE.MeshStandardMaterial({
-                                map: diffuseMap, // Base color texture
-                                aoMap: aoMap, // Ambient Occlusion map
-                                aoMapIntensity: 1.0, // Intensity of AO
-                                metalness: 0.1, // Low metalness for wood
-                                roughness: 0.7 // Manual roughness value
+                                map: diffuseMap,
+                                aoMap: aoMap,
+                                aoMapIntensity: 1.0,
+                                metalness: 0.1,
+                                roughness: 0.7
                             });
+                            console.log('Applied wood material with textures to mesh:', child);
                         } else {
                             console.warn('Some textures failed to load. Using fallback material.');
                         }
@@ -205,29 +229,22 @@
                     }
                 });
 
-                // Set scale and position
-                model.scale.set(1, 1, 1);
-                model.position.set(0, 0, 0);
-
-                // Fit model in camera view
-                const box = new THREE.Box3().setFromObject(model);
-                const center = box.getCenter(new THREE.Vector3());
-                const size = box.getSize(new THREE.Vector3());
-                const maxDim = Math.max(size.x, size.y, size.z);
+                // Adjust camera to fit the model
+                const adjustedMaxDim = Math.max(size.x * scaleFactor, size.y * scaleFactor, size.z * scaleFactor);
                 const fov = camera.fov * (Math.PI / 180);
-                let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-                cameraZ *= 1.5;
-
-                camera.position.set(0, center.y, cameraZ);
-                camera.lookAt(center);
+                let cameraZ = Math.abs(adjustedMaxDim / 2 / Math.tan(fov / 2));
+                cameraZ *= 2; // Zoom out a bit more
+                camera.position.set(0, adjustedMaxDim / 2, cameraZ);
+                camera.lookAt(0, 0, 0);
+                console.log('Camera position set to:', camera.position);
 
                 // Orbit controls for rotation
                 const controls = new THREE.OrbitControls(camera, renderer.domElement);
-                controls.target.set(center.x, center.y, center.z);
+                controls.target.set(0, 0, 0);
                 controls.enableDamping = true;
                 controls.dampingFactor = 0.05;
-                controls.minDistance = maxDim * 0.5;
-                controls.maxDistance = maxDim * 3;
+                controls.minDistance = adjustedMaxDim * 0.5;
+                controls.maxDistance = adjustedMaxDim * 10;
                 controls.update();
             },
             function (xhr) {
