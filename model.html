@@ -130,30 +130,6 @@
         scene.add(light2);
         scene.add(new THREE.AmbientLight(0x404040));
 
-        // لود تکسچرها
-        const textureLoader = new THREE.TextureLoader();
-        const diffuseMap = textureLoader.load('textures/wood_diffuse.jpg');
-        const normalMap = textureLoader.load('textures/wood_normal.jpg');
-        const roughnessMap = textureLoader.load('textures/wood_roughness.jpg');
-
-        // تنظیم تکرار تکسچر (برای اینکه الگو خیلی ریز یا درشت نشه)
-        diffuseMap.wrapS = diffuseMap.wrapT = THREE.RepeatWrapping;
-        normalMap.wrapS = normalMap.wrapT = THREE.RepeatWrapping;
-        roughnessMap.wrapS = roughnessMap.wrapT = THREE.RepeatWrapping;
-        diffuseMap.repeat.set(2, 2); // تنظیم مقیاس تکسچر
-        normalMap.repeat.set(2, 2);
-        roughnessMap.repeat.set(2, 2);
-
-        // متریال چوبی
-        const woodMaterial = new THREE.MeshStandardMaterial({
-            map: diffuseMap, // تکسچر رنگ
-            normalMap: normalMap, // تکسچر جزئیات سطح
-            roughnessMap: roughnessMap, // تکسچر زبری
-            roughness: 0.7,
-            metalness: 0.1,
-            color: 0x8B4513 // رنگ پایه قهوه‌ای (در صورت نیاز به تکسچر)
-        });
-
         // بارگذاری مدل
         const loader = new THREE.GLTFLoader();
         loader.load(
@@ -162,10 +138,14 @@
                 const model = gltf.scene;
                 scene.add(model);
 
-                // اعمال متریال چوبی به مدل
+                // تغییر متریال مدل به رنگ قهوه‌ای روشن
                 model.traverse((child) => {
                     if (child.isMesh) {
-                        child.material = woodMaterial;
+                        child.material = new THREE.MeshStandardMaterial({
+                            color: 0x8B4513, // رنگ قهوه‌ای روشن
+                            metalness: 0.3,
+                            roughness: 0.7
+                        });
                     }
                 });
 
