@@ -96,7 +96,7 @@
     <header>
         <nav class="menu">
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">Gallery</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
                 <li><a href="model.html" class="active">3D Model</a></li>
@@ -130,6 +130,43 @@
         light2.position.set(-5, -5, -5);
         scene.add(light2);
         scene.add(new THREE.AmbientLight(0x404040, 0.5));
+
+        // Texture loader with relative paths
+        const texturePath = 'site/'; // مسیر تکسچرها اصلاح شد
+        const textureLoader = new THREE.TextureLoader();
+        let diffuseMap, aoMap;
+
+        // Load textures with error handling
+        textureLoader.load(
+            texturePath + 'rosewood_veneer1_diff_2k.jpg',
+            (texture) => {
+                diffuseMap = texture;
+                diffuseMap.flipY = false; // برای GLTF باید flipY رو غیرفعال کنیم
+                diffuseMap.encoding = THREE.sRGBEncoding; // تنظیم رنگ برای تکسچر Diffuse
+                console.log('Diffuse texture loaded successfully:', diffuseMap);
+                applyTextures();
+            },
+            undefined,
+            (error) => {
+                console.error('Error loading Diffuse texture:', error);
+                applyTextures(); // حتی اگه تکسچر لود نشه، متریال رو اعمال کن
+            }
+        );
+
+        textureLoader.load(
+            texturePath + 'rosewood_veneer1_ao_2k.jpg',
+            (texture) => {
+                aoMap = texture;
+                aoMap.flipY = false; // برای GLTF باید flipY رو غیرفعال کنیم
+                console.log('AO texture loaded successfully:', aoMap);
+                applyTextures();
+            },
+            undefined,
+            (error) => {
+                console.error('Error loading AO texture:', error);
+                applyTextures(); // حتی اگه تکسچر لود نشه، متریال رو اعمال کن
+            }
+        );
 
         // Load the 3D model
         const loader = new THREE.GLTFLoader();
@@ -168,42 +205,16 @@
                     }
                 });
 
-                // Texture loader with relative paths
-                const texturePath = ''; // تکسچرها توی همون پوشه‌ی فایل HTML هستن
-                const textureLoader = new THREE.TextureLoader();
-                let diffuseMap, aoMap;
-
-                // Load textures with error handling
-                textureLoader.load(
-                    texturePath + 'rosewood_veneer1_diff_2k.jpg',
-                    (texture) => {
-                        diffuseMap = texture;
-                        diffuseMap.flipY = false;
-                        diffuseMap.encoding = THREE.sRGBEncoding;
-                        console.log('Diffuse texture loaded successfully:', diffuseMap);
-                        applyTextures();
-                    },
-                    undefined,
-                    (error) => {
-                        console.error('Error loading Diffuse texture:', error);
-                        applyTextures(); // حتی اگه تکسچر لود نشه، متریال رو اعمال کن
+                // Check UV Mapping
+                model.traverse((child) => {
+                    if (child.isMesh) {
+                        if (!child.geometry.attributes.uv) {
+                            console.warn('UV Mapping missing for mesh:', child);
+                        } else {
+                            console.log('UV Mapping found for mesh:', child);
+                        }
                     }
-                );
-
-                textureLoader.load(
-                    texturePath + 'rosewood_veneer1_ao_2k.jpg',
-                    (texture) => {
-                        aoMap = texture;
-                        aoMap.flipY = false;
-                        console.log('AO texture loaded successfully:', aoMap);
-                        applyTextures();
-                    },
-                    undefined,
-                    (error) => {
-                        console.error('Error loading AO texture:', error);
-                        applyTextures(); // حتی اگه تکسچر لود نشه، متریال رو اعمال کن
-                    }
-                );
+                });
 
                 // Apply textures after both are loaded (or failed)
                 let texturesLoaded = 0;
@@ -227,6 +238,7 @@
                                 roughness: 0.7
                             });
                             child.material = material;
+                            child.material.needsUpdate = true; // اطمینان از به‌روزرسانی متریال
                             console.log('Applied material with textures to mesh:', child);
                         }
                     });
