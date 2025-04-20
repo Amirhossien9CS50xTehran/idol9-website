@@ -201,6 +201,37 @@
             transform: scale(1.05);
         }
 
+        /* استایل برای اسلایدر */
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .slide img {
+            width: 100%;
+            height: auto;
+        }
+        .slider-controls {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .slider-controls button {
+            background-color: #313131;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .slider-controls button:hover {
+            background-color: rgb(55, 140, 225);
+        }
+
         @media (max-width: 768px) {
             .image-row {
                 grid-template-columns: 1fr;
@@ -318,23 +349,34 @@
             <ul>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="model.html">3D Model</a></li> <!-- New link to model.html -->
+                <li><a href="model.html">3D Model</a></li>
             </ul>
         </nav>
         <img src="IMG_20250121_222009_921.png" class="logo" alt="Logo">
     </header>
 
+    <!-- اسلایدر -->
+    <div class="slider">
+        <div class="slide"><img src="slide1.jpg" alt="Slide 1"></div>
+        <div class="slide"><img src="slide2.jpg" alt="Slide 2"></div>
+        <div class="slide"><img src="slide3.jpg" alt="Slide 3"></div>
+    </div>
+    <div class="slider-controls">
+        <button class="prev-btn">Previous</button>
+        <button class="next-btn">Next</button>
+    </div>
+
     <div class="image-row">
         <div class="image-container">
-            <img src="IMG_20250121_213614_487.jpg">
+            <img src="IMG_20250121_213614_487.jpg" class="image-row_img">
             <div class="caption">This luxurious living room blends plush boucle fabric seating, a polished black marble feature wall, brushed gold accents, and soft wood flooring, creating an elegant and harmonious ambiance</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213614_781.jpg">
+            <img src="IMG_20250121_213614_781.jpg" class="image-row_img">
             <div class="caption">This luxurious living room blends plush boucle fabric seating, a polished black marble feature wall, brushed gold accents, and soft wood flooring, creating an elegant and harmonious ambiance</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213614_932.jpg">
+            <img src="IMG_20250121_213614_932.jpg" class="image-row_img">
             <div class="caption">This luxurious living room blends plush boucle fabric seating, a polished black marble feature wall, brushed gold accents, and soft wood flooring, creating an elegant and harmonious ambiance</div>
         </div>
     </div>
@@ -356,105 +398,105 @@
 
     <div class="gallery" id="gallery">
         <div class="image-container">
-            <img src="IMG_20250121_213614_749.jpg" class="thumbnail">
+            <img src="IMG_20250121_213614_749.jpg" class="gallery_img">
             <div class="caption">Modern bedroom with a tufted gray fabric bed, light wooden floor, and gray rug. Features a white marble headboard wall, crystal chandelier, metallic nightstands, glass decor, and potted plants</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213614_782.jpg" class="thumbnail">
+            <img src="IMG_20250121_213614_782.jpg" class="gallery_img">
             <div class="caption">Modern bedroom with a tufted gray fabric bed, light wooden floor, and gray rug. Features a white marble headboard wall, crystal chandelier, metallic nightstands, glass decor, and potted plants</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213557_573.jpg" class="thumbnail">
+            <img src="IMG_20250121_213557_573.jpg" class="gallery_img">
             <div class="caption">This luxurious living room blends plush boucle fabric seating, a polished black marble feature wall, brushed gold accents, and soft wood flooring, creating an elegant and harmonious ambiance</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213557_178.jpg" class="thumbnail">
+            <img src="IMG_20250121_213557_178.jpg" class="gallery_img">
             <div class="caption">Modern living room with a tan leather sofa, light wooden floor, and gray rug. Features a white stone TV wall with wooden shelves, black track lighting, a glossy black coffee table, glass decor, and dried branches</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213557_463.jpg" class="thumbnail">
+            <img src="IMG_20250121_213557_463.jpg" class="gallery_img">
             <div class="caption">Modern living room with a beige fabric sofa, tan leather chair, and gray rug. Features a wooden shelf with glass panels, LED lighting, ceramic decor, books, and dried branches on a sleek black coffee table</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213557_415.jpg" class="thumbnail">
+            <img src="IMG_20250121_213557_415.jpg" class="gallery_img">
             <div class="caption">Modern kitchen with beige cabinets, white stone countertop, and light wooden floor. Features gray fabric bar stools, wooden shelves with glass panels, black appliances, glassware, ceramic decor, and dried branches</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213557_335.jpg" class="thumbnail">
+            <img src="IMG_20250121_213557_335.jpg" class="gallery_img">
             <div class="caption">Modern living room with a white fabric sofa, light wooden floor, and gray rug. Features a white marble TV wall, black track lighting, a sleek arched floor lamp, and minimal glass decor</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213604_794.jpg" class="thumbnail">
+            <img src="IMG_20250121_213604_794.jpg" class="gallery_img">
             <div class="caption">Modern dining area with a white stone table, black wooden chairs with beige cushions, and light tiled floor. Features a minimalist pendant light, wooden wall panels, sheer curtains, and a cylindrical decor piece</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213609_915.jpg" class="thumbnail">
+            <img src="IMG_20250121_213609_915.jpg" class="gallery_img">
             <div class="caption">Modern kitchen with beige cabinets, white marble countertop, and light wooden floor. Features black chairs, a black pendant light, black track lighting, a marble backsplash, and minimal black decor</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213618_947.jpg" class="thumbnail">
+            <img src="IMG_20250121_213618_947.jpg" class="gallery_img">
             <div class="caption">Modern living room with a beige fabric sofa, light wooden floor, and white rug. Features wooden walls, a white stone accent wall, a live-edge wooden coffee table, black ceramic decor, and dried branches</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213618_962.jpg" class="thumbnail">
+            <img src="IMG_20250121_213618_962.jpg" class="gallery_img">
             <div class="caption">Modern living room with beige fabric chairs, light wooden floor, and gray rug. Features wooden walls, a marble accent wall, a wooden coffee table, a modern lamp, black ceramic decor, and dried branches</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213619_055.jpg" class="thumbnail">
+            <img src="IMG_20250121_213619_055.jpg" class="gallery_img">
             <div class="caption">Modern living room with beige fabric sofas, light tiled floor, and white rug. Features wooden walls with arched details, a white stone accent wall, a wooden coffee table, a modern lamp, and ceramic decor</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213627_807.jpg" class="thumbnail">
+            <img src="IMG_20250121_213627_807.jpg" class="gallery_img">
             <div class="caption">Modern living room with beige fabric sofas, light tiled floor, and sheer curtains. Features wooden slat partitions, a stone accent wall, a crystal chandelier, a wooden coffee table, and potted plants</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213628_540.jpg" class="thumbnail">
+            <img src="IMG_20250121_213628_540.jpg" class="gallery_img">
             <div class="caption">Modern living room with beige fabric sofas, light tiled floor, and sheer curtains. Features wooden slat partitions, a stone accent wall, a crystal chandelier, a wooden coffee table, and potted plants</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213627_785.jpg" class="thumbnail">
+            <img src="IMG_20250121_213627_785.jpg" class="gallery_img">
             <div class="caption">Modern living room with beige fabric sofas, light tiled floor, and sheer curtains. Features wooden slat partitions, a stone accent wall, a crystal chandelier, a wooden coffee table, and potted plants</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213633_559.jpg" class="thumbnail">
+            <img src="IMG_20250121_213633_559.jpg" class="gallery_img">
             <div class="caption">Modern bedroom with a gray fabric bed, white bedding, and light tiled floor. Features sheer gray curtains, a blue spherical pillow, and minimal wall decor with a small light fixture</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213633_907.jpg" class="thumbnail">
+            <img src="IMG_20250121_213633_907.jpg" class="gallery_img">
             <div class="caption">Modern study with a wooden desk, white fabric chair, and light wooden floor. Features wooden shelves, sheer gray curtains, books, a small figurine, and a white spherical side table</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213633_951.jpg" class="thumbnail">
+            <img src="IMG_20250121_213633_951.jpg" class="gallery_img">
             <div class="caption">Modern bedroom with a gray fabric bed, white bedding, and light wooden floor. Features wooden slat walls, a white nightstand, a spherical pendant light, books, and a black ceramic vase</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213637_606.jpg" class="thumbnail">
+            <img src="IMG_20250121_213637_606.jpg" class="gallery_img">
             <div class="caption">Modern living room with gray fabric sofas, light wooden floor, and gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213633_488.jpg" class="thumbnail">
-            <div class="caption">Modern living room with gray fabric sofas, light wooden floor, t gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</div>
-        </div>
-        <div class="image-container">
-            <img src="IMG_20250121_213633_362.jpg" class="thumbnail">
+            <img src="IMG_20250121_213633_488.jpg" class="gallery_img">
             <div class="caption">Modern living room with gray fabric sofas, light wooden floor, and gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213637_384.jpg" class="thumbnail">
+            <img src="IMG_20250121_213633_362.jpg" class="gallery_img">
+            <div class="caption">Modern living room with gray fabric sofas, light wooden floor, and gray rug. Features a white marble TV wall, wooden shelves, a marble coffee table, dried branches, and a black figurine</div>
+        </div>
+        <div class="image-container">
+            <img src="IMG_20250121_213637_384.jpg" class="gallery_img">
             <div class="caption">Modern bedroom with a blue fabric bed, white bedding, and gray rug. Features gray walls with LED lighting, sheer curtains, a wooden wardrobe, a modern chandelier, and abstract wall art</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213637_909.jpg" class="thumbnail">
+            <img src="IMG_20250121_213637_909.jpg" class="gallery_img">
             <div class="caption">Modern bedroom with a blue fabric bed, white bedding, and gray rug. Features gray walls with LED lighting, sheer curtains, a wooden wardrobe, a modern chandelier, and abstract wall art</div>
         </div>
         <div class="image-container">
-            <img src="IMG_20250121_213637_600.jpg" class="thumbnail">
+            <img src="IMG_20250121_213637_600.jpg" class="gallery_img">
             <div class="caption">Modern bedroom with a blue fabric bed, white bedding, and gray rug. Features gray walls with LED lighting, sheer curtains, a wooden wardrobe, a modern chandelier, and abstract wall art</div>
         </div>
     </div>
 
     <section id="contact">
-        <form id="contactForm" action="mailto:Amir1hossien1rabiei1@gmail.com" method="post" enctype="text/plain">
+        <form id="contact-form">
             <h2>Contact Us</h2>
             <div class="form-group">
                 <label for="name">Name:</label>
@@ -476,41 +518,6 @@
         <img src="Untitled design (1).png" alt="Contact" class="contact-img" onclick="toggleContactForm()">
     </div>
 
-    <script>
-        function toggleContactForm() {
-            const contactForm = document.getElementById('contact');
-            contactForm.style.display = contactForm.style.display === 'none' || contactForm.style.display === '' ? 'block' : 'none';
-        }
-
-        document.getElementById("contactForm").addEventListener("submit", function() {
-            setTimeout(() => {
-                document.getElementById("contactForm").reset();
-                toggleContactForm();
-            }, 1000);
-        });
-
-        document.querySelectorAll('.gallery img').forEach(img => {
-            img.addEventListener('click', function() {
-                const caption = this.nextElementSibling;
-                caption.classList.toggle('active');
-            });
-        });
-
-        document.querySelectorAll('.image-row img').forEach(img => {
-            img.addEventListener('click', function() {
-                const caption = this.nextElementSibling;
-                caption.classList.toggle('active');
-            });
-        });
-
-        // Highlight active link
-        const currentPage = window.location.pathname.split('/').pop();
-        document.querySelectorAll('.menu a').forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === currentPage || (currentPage === '' && href === '#gallery')) {
-                link.classList.add('active');
-            }
-        });
-    </script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
