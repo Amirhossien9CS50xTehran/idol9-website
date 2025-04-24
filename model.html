@@ -6,6 +6,10 @@
     <title>3D Model - idol9</title>
     <link rel="icon" type="image/png" href="IMG_20250121_222009_921 - Copy (15).png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://unpkg.com/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://unpkg.com/three@0.134.0/examples/js/loaders/EXRLoader.js"></script>
     <style>
         html, body {
             margin: 0;
@@ -109,172 +113,268 @@
         <!-- Canvas will be added here by Three.js -->
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://unpkg.com/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
     <script>
-        // Get the model viewer container
+        // Initialize scene with enhanced settings
         const modelViewer = document.getElementById('model-viewer');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, modelViewer.offsetWidth / modelViewer.offsetHeight, 0.1, 10000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        const renderer = new THREE.WebGLRenderer({ 
+            antialias: true,
+            alpha: true,
+            powerPreference: "high-performance",
+            logarithmicDepthBuffer: true
+        });
+        
         renderer.setSize(modelViewer.offsetWidth, modelViewer.offsetHeight);
         renderer.setClearColor(0x000000, 0);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.physicallyCorrectLights = true;
         modelViewer.appendChild(renderer.domElement);
 
-        // Lighting setup
-        const light1 = new THREE.DirectionalLight(0xffffff, 1.0);
-        light1.position.set(5, 5, 5);
-        scene.add(light1);
-        const light2 = new THREE.DirectionalLight(0xffffff, 0.5);
-        light2.position.set(-5, -5, -5);
-        scene.add(light2);
-        scene.add(new THREE.AmbientLight(0x404040, 0.5));
+        // Enhanced lighting system
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
 
-        // Texture loader with relative paths
-        const texturePath = 'site/'; // مسیر تکسچرها اصلاح شد
+        const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.2);
+        directionalLight1.position.set(5, 5, 5);
+        directionalLight1.castShadow = true;
+        directionalLight1.shadow.mapSize.width = 2048;
+        directionalLight1.shadow.mapSize.height = 2048;
+        directionalLight1.shadow.camera.near = 0.5;
+        directionalLight1.shadow.camera.far = 500;
+        directionalLight1.shadow.bias = -0.0001;
+        scene.add(directionalLight1);
+
+        const directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight2.position.set(-5, -5, -5);
+        scene.add(directionalLight2);
+
+        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+        pointLight.position.set(0, 10, 10);
+        scene.add(pointLight);
+
+        // Advanced texture management
+        const texturePath = '';
         const textureLoader = new THREE.TextureLoader();
-        let diffuseMap, aoMap;
+        const exrLoader = new THREE.EXRLoader();
+        
+        const textures = {
+            diffuse: null,
+            ao: null,
+            normal: null,
+            roughness: null,
+            metalness: null
+        };
 
-        // Load textures with error handling
-        textureLoader.load(
-            texturePath + 'rosewood_veneer1_diff_2k.jpg',
-            (texture) => {
-                diffuseMap = texture;
-                diffuseMap.flipY = false; // برای GLTF باید flipY رو غیرفعال کنیم
-                diffuseMap.encoding = THREE.sRGBEncoding; // تنظیم رنگ برای تکسچر Diffuse
-                console.log('Diffuse texture loaded successfully:', diffuseMap);
-                applyTextures();
-            },
-            undefined,
-            (error) => {
-                console.error('Error loading Diffuse texture:', error);
-                applyTextures(); // حتی اگه تکسچر لود نشه، متریال رو اعمال کن
+        let model = null;
+        let isModelReady = false;
+        let texturesReady = false;
+
+        // Texture loading with comprehensive error handling
+        function loadTextures() {
+            // Diffuse texture
+            textureLoader.load(`${texturePath}rosewood_veneer1_diff_2k.jpg`, 
+                (tex) => {
+                    tex.encoding = THREE.sRGBEncoding;
+                    textures.diffuse = tex;
+                    console.log('Diffuse texture loaded successfully');
+                    checkReadyState();
+                },
+                undefined,
+                (err) => {
+                    console.error('Diffuse texture failed to load:', err);
+                    textures.diffuse = createFallbackTexture(0x8B4513); // Brown fallback
+                    checkReadyState();
+                }
+            );
+
+            // AO texture
+            textureLoader.load(`${texturePath}rosewood_veneer1_ao_2k.jpg`, 
+                (tex) => {
+                    textures.ao = tex;
+                    console.log('AO texture loaded successfully');
+                    checkReadyState();
+                },
+                undefined,
+                (err) => {
+                    console.error('AO texture failed to load:', err);
+                    textures.ao = null;
+                    checkReadyState();
+                }
+            );
+
+            // Normal map (EXR)
+            exrLoader.load(`${texturePath}rosewood_veneer1_nor_gl_2k.exr`, 
+                (tex) => {
+                    textures.normal = tex;
+                    console.log('Normal map loaded successfully');
+                    checkReadyState();
+                },
+                undefined,
+                (err) => {
+                    console.error('Normal EXR failed to load:', err);
+                    textures.normal = null;
+                    checkReadyState();
+                }
+            );
+
+            // Roughness map (EXR)
+            exrLoader.load(`${texturePath}rosewood_veneer1_rough_2k.exr`, 
+                (tex) => {
+                    textures.roughness = tex;
+                    console.log('Roughness map loaded successfully');
+                    checkReadyState();
+                },
+                undefined,
+                (err) => {
+                    console.error('Roughness EXR failed to load:', err);
+                    textures.roughness = null;
+                    checkReadyState();
+                }
+            );
+        }
+
+        // Create fallback texture
+        function createFallbackTexture(color) {
+            const canvas = document.createElement('canvas');
+            canvas.width = canvas.height = 4;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = `#${color.toString(16).padStart(6, '0')}`;
+            ctx.fillRect(0, 0, 4, 4);
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.needsUpdate = true;
+            return texture;
+        }
+
+        // Check if all assets are ready
+        function checkReadyState() {
+            texturesReady = Object.values(textures).every(tex => tex !== undefined);
+            if (isModelReady && texturesReady) {
+                applyMaterials();
             }
-        );
+        }
 
-        textureLoader.load(
-            texturePath + 'rosewood_veneer1_ao_2k.jpg',
-            (texture) => {
-                aoMap = texture;
-                aoMap.flipY = false; // برای GLTF باید flipY رو غیرفعال کنیم
-                console.log('AO texture loaded successfully:', aoMap);
-                applyTextures();
-            },
-            undefined,
-            (error) => {
-                console.error('Error loading AO texture:', error);
-                applyTextures(); // حتی اگه تکسچر لود نشه، متریال رو اعمال کن
+        // Apply materials with UV mapping fallback
+        function applyMaterials() {
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    // Auto-generate UVs if missing
+                    if (!child.geometry.attributes.uv) {
+                        console.warn('Generating UVs for:', child.name);
+                        generateBasicUVs(child.geometry);
+                    }
+
+                    // Create advanced material
+                    child.material = new THREE.MeshStandardMaterial({
+                        map: textures.diffuse,
+                        aoMap: textures.ao,
+                        aoMapIntensity: 1.0,
+                        normalMap: textures.normal,
+                        roughnessMap: textures.roughness,
+                        metalness: 0.1,
+                        roughness: textures.roughness ? 1.0 : 0.7,
+                        side: THREE.DoubleSide,
+                        envMapIntensity: 0.2
+                    });
+
+                    // Enhanced shadow settings
+                    child.castShadow = true;
+                    child.receiveShadow = true;
+                    child.material.needsUpdate = true;
+                }
+            });
+            console.log('All materials applied with texture status:', {
+                diffuse: !!textures.diffuse,
+                ao: !!textures.ao,
+                normal: !!textures.normal,
+                roughness: !!textures.roughness
+            });
+        }
+
+        // Generate basic UV coordinates if missing
+        function generateBasicUVs(geometry) {
+            geometry.computeBoundingBox();
+            const size = geometry.boundingBox.getSize(new THREE.Vector3());
+            const uv = [];
+            
+            for (let i = 0; i < geometry.attributes.position.count; i++) {
+                const x = geometry.attributes.position.array[i*3];
+                const y = geometry.attributes.position.array[i*3+1];
+                uv.push(
+                    (x - geometry.boundingBox.min.x) / size.x,
+                    (y - geometry.boundingBox.min.y) / size.y
+                );
             }
-        );
+            
+            geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+        }
 
-        // Load the 3D model
-        const loader = new THREE.GLTFLoader();
-        loader.load(
-            'Chair (2).glb',
-            function (gltf) {
-                console.log('Model loaded successfully:', gltf);
-                const model = gltf.scene;
+        // Load model with comprehensive error handling
+        new THREE.GLTFLoader().load(
+            `${texturePath}WOODEN CHAIR.glb`,
+            (gltf) => {
+                model = gltf.scene;
+                isModelReady = true;
                 scene.add(model);
 
-                // Check model bounding box
+                // Calculate model dimensions and center
                 const box = new THREE.Box3().setFromObject(model);
                 const size = box.getSize(new THREE.Vector3());
                 const center = box.getCenter(new THREE.Vector3());
-                console.log('Model bounding box size:', size);
-                console.log('Model center:', center);
-
-                // Adjust scale manually
+                
+                // Scale and position model
                 const scaleFactor = 0.5;
                 model.scale.set(scaleFactor, scaleFactor, scaleFactor);
-                console.log('Model scaled to:', model.scale);
+                model.position.sub(center.multiplyScalar(scaleFactor));
 
-                // Center the model
-                model.position.set(-center.x * scaleFactor, -center.y * scaleFactor, -center.z * scaleFactor);
-                console.log('Model position adjusted to:', model.position);
-
-                // Apply a simple material as fallback
-                model.traverse((child) => {
-                    if (child.isMesh) {
-                        child.material = new THREE.MeshStandardMaterial({
-                            color: 0x8B4513, // Brown color as a fallback
-                            metalness: 0.1,
-                            roughness: 0.7
-                        });
-                        console.log('Applied simple brown material to mesh:', child);
-                    }
-                });
-
-                // Check UV Mapping
-                model.traverse((child) => {
-                    if (child.isMesh) {
-                        if (!child.geometry.attributes.uv) {
-                            console.warn('UV Mapping missing for mesh:', child);
-                        } else {
-                            console.log('UV Mapping found for mesh:', child);
-                        }
-                    }
-                });
-
-                // Apply textures after both are loaded (or failed)
-                let texturesLoaded = 0;
-                function applyTextures() {
-                    texturesLoaded++;
-                    if (texturesLoaded < 2) return; // Wait for both textures to attempt loading
-
-                    model.traverse((child) => {
-                        if (child.isMesh) {
-                            // Ensure UV2 exists for AO map
-                            if (child.geometry.attributes.uv && !child.geometry.attributes.uv2) {
-                                child.geometry.attributes.uv2 = child.geometry.attributes.uv;
-                                console.log('UV2 generated for mesh:', child);
-                            }
-
-                            const material = new THREE.MeshStandardMaterial({
-                                map: diffuseMap || null, // اگه تکسچر لود نشده، null می‌ذاریم
-                                aoMap: aoMap || null,
-                                aoMapIntensity: 1.0,
-                                metalness: 0.1,
-                                roughness: 0.7
-                            });
-                            child.material = material;
-                            child.material.needsUpdate = true; // اطمینان از به‌روزرسانی متریال
-                            console.log('Applied material with textures to mesh:', child);
-                        }
-                    });
+                // Apply materials if textures are ready
+                if (texturesReady) {
+                    applyMaterials();
                 }
 
-                // Adjust camera position based on model size
-                const maxDim = Math.max(size.x * scaleFactor, size.y * scaleFactor, size.z * scaleFactor);
-                camera.position.set(0, maxDim / 2, maxDim * 2);
+                // Set optimal camera position
+                const maxDim = Math.max(size.x, size.y, size.z) * scaleFactor;
+                camera.position.set(0, maxDim * 0.5, maxDim * 1.5);
                 camera.lookAt(0, 0, 0);
-                console.log('Camera position set to:', camera.position);
 
-                // Orbit controls for rotation
+                // Configure orbit controls
                 const controls = new THREE.OrbitControls(camera, renderer.domElement);
-                controls.target.set(0, 0, 0);
                 controls.enableDamping = true;
                 controls.dampingFactor = 0.05;
+                controls.screenSpacePanning = false;
                 controls.minDistance = maxDim * 0.5;
-                controls.maxDistance = maxDim * 10;
-                controls.update();
+                controls.maxDistance = maxDim * 5;
+                controls.maxPolarAngle = Math.PI * 0.9;
             },
-            function (xhr) {
-                console.log('Model loading progress:', (xhr.loaded / xhr.total * 100) + '% loaded');
+            (xhr) => {
+                console.log(`Model loading: ${(xhr.loaded / xhr.total * 100).toFixed(2)}%`);
             },
-            function (error) {
-                console.error('Error loading model:', error);
+            (err) => {
+                console.error('Model loading failed:', err);
             }
         );
 
-        // Render loop
+        // Start loading textures
+        loadTextures();
+
+        // Animation loop (without FPS display)
+        let clock = new THREE.Clock();
+        let deltaTime = 0;
+
         function animate() {
             requestAnimationFrame(animate);
+            
+            deltaTime = clock.getDelta();
+            const fps = 1 / deltaTime; // Still calculated but not displayed
+            
             renderer.render(scene, camera);
         }
         animate();
 
-        // Handle window resize
+        // Responsive handling
         window.addEventListener('resize', () => {
             camera.aspect = modelViewer.offsetWidth / modelViewer.offsetHeight;
             camera.updateProjectionMatrix();
